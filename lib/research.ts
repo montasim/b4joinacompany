@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type {
   CompanyRecord,
+  CompanySalaryEvidence,
   CompanyWorkArrangement,
   StoryRecord,
 } from "@/lib/contracts";
@@ -112,6 +113,40 @@ interface RawWorkArrangement {
   }>;
 }
 
+interface RawSalaryEvidence {
+  salary_evidence_id: string;
+  dataset_version: string;
+  company_slug: string;
+  display_name: string;
+  source_company_name: string;
+  role: string;
+  salary_range: {
+    minimum_bdt: number;
+    maximum_bdt: number;
+    currency: "BDT";
+    pay_period: "unspecified";
+    raw: string;
+  };
+  sample_size: number | null;
+  bonus: {
+    reported_count: number;
+    answered_count: number;
+    most_common_frequency: string | null;
+  } | null;
+  source_url: string;
+  source_kind: "betonkemon_community_aggregate";
+  source_fingerprint: string;
+  captured_at: string;
+  verification_status: "unverified_user_submitted";
+  disclaimer: string;
+  company_match: {
+    method: "exact_canonical_name" | "manual_name_review";
+    confidence: number;
+    dataset_name: string;
+    source_name: string;
+  };
+}
+
 const dataPath = (...parts: string[]) =>
   datasetFile(path.join(...parts));
 
@@ -158,6 +193,20 @@ const loadComments = cache(async () => jsonLines<RawComment>("comments.jsonl"));
 const loadWorkArrangements = cache(async () =>
   jsonLines<RawWorkArrangement>("company_work_arrangements.jsonl")
 );
+const loadSalaryEvidence = cache(async () => {
+  try {
+    return await jsonLines<RawSalaryEvidence>("company_salary_evidence.jsonl");
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "ENOENT"
+    ) {
+      return [];
+    }
+    throw error;
+  }
+});
 
 function compactText(value: string) {
   return normalizeText(value).replace(/\s+/g, "");
@@ -318,6 +367,53 @@ export async function getCompanyWorkArrangement(
       verificationStatus: mention.verification_status,
     })),
   };
+}
+
+export async function getCompanySalaryEvidence(
+  slug: string
+): Promise<CompanySalaryEvidence[]> {
+  return (await loadSalaryEvidence())
+    .filter((record) => record.company_slug === slug)
+    .map((record) => ({
+      id: record.salary_evidence_id,
+      datasetVersion: record.dataset_version,
+      companySlug: record.company_slug,
+      displayName: record.display_name,
+      sourceCompanyName: record.source_company_name,
+      role: record.role,
+      salaryRange: {
+        minimumBdt: record.salary_range.minimum_bdt,
+        maximumBdt: record.salary_range.maximum_bdt,
+        currency: record.salary_range.currency,
+        payPeriod: record.salary_range.pay_period,
+        raw: record.salary_range.raw,
+      },
+      sampleSize: record.sample_size,
+      bonus: record.bonus
+        ? {
+            reportedCount: record.bonus.reported_count,
+            answeredCount: record.bonus.answered_count,
+            mostCommonFrequency: record.bonus.most_common_frequency,
+          }
+        : null,
+      sourceUrl: record.source_url,
+      sourceKind: record.source_kind,
+      sourceFingerprint: record.source_fingerprint,
+      capturedAt: record.captured_at,
+      verificationStatus: record.verification_status,
+      disclaimer: record.disclaimer,
+      companyMatch: {
+        method: record.company_match.method,
+        confidence: record.company_match.confidence,
+        datasetName: record.company_match.dataset_name,
+        sourceName: record.company_match.source_name,
+      },
+    }))
+    .sort(
+      (left, right) =>
+        (right.sampleSize ?? 0) - (left.sampleSize ?? 0) ||
+        left.role.localeCompare(right.role)
+    );
 }
 
 export async function getStories(slug: string, query = "", limit = 20): Promise<StoryRecord[]> {

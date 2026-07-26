@@ -35,6 +35,9 @@ Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_AP
 - Reported work arrangement and schedule fields are deterministic derivatives of
   unverified stories/comments. They are never presented as company policy, and
   `unknown` never defaults to onsite.
+- Community salary ranges remain `unverified_user_submitted`, retain source and
+  sample-size context, and use an unspecified pay period rather than an inferred
+  monthly/annual label.
 - An absent salary range or hiring result is shown as an evidence gap, not a negative signal.
 - Saved checkpoints are immutable revisions. Refreshing creates a new revision.
 - AI-provider prompts and answers are not stored in operational logs. Logs contain metadata only and expire after 30 days.
@@ -49,7 +52,9 @@ Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_AP
 | GET | `/api/v1/companies/:slug` | Company identity, destinations, and unverified derived work-arrangement evidence |
 | GET | `/api/v1/companies/:slug/stories?q=...` | Public evidence excerpts |
 | GET | `/api/v1/companies/:slug/hiring` | Dated hiring signals |
+| GET | `/api/v1/companies/:slug/salary` | Unverified source-attributed role salary ranges |
 | GET | `/api/v1/extension/company?slug=...` | Extension-ready company brief, questions, and unverified reported work setup |
+| GET | `/api/v1/extension/jobs?company=...` | Extension-ready careers destination and unverified role salary evidence |
 | POST | `/api/v1/ask` | Provider-neutral cited answer |
 | GET/POST | `/api/v1/workspace/checkpoints` | Authenticated private checkpoints |
 | PATCH | `/api/v1/workspace/checkpoints/:id` | Optimistic revision update |

@@ -1,4 +1,4 @@
-import { AlertTriangle, CalendarClock, ExternalLink, Laptop, Timer } from "lucide-react";
+import { AlertTriangle, CalendarClock, ChevronDown, ExternalLink, Laptop, Timer } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type {
   CompanyWorkArrangement,
@@ -34,8 +34,8 @@ export function ReportedWorkArrangement({
     workArrangement.evidenceSourceCount > 0 || hasSchedule;
 
   return (
-    <section className="mt-12 rounded-xl border border-line-strong bg-white p-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
+    <details className="group mt-12 overflow-hidden rounded-xl border border-line-strong bg-white">
+      <summary className="flex cursor-pointer list-none flex-wrap items-start justify-between gap-4 p-6 marker:hidden [&::-webkit-details-marker]:hidden">
         <div className="max-w-2xl">
           <p className="mb-3 font-mono text-[10px] font-extrabold tracking-wider text-jade uppercase">
             Unverified derived evidence
@@ -48,14 +48,18 @@ export function ReportedWorkArrangement({
             describe personal accounts, not a current company policy.
           </p>
         </div>
-        <Badge tone={workArrangement.reportedMode === "unknown" ? "amber" : undefined}>
-          {modeLabel(workArrangement.reportedMode)}
-        </Badge>
-      </div>
+        <div className="flex items-center gap-3">
+          <Badge tone={workArrangement.reportedMode === "unknown" ? "amber" : undefined}>
+            {modeLabel(workArrangement.reportedMode)}
+          </Badge>
+          <ChevronDown className="size-4 text-jade-dark transition-transform group-open:rotate-180" />
+        </div>
+      </summary>
 
-      {hasEvidence ? (
-        <>
-          <div className="mt-6 grid grid-cols-3 gap-3 max-md:grid-cols-1">
+      <div className="border-t border-line p-6">
+        {hasEvidence ? (
+          <>
+          <div className="grid grid-cols-3 gap-3 max-md:grid-cols-1">
             <article className="rounded-lg bg-jade-soft p-4">
               <Laptop className="mb-3 size-5 text-jade-dark" />
               <span className="block text-[9px] font-extrabold tracking-wide text-muted uppercase">
@@ -151,8 +155,8 @@ export function ReportedWorkArrangement({
             ))}
           </div>
         </>
-      ) : (
-        <div className="mt-6 rounded-lg border border-dashed border-line-strong bg-surface p-5">
+        ) : (
+        <div className="rounded-lg border border-dashed border-line-strong bg-surface p-5">
           <strong className="text-xs">No explicit work setup found</strong>
           <p className="mt-1 text-[10px] leading-relaxed text-muted">
             The available stories and comments did not state remote, onsite,
@@ -160,17 +164,18 @@ export function ReportedWorkArrangement({
             not mean onsite.
           </p>
         </div>
-      )}
+        )}
 
-      <div className="mt-5 flex gap-3 rounded-lg bg-coral-soft p-4 text-coral">
-        <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-        <p className="text-[10px] leading-relaxed">
-          <strong>Not verified:</strong> {record.disclaimer}
-          {workArrangement.hasConflictingReports
-            ? " The available accounts also conflict."
-            : ""}
-        </p>
+        <div className="mt-5 flex gap-3 rounded-lg bg-coral-soft p-4 text-coral">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0" />
+          <p className="text-[10px] leading-relaxed">
+            <strong>Not verified:</strong> {record.disclaimer}
+            {workArrangement.hasConflictingReports
+              ? " The available accounts also conflict."
+              : ""}
+          </p>
+        </div>
       </div>
-    </section>
+    </details>
   );
 }

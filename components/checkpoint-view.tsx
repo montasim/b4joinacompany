@@ -4,8 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DecisionContextEditor } from "@/components/decision-context-editor";
 import { ReportedWorkArrangement } from "@/components/reported-work-arrangement";
+import { ReportedSalaryEvidence } from "@/components/reported-salary-evidence";
 import type {
   Checkpoint,
+  CompanySalaryEvidence,
   CompanyWorkArrangement,
   StoryRecord,
 } from "@/lib/contracts";
@@ -15,10 +17,12 @@ export function CheckpointView({
   checkpoint,
   stories,
   workArrangement,
+  salaryEvidence,
 }: {
   checkpoint: Checkpoint;
   stories: StoryRecord[];
   workArrangement: CompanyWorkArrangement | null;
+  salaryEvidence: CompanySalaryEvidence[];
 }) {
   const { company } = checkpoint;
   return (
@@ -52,6 +56,7 @@ export function CheckpointView({
           {workArrangement && (
             <ReportedWorkArrangement record={workArrangement} />
           )}
+          <ReportedSalaryEvidence records={salaryEvidence} />
           {checkpoint.questions.map((question, index) => (
             <section className="grid grid-cols-[34px_1fr] gap-4 border-b border-line py-5 max-sm:grid-cols-1" key={question.id}>
               <span className={`grid size-8.5 place-items-center rounded-full text-sm font-extrabold text-white ring-5 ${index === 0 ? "bg-coral ring-coral-soft" : index === 1 ? "bg-jade ring-jade-soft" : "bg-amber text-ink ring-amber-soft"}`}>{index + 1}</span>

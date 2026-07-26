@@ -123,6 +123,40 @@ export interface CompanyWorkArrangement {
   evidenceMentions: WorkArrangementEvidence[];
 }
 
+export interface CompanySalaryEvidence {
+  id: string;
+  datasetVersion: string;
+  companySlug: string;
+  displayName: string;
+  sourceCompanyName: string;
+  role: string;
+  salaryRange: {
+    minimumBdt: number;
+    maximumBdt: number;
+    currency: "BDT";
+    payPeriod: "unspecified";
+    raw: string;
+  };
+  sampleSize: number | null;
+  bonus: {
+    reportedCount: number;
+    answeredCount: number;
+    mostCommonFrequency: string | null;
+  } | null;
+  sourceUrl: string;
+  sourceKind: "betonkemon_community_aggregate";
+  sourceFingerprint: string;
+  capturedAt: string;
+  verificationStatus: "unverified_user_submitted";
+  disclaimer: string;
+  companyMatch: {
+    method: "exact_canonical_name" | "manual_name_review";
+    confidence: number;
+    datasetName: string;
+    sourceName: string;
+  };
+}
+
 export interface Checkpoint {
   company: CompanyRecord;
   stage: "Applying" | "Interviewing" | "Reviewing an offer";
