@@ -58,9 +58,9 @@ export default function SupportPage() {
               </p>
               <a
                 className="text-xs font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3"
-                href="/account"
+                href="/saved"
               >
-                Privacy controls
+                Open private workspace
               </a>
             </CardContent>
           </Card>

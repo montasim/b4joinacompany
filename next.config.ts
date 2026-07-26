@@ -18,6 +18,40 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     typedEnv: true
+  },
+  async redirects() {
+    return [
+      {
+        source: "/account",
+        destination: "/saved",
+        permanent: true
+      },
+      {
+        source: "/states",
+        destination: "/method",
+        permanent: true
+      },
+      {
+        source: "/connect-extension",
+        destination: "/extension",
+        permanent: true
+      },
+      {
+        source: "/auth/sign-up",
+        destination: "/auth/sign-in",
+        permanent: true
+      },
+      {
+        source: "/auth/recover",
+        destination: "/auth/sign-in",
+        permanent: true
+      },
+      {
+        source: "/auth/reset-password",
+        destination: "/auth/sign-in",
+        permanent: true
+      }
+    ];
   }
 };
 

@@ -1,200 +1,84 @@
-import type { ReactNode } from "react";
+import { headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ArrowLeft, LockKeyhole, ShieldX } from "lucide-react";
 
-import { PageHead } from "@/components/page-head";
+import { AdminReviewDesk } from "@/components/admin/admin-review-desk";
 import { SiteHeader } from "@/components/site-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
+import { resolveAdminRole } from "@/lib/admin-session";
 import { datasetStats } from "@/lib/research";
-import { getAdminContext } from "@/lib/admin-session";
-import { datasetUpdateState, datasetUpdatesEnabled } from "@/lib/dataset-update";
-import { DatasetUpdatePanel } from "@/components/admin/dataset-update-panel";
 
-const reports = [
-  ["LinkedIn destination may be incorrect", "TechnoNext Ltd", "24 Jul", "Review"],
-  ["Company alias belongs to another identity", "Betopia", "23 Jul", "Verified"],
-  ["Careers page returns 404", "BJIT", "22 Jul", "Candidate"]
-] as const;
-
-const eyebrowClass =
-  "mb-2.75 font-mono text-[10px] leading-tight font-extrabold tracking-[.08em] text-jade uppercase";
-const sectionTitleClass =
-  "font-display text-[clamp(27px,3vw,38px)] leading-[1.1] font-bold tracking-[-.03em] text-ink";
-const settingsRowClass =
-  "grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-5 py-3.25 [&+&]:border-t [&+&]:border-line max-sm:items-start";
-
-function SettingsRow({
-  title,
-  copy,
-  action
-}: {
-  title: string;
-  copy: string;
-  action: ReactNode;
-}) {
+function AccessDenied() {
   return (
-    <div className={settingsRowClass}>
-      <div>
-        <strong className="block text-[11px]">{title}</strong>
-        <p className="mt-1 text-[9px] leading-normal text-muted">{copy}</p>
-      </div>
-      {action}
-    </div>
+    <>
+      <SiteHeader active="Sign in" mode="user" />
+      <main className="grid min-h-[calc(100vh-68px)] place-items-center bg-mist px-5 py-16 max-sm:px-3.5">
+        <section className="grid w-full max-w-230 grid-cols-[minmax(0,1fr)_minmax(330px,430px)] items-center gap-16 max-md:grid-cols-1 max-md:gap-8">
+          <div>
+            <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-coral uppercase">
+              Admin access required
+            </p>
+            <h1 className="mt-3 font-display text-[clamp(43px,6vw,68px)] leading-[.97] font-bold tracking-[-.04em] text-ink">
+              This workspace belongs to{" "}
+              <em className="text-jade not-italic">the review team.</em>
+            </h1>
+            <p className="mt-5 max-w-150 text-[15px] leading-[1.7] text-ink-soft">
+              Your Google account is signed in for private research, but it does
+              not have permission to view withheld evidence changes.
+            </p>
+            <Button className="mt-7" asChild>
+              <Link href="/saved">
+                <ArrowLeft className="size-4" aria-hidden="true" />
+                Return to your private workspace
+              </Link>
+            </Button>
+          </div>
+
+          <aside className="relative overflow-hidden rounded-xl border border-line-strong bg-white p-7 shadow-panel">
+            <span
+              className="absolute inset-y-0 left-0 w-1 bg-coral"
+              aria-hidden="true"
+            />
+            <span className="grid size-11 place-items-center rounded-xl bg-coral-soft text-coral">
+              <ShieldX className="size-5" aria-hidden="true" />
+            </span>
+            <h2 className="mt-5 font-display text-[28px] leading-tight font-bold tracking-[-.03em] text-ink">
+              The queue stays private.
+            </h2>
+            <p className="mt-3 text-[11px] leading-[1.65] text-muted">
+              Company corrections, source notes, and reviewer decisions are
+              withheld until a verified account has an assigned admin role.
+            </p>
+            <div className="mt-6 flex items-center gap-2 border-t border-line pt-4 font-mono text-[8px] font-extrabold tracking-[.06em] text-muted uppercase">
+              <LockKeyhole className="size-3.5 text-jade" aria-hidden="true" />
+              Role checked through Google sign-in
+            </div>
+          </aside>
+        </section>
+      </main>
+    </>
   );
 }
 
-function StatusBadge({ status }: { status: (typeof reports)[number][3] }) {
-  const tone =
-    status === "Review" ? "amber" : status === "Candidate" ? "coral" : "jade";
-
-  return <Badge tone={tone}>{status}</Badge>;
-}
-
 export default async function AdminPage() {
-  const admin = await getAdminContext();
-  if (!admin) redirect("/auth/sign-in?next=/admin");
-  const { role } = admin;
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect("/auth/sign-in?next=/admin");
+
+  const role = resolveAdminRole(session);
+  if (!role) return <AccessDenied />;
 
   const stats = await datasetStats();
 
   return (
     <>
-      <SiteHeader active="Admin" mode="admin" />
-      <main className="mx-auto w-full max-w-270 px-5 py-[62px] max-sm:px-3.5 max-sm:py-[38px] max-sm:pb-[62px]">
-        <PageHead
-          eyebrow={`Restricted operations · ${role === "owner" ? "Owner" : "Operator"} access`}
-          title="Evidence system health."
-          copy="Operate correction queues, validated snapshots, provider health, and role-bound controls without mixing them into the user workspace."
-        />
-
-        <section
-          aria-label="System summary"
-          className="my-7 grid grid-cols-5 gap-2.5 max-[1100px]:grid-cols-3 max-[960px]:grid-cols-2 max-[740px]:grid-cols-1"
-        >
-          {[
-            ["Active snapshot", stats.snapshotDate],
-            ["Companies", stats.companies],
-            ["Comments", stats.comments],
-            ["Corrections open", 18],
-            ["API health", "Ready"]
-          ].map(([label, value]) => (
-            <Card className="rounded-[9px] p-4" key={label}>
-              <span className="block text-[9px] text-muted">{label}</span>
-              <strong className="mt-2 block font-display text-2xl leading-none font-extrabold">
-                {value}
-              </strong>
-            </Card>
-          ))}
-        </section>
-
-        <section className="mt-14" id="corrections">
-          <p className={eyebrowClass}>Needs verification</p>
-          <h2 className={sectionTitleClass}>Correction reports</h2>
-          <p className="mt-1.75 text-xs leading-[1.55] text-muted">
-            Reports create a review task; they never edit a published snapshot.
-          </p>
-
-          <div className="mt-4.5 overflow-hidden rounded-[10px] border border-line bg-white max-[740px]:overflow-x-auto">
-            <div className="grid min-w-170 grid-cols-[minmax(180px,1.4fr)_repeat(3,minmax(100px,.7fr))_auto] items-center gap-3.25 bg-mist-deep px-4 py-3.5 font-mono text-[8px] leading-tight font-bold text-muted uppercase">
-              <span>Report</span>
-              <span>Company</span>
-              <span>Submitted</span>
-              <span>Status</span>
-              <span>Action</span>
-            </div>
-            {reports.map(([report, company, submitted, status]) => (
-              <div
-                className="grid min-w-170 grid-cols-[minmax(180px,1.4fr)_repeat(3,minmax(100px,.7fr))_auto] items-center gap-3.25 border-t border-line px-4 py-3.5"
-                key={report}
-              >
-                <strong className="text-[11px]">{report}</strong>
-                <span className="text-[9px] text-muted">{company}</span>
-                <span className="text-[9px] text-muted">{submitted}</span>
-                <StatusBadge status={status} />
-                <Button size="sm" variant="outline">
-                  Open
-                </Button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-14" id="snapshots">
-          <p className={eyebrowClass}>Publication</p>
-          <h2 className={sectionTitleClass}>Published snapshot</h2>
-          <div className="mt-4.5">
-            <DatasetUpdatePanel initial={datasetUpdateState()} enabled={datasetUpdatesEnabled()} />
-          </div>
-          <Card className="mt-4.5 rounded-[11px] px-5.5 max-sm:px-4.5">
-            <SettingsRow
-              title={`Snapshot ${stats.snapshotDate}`}
-              copy={`${stats.companies.toLocaleString()} companies · ${stats.stories.toLocaleString()} stories · ${stats.comments.toLocaleString()} comments · validated locally`}
-              action={
-                <Button size="sm" variant="outline">
-                  Inspect manifest
-                </Button>
-              }
-            />
-            <SettingsRow
-              title="Pending enrichment candidates"
-              copy="18 destinations and 7 hiring signals await review"
-              action={
-                <Button size="sm" variant="outline">
-                  Export queue
-                </Button>
-              }
-            />
-          </Card>
-        </section>
-
-        <section className="mt-14" id="providers">
-          <p className={eyebrowClass}>Generation providers</p>
-          <h2 className={sectionTitleClass}>Provider health</h2>
-          <Card className="mt-4.5 rounded-[11px] px-5.5 max-sm:px-4.5">
-            <SettingsRow
-              title="Gemini · configured model"
-              copy="Primary when a key is available"
-              action={<Badge>Available</Badge>}
-            />
-            <SettingsRow
-              title="Groq"
-              copy="Fallback · optional in this environment"
-              action={<Badge tone="amber">Paused</Badge>}
-            />
-            <SettingsRow
-              title="Deterministic fallback"
-              copy="Always available · cited evidence without generated prose"
-              action={<Badge>Ready</Badge>}
-            />
-          </Card>
-        </section>
-
-        <section className="mt-14" id="roles">
-          <p className={eyebrowClass}>Role-bound access</p>
-          <h2 className={sectionTitleClass}>Administrators</h2>
-          <Card className="mt-4.5 rounded-[11px] px-5.5 max-sm:px-4.5">
-            <SettingsRow
-              title="Owner · Montasim Mamun"
-              copy="Roles, providers, global quotas, snapshot activation, and all Operator capabilities"
-              action={<Badge>Owner</Badge>}
-            />
-            <SettingsRow
-              title="Operator access"
-              copy="Corrections, enrichment review, and snapshot inspection—no role or provider changes"
-              action={
-                role === "owner" ? (
-                  <Button size="sm" variant="outline">
-                    Invite Operator
-                  </Button>
-                ) : (
-                  <Badge className="bg-mist-deep text-muted">Read only</Badge>
-                )
-              }
-            />
-          </Card>
-        </section>
-      </main>
+      <SiteHeader
+        active="Admin"
+        mode="admin"
+        purpose="Evidence review"
+      />
+      <AdminReviewDesk role={role} snapshotDate={stats.snapshotDate} />
     </>
   );
 }

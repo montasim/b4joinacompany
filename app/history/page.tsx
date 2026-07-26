@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { requirePageSession } from "@/lib/page-session";
 
 const revisions = [
   ["Revision 3 · Current checkpoint", "Snapshot 2026-07-24 · 3 questions · 1 answer recorded · private note retained"],
@@ -11,7 +12,8 @@ const revisions = [
   ["Revision 1 · Checkpoint created", "Snapshot 2026-07-12 · Applying · Software Engineer · Priority: job stability"]
 ];
 
-export default function HistoryPage() {
+export default async function HistoryPage() {
+  await requirePageSession("/history");
   return (
     <>
       <SiteHeader />

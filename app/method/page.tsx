@@ -74,7 +74,7 @@ export default async function MethodPage() {
 
   return (
     <>
-      <SiteHeader active="Research" mode="public" />
+      <SiteHeader active="Method" mode="public" />
       <main>
         <section className="relative overflow-hidden border-b border-line bg-mist py-14 sm:py-18 lg:py-22">
           <div

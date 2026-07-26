@@ -1,15 +1,15 @@
 # b4join
 
-Production implementation of the approved V3 prototype. b4join turns workplace reports and verified company destinations into candidate questions that remain traceable to dated evidence.
+Production implementation of the approved V4 prototype. b4join turns workplace reports and official company destinations into candidate questions that remain traceable to dated evidence.
 
 Company checkpoints are personalized locally: a deterministic signal engine ranks management, pay, stability, growth, workload, culture, workplace, and hiring questions from that company’s stories and attached comments. It does not call an AI provider or send report text outside the app.
 
-The static prototype is preserved in `../beforejoin-prototype-v3`. This directory is the Next.js application.
+The static prototype is preserved in `../beforejoin-prototype-v4`. This directory is the Next.js application.
 
 ## Stack
 
 - Next.js 16, React 19, TypeScript
-- shadcn-compatible primitives and the V3 CSS design system
+- Tailwind CSS with reusable shadcn-compatible primitives
 - Better Auth with Google sign-in
 - MongoDB for auth/workspace/synced records, with the versioned release files as the local dataset source
 - Gemini → Groq → deterministic AI adapter chain
@@ -26,7 +26,7 @@ pnpm dev
 
 Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_API_KEY` for generated answers. If no AI key is set, Ask returns the cited deterministic fallback. Groq is optional.
 
-`ALLOW_PROTOTYPE_ACCESS=true` keeps private-page UI directly inspectable in local development. Production routes redirect signed-out visitors to sign-in.
+Google is the only sign-in method. Set `OWNER_EMAIL` to the Google account that should open the admin review desk; all other accounts open the private Saved workspace. The browser extension remains independently usable without a b4join account.
 
 ## Important boundaries
 
@@ -58,9 +58,8 @@ Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_AP
 | POST | `/api/v1/ask` | Provider-neutral cited answer |
 | GET/POST | `/api/v1/workspace/checkpoints` | Authenticated private checkpoints |
 | PATCH | `/api/v1/workspace/checkpoints/:id` | Optimistic revision update |
-| POST | `/api/v1/pairing/codes` | Authenticated one-time extension code |
-| POST | `/api/v1/pairing/exchange` | Exchange a one-time code for a revocable device token |
 | POST | `/api/v1/corrections` | Create a review task |
+| GET/PATCH | `/api/v1/admin/review-queue` | Owner/operator-only correction review docket |
 | GET/POST | `/api/v1/admin/dataset-update` | Owner/operator-only local dataset update status and start control |
 
 All API failures use `{ "error": { "code", "message", "requestId" } }`.

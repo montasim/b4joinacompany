@@ -9,8 +9,6 @@ export function SiteFooter() {
           <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/method">Sources</Link>
           <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/support">Support</Link>
           <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/extension">Extension</Link>
-          <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/states">Fallback states</Link>
-          <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/account#privacy">Privacy</Link>
         </nav>
       </div>
     </footer>

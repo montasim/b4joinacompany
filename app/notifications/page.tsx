@@ -4,6 +4,7 @@ import { PageHead } from "@/components/page-head";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { requirePageSession } from "@/lib/page-session";
 
 const items = [
   [
@@ -20,13 +21,14 @@ const items = [
   ],
   [
     "Weekly email digest is off",
-    "In-app evidence updates remain available. Enable the optional digest in Account.",
-    "/account",
-    "Notification settings"
+    "In-app evidence updates remain available inside your private workspace.",
+    "/saved",
+    "Open workspace"
   ]
 ];
 
-export default function NotificationsPage() {
+export default async function NotificationsPage() {
+  await requirePageSession("/notifications");
   return (
     <>
       <SiteHeader />

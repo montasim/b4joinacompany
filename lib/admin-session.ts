@@ -1,25 +1,13 @@
 import "server-only";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import { resolveAdminRole } from "@/lib/admin-role";
 
-export type AdminRole = "owner" | "operator";
+export { resolveAdminRole, type AdminRole } from "@/lib/admin-role";
 
 export async function getAdminContext() {
   const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) return null;
+  const role = resolveAdminRole(session);
 
-  const configuredOwner = (
-    process.env.OWNER_EMAIL ?? "montasimmamun@gmail.com"
-  ).toLowerCase();
-  const storedRole = String(
-    (session.user as typeof session.user & { role?: string }).role ?? "user"
-  );
-  const role: AdminRole | null =
-    session.user.email.toLowerCase() === configuredOwner
-      ? "owner"
-      : storedRole === "operator"
-        ? "operator"
-        : null;
-
-  return role ? { session, role } : null;
+  return session && role ? { session, role } : null;
 }
