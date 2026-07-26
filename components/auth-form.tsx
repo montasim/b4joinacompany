@@ -41,7 +41,7 @@ export function AuthForm({
   return (
     <div className="grid gap-3.5">
       <Button
-        className="w-full justify-between"
+        className="min-h-12 w-full justify-between"
         disabled={pending || !googleEnabled}
         type="button"
         onClick={continueWithGoogle}

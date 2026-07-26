@@ -1,72 +1,96 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Check,
-  CircleAlert,
-  FileText,
-  Link2,
-  MessageSquareText,
-  ShieldCheck,
-  X
-} from "lucide-react";
+import { ArrowDown, ArrowRight, Check, X } from "lucide-react";
 
+import { MethodProvenance } from "@/components/method-provenance";
 import { SiteHeader } from "@/components/site-header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { datasetStats } from "@/lib/research";
 
 export const metadata: Metadata = {
-  title: "How the evidence works",
+  title: "How b4join handles evidence",
   description:
-    "See how b4join keeps workplace reports, recurring signals, citations, and evidence gaps connected."
+    "See how b4join preserves evidence origin, names every transformation, limits AI answers, and keeps uncertainty visible."
 };
 
-const methodSteps = [
+const questionPaths = [
   {
-    number: "01",
-    eyebrow: "Keep the lanes separate",
-    title: "A report stays a report.",
-    copy: "Stories and comments remain attributed personal experiences. Official websites, LinkedIn pages, careers destinations, and salary sources are checked separately; they do not turn a workplace claim into company policy.",
-    details: ["Stories + comments", "Official destinations"]
+    id: "01",
+    eyebrow: "Default checkpoint",
+    title: "Rules prepare what to verify.",
+    flag: "No AI call",
+    tone: "blue",
+    steps: [
+      [
+        "Input",
+        "Company stories + joined comments",
+        "Role and date context are retained."
+      ],
+      [
+        "Scan",
+        "Eight fixed candidate concerns",
+        "Term recurrence ranks management, pay, stability, growth, workload, culture, work setup, and hiring."
+      ],
+      [
+        "Output",
+        "Question + guidance + rationale",
+        "Up to three source labels are attached. Thin evidence keeps an Evidence Gap."
+      ]
+    ],
+    footer: "A prepared question is a prompt for direct verification—not a finding about the company."
   },
   {
-    number: "02",
-    eyebrow: "Look for useful recurrence",
-    title: "Signals rise when related terms repeat.",
-    copy: "A rules-based engine scans eight candidate concerns. More matching terms and sources move a signal higher; a one-source match remains visible as an evidence gap.",
-    details: ["Across roles and dates", "One-source gaps marked"]
-  },
-  {
-    number: "03",
-    eyebrow: "Turn uncertainty into action",
-    title: "The output is a question, not a score.",
-    copy: "Each checkpoint includes practical guidance, a plain-language rationale, and up to three source citations so the candidate can verify the current reality for their exact role.",
-    details: ["Question + guidance", "Rationale + citations"]
+    id: "02",
+    eyebrow: "Optional Ask",
+    title: "Generated text needs source review.",
+    flag: "Excerpts sent on Ask",
+    tone: "amber",
+    steps: [
+      [
+        "Retrieve",
+        "A bounded set of company story excerpts",
+        "If lexical matching finds none, early company stories may supply fallback context."
+      ],
+      [
+        "Request",
+        "The provider is instructed to stay cited",
+        "Retrieved excerpts leave b4join only after Ask is used."
+      ],
+      [
+        "Return",
+        "Answer with [S#] labels—or labeled retrieval fallback",
+        "Generated prose is not independently fact-checked. Inspect the cited stories."
+      ]
+    ],
+    footer: "When the AI allowance is exhausted, Ask stops before retrieval; public evidence remains available."
   }
 ] as const;
 
-const signalTopics = [
-  "Management",
-  "Pay",
-  "Stability",
-  "Growth",
-  "Workload",
-  "Culture",
-  "Work setup",
-  "Hiring"
-] as const;
-
-const canSay = [
-  "Several dated reports mention management or feedback.",
-  "This pattern is worth asking about for your role.",
-  "Only one local source matched, so direct confirmation matters."
-] as const;
-
-const willNotSay = [
-  "The company has good or bad management.",
-  "A reported practice is an official company policy.",
-  "No matching reports means the issue does not exist."
+const revisionSteps = [
+  [
+    "Published release",
+    "Versioned evidence and lane-specific dates",
+    "Public research reads from the active release.",
+    "v1.3.0"
+  ],
+  [
+    "New source or correction",
+    "Prepared for operator review",
+    "The correction desk creates a review task; it changes nothing automatically.",
+    "Not published"
+  ],
+  [
+    "Integrity review",
+    "Identity, labels, joins, and files are checked",
+    "Integrity checks do not fact-check personal claims.",
+    "Owner run"
+  ],
+  [
+    "Later release",
+    "Accepted changes can enter a new version",
+    "Earlier release identifiers remain meaningful.",
+    "New version"
+  ]
 ] as const;
 
 export default async function MethodPage() {
@@ -75,282 +99,225 @@ export default async function MethodPage() {
   return (
     <>
       <SiteHeader active="Method" mode="public" />
-      <main>
-        <section className="relative overflow-hidden border-b border-line bg-mist py-14 sm:py-18 lg:py-22">
-          <div
-            className="pointer-events-none absolute top-[-8rem] right-[max(-5rem,calc(50%_-_42rem))] size-105 rounded-full border border-jade/15"
-            aria-hidden="true"
-          />
-          <div className="relative mx-auto grid w-[calc(100%_-_40px)] max-w-290 items-center gap-11 max-sm:w-[calc(100%_-_28px)] lg:grid-cols-[.82fr_1.18fr] lg:gap-14">
-            <div className="max-w-145">
-              <p className="mb-4 font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-                Evidence you can inspect
+      <main id="main">
+        <section
+          className="relative overflow-hidden border-b border-line bg-[linear-gradient(rgb(20_120_110_/_4%)_1px,transparent_1px),linear-gradient(90deg,rgb(20_120_110_/_4%)_1px,transparent_1px),var(--color-mist)] bg-size-[32px_32px] py-16.5 pb-18.5 before:absolute before:top-[-110px] before:left-[max(-170px,calc((100vw-1120px)/2-240px))] before:size-130 before:rounded-full before:border before:border-jade/13 max-md:py-12"
+          id="provenance"
+        >
+          <div className="relative mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(350px,.72fr)_minmax(660px,1.28fr)] items-center gap-13 max-sm:w-[calc(100%_-_28px)] max-xl:grid-cols-1">
+            <div>
+              <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
+                How the evidence travels
               </p>
-              <h1 className="font-display text-[clamp(3rem,5.8vw,5rem)] leading-[.96] font-bold tracking-[-.045em] text-ink">
-                Every question keeps its{" "}
-                <span className="relative inline-block text-jade after:absolute after:right-0 after:-bottom-1 after:left-0 after:h-1 after:rotate-[-1deg] after:bg-amber">
-                  evidence trail.
-                </span>
+              <h1 className="mt-3 max-w-135 font-display text-[clamp(48px,5.2vw,69px)] leading-[.98] font-bold tracking-[-.042em]">
+                Every insight keeps a trail back to its{" "}
+                <em className="font-inherit text-jade not-italic underline decoration-amber decoration-5 underline-offset-7">
+                  source.
+                </em>
               </h1>
-              <p className="mt-6 max-w-140 text-[15px] leading-7 text-ink-soft">
-                b4join organizes personal workplace reports into things a candidate can verify. It keeps the
-                original sources, dates, disagreements, and missing evidence visible instead of deciding whether a
-                company is good or bad.
+              <p className="mt-5 max-w-130 text-sm leading-[1.68] text-ink-soft">
+                b4join preserves what each source can support, names every transformation, and turns recurring terms
+                and missing facts into questions—not conclusions.
               </p>
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-6.25 flex flex-wrap gap-2.25">
                 <Button asChild size="lg">
-                  <Link href="/#research">
-                    Check a company <ArrowRight aria-hidden="true" className="size-4" />
-                  </Link>
+                  <a href="#question-paths">
+                    Follow the full method <ArrowDown aria-hidden="true" className="size-4" />
+                  </a>
                 </Button>
                 <Button asChild size="lg" variant="outline">
                   <a href="#boundaries">Read the safeguards</a>
                 </Button>
               </div>
-              <p className="mt-5 flex items-center gap-2 text-[11px] font-bold text-muted">
-                <ShieldCheck aria-hidden="true" className="size-4 text-jade" />
-                No rankings · No verdicts · No hidden sources
+              <p className="mt-4.75 flex items-start gap-2 text-[11px] leading-[1.5] font-bold text-muted">
+                <span className="grid size-4.5 shrink-0 place-items-center rounded-full bg-jade-soft text-[8px] font-black text-jade-dark">
+                  ✓
+                </span>
+                Reported, submitted, derived, and destination evidence never collapse into one score.
               </p>
             </div>
 
-            <article
-              className="overflow-hidden rounded-2xl border border-line-strong bg-white shadow-panel"
-              aria-labelledby="trace-title"
-            >
-              <header className="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
-                <div>
-                  <p className="mb-1 font-mono text-[10px] font-extrabold tracking-[.08em] text-jade uppercase">
-                    Illustrative evidence trace
-                  </p>
-                  <h2 id="trace-title" className="font-display text-xl font-bold tracking-[-.02em] text-ink">
-                    One question, with its lineage intact
-                  </h2>
-                </div>
-                <Badge>Inspectable</Badge>
-              </header>
-
-              <div className="grid items-stretch gap-3 p-5 max-md:grid-cols-1 sm:p-6 md:grid-cols-[minmax(0,.95fr)_22px_minmax(0,.72fr)_22px_minmax(0,1.08fr)]">
-                <section className="rounded-xl border border-line bg-mist p-3.5" aria-label="Illustrative source inputs">
-                  <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-muted uppercase">
-                    Source inputs
-                  </p>
-                  <div className="mt-3 grid gap-2">
-                    <div className="rounded-lg border border-line bg-white p-3">
-                      <span className="flex items-center gap-1.5 font-mono text-[9px] font-bold text-coral uppercase">
-                        <FileText aria-hidden="true" className="size-3.5" /> S1 · Story
-                      </span>
-                      <p className="mt-2 text-[11px] leading-5 text-ink-soft">
-                        A dated report describes unclear performance feedback.
-                      </p>
-                    </div>
-                    <div className="rounded-lg border border-line bg-white p-3">
-                      <span className="flex items-center gap-1.5 font-mono text-[9px] font-bold text-blue uppercase">
-                        <MessageSquareText aria-hidden="true" className="size-3.5" /> C1 · Comment
-                      </span>
-                      <p className="mt-2 text-[11px] leading-5 text-ink-soft">
-                        A related comment asks who owns review decisions.
-                      </p>
-                    </div>
-                  </div>
-                </section>
-
-                <div className="grid place-items-center text-jade max-md:rotate-90" aria-hidden="true">
-                  <ArrowRight className="size-5" />
-                </div>
-
-                <section className="grid content-center rounded-xl border border-jade/25 bg-jade-soft p-3.5 text-center">
-                  <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">
-                    Related signal
-                  </p>
-                  <strong className="mt-3 font-display text-lg leading-tight text-ink">
-                    Management and feedback
-                  </strong>
-                  <p className="mt-2 text-[10px] leading-4.5 text-ink-soft">
-                    Related terms appear in more than one source.
-                  </p>
-                  <div className="mt-3 flex flex-wrap justify-center gap-1.5">
-                    {["manager", "feedback", "review"].map((term) => (
-                      <span
-                        className="rounded bg-white/80 px-2 py-1 font-mono text-[8px] font-bold text-jade-dark"
-                        key={term}
-                      >
-                        {term}
-                      </span>
-                    ))}
-                  </div>
-                </section>
-
-                <div className="grid place-items-center text-jade max-md:rotate-90" aria-hidden="true">
-                  <ArrowRight className="size-5" />
-                </div>
-
-                <section className="grid content-center rounded-xl border border-amber bg-amber-soft p-4">
-                  <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-amber-dark uppercase">
-                    Candidate action
-                  </p>
-                  <h3 className="mt-3 font-display text-xl leading-[1.18] font-bold tracking-[-.02em] text-ink">
-                    “How are performance decisions documented?”
-                  </h3>
-                  <p className="mt-2 text-[10px] leading-4.5 text-ink-soft">
-                    Ask for the process, decision owner, and written terms.
-                  </p>
-                </section>
-              </div>
-
-              <footer className="grid gap-3 border-t border-line bg-mist px-5 py-4 text-[10px] sm:grid-cols-2 sm:px-6">
-                <span className="flex items-center gap-2 text-ink-soft">
-                  <Link2 aria-hidden="true" className="size-4 shrink-0 text-jade" />
-                  Citations remain attached: S1 · C1
-                </span>
-                <span className="flex items-center gap-2 text-ink-soft">
-                  <CircleAlert aria-hidden="true" className="size-4 shrink-0 text-amber-dark" />
-                  Gaps stay explicit when evidence is thin
-                </span>
-              </footer>
-            </article>
+            <MethodProvenance />
           </div>
         </section>
 
-        <section className="border-b border-line bg-white" aria-label="Current evidence snapshot">
-          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 divide-y divide-line max-sm:w-[calc(100%_-_28px)] sm:grid-cols-[1.25fr_repeat(3,1fr)] sm:divide-x sm:divide-y-0">
-            <div className="grid content-center gap-1 py-5 sm:pr-6">
-              <strong className="font-mono text-[10px] font-extrabold tracking-[.09em] text-jade uppercase">
+        <section className="border-b border-line bg-white" aria-label="Dataset release receipt">
+          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[1.35fr_repeat(3,1fr)] max-sm:w-[calc(100%_-_28px)] max-md:grid-cols-2">
+            <div className="grid min-h-22.75 content-center gap-1.25 border-r border-line py-4.25 pr-5.75 max-md:border-b">
+              <small className="font-mono text-[8px] font-extrabold tracking-[.05em] text-jade-dark uppercase">
                 Published evidence receipt
-              </strong>
-              <span className="text-[11px] text-muted">Snapshot {stats.snapshotDate} · validated before publication</span>
+              </small>
+              <strong className="font-display text-[21px] leading-[1.15]">Dataset release v1.3.0</strong>
+              <p className="text-[9px] leading-3.5 text-muted">
+                {stats.stories.toLocaleString()} stories across {stats.companies.toLocaleString()} companies.
+              </p>
             </div>
-            <div className="grid gap-0.5 py-5 sm:px-6">
-              <strong className="font-display text-2xl">{stats.stories.toLocaleString()}</strong>
-              <small className="text-[10px] text-muted">workplace stories</small>
-            </div>
-            <div className="grid gap-0.5 py-5 sm:px-6">
-              <strong className="font-display text-2xl">{stats.comments.toLocaleString()}</strong>
-              <small className="text-[10px] text-muted">related comments</small>
-            </div>
-            <div className="grid gap-0.5 py-5 sm:pl-6">
-              <strong className="font-display text-2xl">{stats.companies.toLocaleString()}</strong>
-              <small className="text-[10px] text-muted">company records</small>
-            </div>
+            {[
+              [stats.snapshotDate, "Main story snapshot"],
+              ["Schema · joins · hashes", "Integrity checks"],
+              ["Claims not fact-checked", "Truth boundary"]
+            ].map(([value, label]) => (
+              <div
+                className="grid min-h-22.75 content-center gap-1.25 border-r border-line px-5.75 py-4.25 last:border-r-0 max-md:border-b max-md:odd:border-r-0"
+                key={label}
+              >
+                <strong className="font-display text-lg leading-[1.15]">{value}</strong>
+                <small className="text-[10px] text-muted">{label}</small>
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className="border-b border-line py-16 sm:py-20" aria-labelledby="method-steps">
-          <div className="mx-auto w-[calc(100%_-_40px)] max-w-290 max-sm:w-[calc(100%_-_28px)]">
-            <div className="grid items-end gap-6 lg:grid-cols-[.88fr_1.12fr]">
+        <section
+          className="border-b border-line py-18.5"
+          id="question-paths"
+          aria-labelledby="question-path-title"
+        >
+          <div className="mx-auto w-[calc(100%_-_40px)] max-w-280 max-sm:w-[calc(100%_-_28px)]">
+            <header className="mb-7.75 grid grid-cols-[minmax(0,.9fr)_minmax(380px,1.1fr)] items-end gap-13 max-md:grid-cols-1 max-md:gap-4">
               <div>
-                <p className="mb-3 font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-                  The method, in order
+                <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
+                  Two paths, kept distinct
                 </p>
                 <h2
-                  id="method-steps"
-                  className="max-w-150 font-display text-[clamp(2.35rem,4.3vw,3.6rem)] leading-[1.01] font-bold tracking-[-.038em] text-ink"
+                  className="mt-2.25 max-w-152.5 font-display text-[clamp(35px,4.2vw,50px)] leading-[1.02] font-bold tracking-[-.035em]"
+                  id="question-path-title"
                 >
-                  The source changes. The boundary does not.
+                  Prepared questions are not the same as AI answers.
                 </h2>
               </div>
-              <p className="max-w-150 justify-self-end text-[14px] leading-7 text-ink-soft lg:pb-1">
-                The sequence exists to preserve meaning: first identify what kind of source is speaking, then find
-                related candidate concerns, then produce something the company can answer directly.
+              <p className="max-w-140 justify-self-end text-[13px] leading-[1.68] text-ink-soft max-md:justify-self-start">
+                The checkpoint engine is rules-based. Ask is optional and uses a bounded set of company story
+                excerpts. Keeping the paths separate makes the limitation of each one visible.
               </p>
-            </div>
+            </header>
 
-            <ol className="mt-9 grid list-none divide-y divide-line border-y border-line p-0 md:grid-cols-3 md:divide-x md:divide-y-0">
-              {methodSteps.map((step) => (
-                <li className="relative grid content-start gap-3 py-7 md:px-7 md:first:pl-0 md:last:pr-0" key={step.number}>
-                  <div className="flex items-center justify-between gap-4">
-                    <strong className="font-display text-4xl text-jade/35">{step.number}</strong>
-                    <span className="font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">
-                      {step.eyebrow}
-                    </span>
-                  </div>
-                  <h3 className="font-display text-2xl leading-tight font-bold tracking-[-.025em] text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="text-[12px] leading-6 text-ink-soft">{step.copy}</p>
-                  <div className="mt-1 flex flex-wrap gap-2">
-                    {step.details.map((detail) => (
+            <div className="grid grid-cols-2 gap-4.5 max-md:grid-cols-1">
+              {questionPaths.map((path) => {
+                const ask = path.tone === "amber";
+                return (
+                  <article
+                    className={`overflow-hidden rounded-[13px] border border-line-strong bg-white shadow-[0_14px_40px_rgb(22_56_61_/_6%)] before:block before:h-1.25 ${
+                      ask ? "before:bg-amber" : "before:bg-blue"
+                    }`}
+                    key={path.id}
+                  >
+                    <header className="grid grid-cols-[37px_1fr_auto] items-center gap-3 border-b border-line px-5.25 py-4.75 max-sm:grid-cols-[37px_1fr]">
                       <span
-                        className="rounded-md bg-jade-soft px-2 py-1.5 text-[9px] font-bold text-jade-dark"
-                        key={detail}
+                        className={`grid size-9.25 place-items-center rounded-full font-mono text-[9px] font-black ${
+                          ask ? "bg-amber-soft text-amber-dark" : "bg-blue-soft text-blue"
+                        }`}
                       >
-                        {detail}
+                        {path.id}
                       </span>
-                    ))}
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            <div className="mt-6 flex flex-wrap items-center gap-2">
-              <span className="mr-2 font-mono text-[9px] font-extrabold tracking-[.08em] text-muted uppercase">
-                Candidate concerns scanned
-              </span>
-              {signalTopics.map((topic) => (
-                <span
-                  className="rounded-full border border-line bg-white px-3 py-1.5 text-[10px] font-bold text-ink-soft"
-                  key={topic}
-                >
-                  {topic}
-                </span>
-              ))}
+                      <div>
+                        <small className="font-mono text-[7px] font-extrabold text-muted uppercase">{path.eyebrow}</small>
+                        <h3 className="mt-1.25 font-display text-[22px] leading-tight font-bold">{path.title}</h3>
+                      </div>
+                      <em className="rounded-[5px] bg-jade-soft px-1.75 py-1.25 font-mono text-[7px] font-extrabold text-jade-dark not-italic uppercase max-sm:col-start-2 max-sm:w-max">
+                        {path.flag}
+                      </em>
+                    </header>
+                    <ol className="m-0 grid list-none px-5.25 py-1.25">
+                      {path.steps.map(([label, title, copy]) => (
+                        <li
+                          className="grid min-h-20.75 grid-cols-[75px_1fr] content-center gap-x-3 gap-y-1.25 border-b border-line py-3.5 last:border-0"
+                          key={label}
+                        >
+                          <span
+                            className={`row-span-2 pt-0.5 font-mono text-[8px] font-extrabold uppercase ${
+                              ask ? "text-amber-dark" : "text-blue"
+                            }`}
+                          >
+                            {label}
+                          </span>
+                          <strong className="text-xs leading-[1.35]">{title}</strong>
+                          <p className="text-[10px] leading-[1.5] text-muted">{copy}</p>
+                        </li>
+                      ))}
+                    </ol>
+                    <footer className="min-h-14.25 border-t border-line bg-[#fbfdfc] px-5.25 py-3.25 text-[9px] leading-[1.45] text-muted">
+                      {path.footer}
+                    </footer>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        <section className="bg-ink py-16 text-white sm:py-20" id="boundaries" aria-labelledby="boundary-title">
-          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 gap-10 max-sm:w-[calc(100%_-_28px)] lg:grid-cols-[.78fr_1.22fr] lg:gap-15">
-            <div className="max-w-130">
-              <p className="mb-3 font-mono text-[10px] font-extrabold tracking-[.1em] text-jade-soft uppercase">
+        <section className="bg-ink py-18.5 text-white" id="boundaries" aria-labelledby="method-boundary-title">
+          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(290px,.75fr)_minmax(570px,1.25fr)] items-start gap-14.5 max-sm:w-[calc(100%_-_28px)] max-lg:grid-cols-1">
+            <div>
+              <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade-soft uppercase">
                 The language boundary
               </p>
               <h2
-                id="boundary-title"
-                className="font-display text-[clamp(2.35rem,4.3vw,3.6rem)] leading-[1.01] font-bold tracking-[-.038em]"
+                className="mt-2.5 max-w-120 font-display text-[clamp(35px,4.2vw,50px)] leading-[1.02] font-bold tracking-[-.035em]"
+                id="method-boundary-title"
               >
                 Careful wording is part of the method.
               </h2>
-              <p className="mt-5 text-[14px] leading-7 text-white/70">
-                Personal accounts can reveal what to investigate. They cannot establish policy, intent, or a final
-                judgment about everyone’s experience.
+              <p className="mt-4.25 max-w-125 text-[13px] leading-[1.68] text-white/68">
+                Personal accounts can show what deserves investigation. They cannot establish policy, intent, or one
+                final judgment about everyone’s experience.
               </p>
             </div>
-
-            <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/5">
-              <div className="grid sm:grid-cols-2">
-                <section className="border-b border-white/15 p-5 sm:border-r sm:border-b-0 sm:p-6">
-                  <div className="mb-5 flex items-center gap-2">
-                    <span className="grid size-8 place-items-center rounded-full bg-jade text-white">
-                      <Check aria-hidden="true" className="size-4" />
-                    </span>
-                    <h3 className="font-display text-xl font-bold">b4join can say</h3>
-                  </div>
-                  <ul className="m-0 grid list-none gap-4 p-0">
-                    {canSay.map((item) => (
-                      <li className="grid grid-cols-[8px_1fr] gap-3 text-[12px] leading-5.5 text-white/80" key={item}>
-                        <span className="mt-2 size-2 rounded-full bg-jade" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-                <section className="p-5 sm:p-6">
-                  <div className="mb-5 flex items-center gap-2">
-                    <span className="grid size-8 place-items-center rounded-full bg-coral text-white">
-                      <X aria-hidden="true" className="size-4" />
-                    </span>
-                    <h3 className="font-display text-xl font-bold">b4join will not say</h3>
-                  </div>
-                  <ul className="m-0 grid list-none gap-4 p-0">
-                    {willNotSay.map((item) => (
-                      <li className="grid grid-cols-[8px_1fr] gap-3 text-[12px] leading-5.5 text-white/80" key={item}>
-                        <span className="mt-2 size-2 rounded-full bg-coral" aria-hidden="true" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </div>
-              <footer className="border-t border-white/15 px-5 py-4 text-[10px] leading-5 text-white/60 sm:px-6">
+            <div className="grid grid-cols-2 overflow-hidden rounded-[13px] border border-white/16 bg-white/4 max-sm:grid-cols-1">
+              {[
+                [
+                  "b4join can say",
+                  [
+                    "Several dated reports mention a related concern.",
+                    "A submitted role range provides unverified negotiation context.",
+                    "Explicit work-mode language appears in named source excerpts."
+                  ],
+                  "jade"
+                ],
+                [
+                  "b4join will not say",
+                  [
+                    "The company has good or bad culture.",
+                    "A submitted amount is an HR-approved salary band.",
+                    "Missing work-mode evidence means the role is onsite."
+                  ],
+                  "coral"
+                ]
+              ].map(([heading, items, tone]) => {
+                const positive = tone === "jade";
+                return (
+                  <section
+                    className="min-h-65 border-r border-white/14 p-5.5 last:border-r-0 max-sm:min-h-0 max-sm:border-r-0 max-sm:border-b max-sm:border-white/14"
+                    key={heading as string}
+                  >
+                    <header className="flex items-center gap-2.5">
+                      <span
+                        className={`grid size-7.75 place-items-center rounded-full text-white ${
+                          positive ? "bg-jade" : "bg-coral"
+                        }`}
+                      >
+                        {positive ? <Check aria-hidden="true" className="size-4" /> : <X aria-hidden="true" className="size-4" />}
+                      </span>
+                      <h3 className="font-display text-[21px] font-bold">{heading as string}</h3>
+                    </header>
+                    <ul className="mt-5 grid list-none gap-3.75 p-0">
+                      {(items as readonly string[]).map((item) => (
+                        <li
+                          className="grid grid-cols-[7px_1fr] gap-2.5 text-[11px] leading-[1.55] text-white/78"
+                          key={item}
+                        >
+                          <span
+                            className={`mt-1.75 size-1.75 rounded-full ${positive ? "bg-jade" : "bg-coral"}`}
+                            aria-hidden="true"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                );
+              })}
+              <footer className="col-span-full border-t border-white/14 px-6 py-3.25 text-[9px] leading-[1.5] text-white/58 max-sm:col-span-1">
                 Unknown is not positive or negative. Conflicting reports remain conflicting. Missing evidence stays
                 visible as a gap.
               </footer>
@@ -358,111 +325,113 @@ export default async function MethodPage() {
           </div>
         </section>
 
-        <section className="border-b border-line py-16 sm:py-20" aria-labelledby="question-anatomy">
-          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 items-start gap-10 max-sm:w-[calc(100%_-_28px)] lg:grid-cols-[.82fr_1.18fr] lg:gap-15">
-            <div className="max-w-135">
-              <p className="mb-3 font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-                What follows every signal
-              </p>
-              <h2
-                id="question-anatomy"
-                className="font-display text-[clamp(2.35rem,4.3vw,3.6rem)] leading-[1.01] font-bold tracking-[-.038em] text-ink"
-              >
-                A useful output carries its own limits.
-              </h2>
-              <p className="mt-5 text-[14px] leading-7 text-ink-soft">
-                The question is only the visible tip. The checkpoint also explains why it surfaced, what source
-                material supports it, and where the evidence remains too thin.
-              </p>
-              <div className="mt-6 grid gap-3">
-                {[
-                  ["Snapshot date", "Shows when the published evidence was last assembled."],
-                  ["Original source links", "Let you read the story or official destination in context."],
-                  ["Correction route", "Lets incorrect identity or destination data enter a review queue."]
-                ].map(([title, copy]) => (
-                  <div className="grid grid-cols-[10px_1fr] gap-3" key={title}>
-                    <span className="mt-1.5 size-2.5 rounded-full bg-jade" aria-hidden="true" />
-                    <div>
-                      <strong className="block text-[12px] text-ink">{title}</strong>
-                      <p className="mt-1 text-[11px] leading-5 text-muted">{copy}</p>
-                    </div>
-                  </div>
-                ))}
+        <section className="border-b border-line py-18.5" aria-labelledby="method-revision-title">
+          <div className="mx-auto w-[calc(100%_-_40px)] max-w-280 max-sm:w-[calc(100%_-_28px)]">
+            <header className="mb-7.75 grid grid-cols-[minmax(0,.9fr)_minmax(380px,1.1fr)] items-end gap-13 max-md:grid-cols-1 max-md:gap-4">
+              <div>
+                <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
+                  Change without rewriting history
+                </p>
+                <h2
+                  className="mt-2.25 max-w-152.5 font-display text-[clamp(35px,4.2vw,50px)] leading-[1.02] font-bold tracking-[-.035em]"
+                  id="method-revision-title"
+                >
+                  A later release does not silently rewrite saved context.
+                </h2>
               </div>
-            </div>
+              <p className="max-w-140 justify-self-end text-[13px] leading-[1.68] text-ink-soft max-md:justify-self-start">
+                Evidence is published in versioned releases. Corrections and new source material require an owner-run
+                review and update before they can appear in a later release.
+              </p>
+            </header>
 
-            <article className="overflow-hidden rounded-2xl border border-line-strong bg-white shadow-[0_18px_48px_rgb(18_53_60_/_8%)]">
-              <header className="border-b border-line p-5 sm:p-6">
-                <p className="mb-2 font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">
-                  Question
-                </p>
-                <h3 className="font-display text-2xl leading-tight font-bold tracking-[-.025em] text-ink">
-                  How are performance decisions documented?
-                </h3>
-                <p className="mt-3 text-[12px] leading-5.5 text-ink-soft">
-                  Ask who owns decisions, how written feedback is recorded, and how concerns move beyond your
-                  immediate manager.
-                </p>
-              </header>
-              <div className="grid sm:grid-cols-[.9fr_1.1fr]">
-                <section className="border-b border-line p-5 sm:border-r sm:border-b-0 sm:p-6">
-                  <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-muted uppercase">
-                    Why ask this
+            <div className="overflow-hidden rounded-[13px] border border-line-strong bg-white shadow-[0_14px_40px_rgb(22_56_61_/_6%)]">
+              <ol className="relative m-0 grid list-none grid-cols-4 px-5.75 pt-6.5 pb-6 before:absolute before:top-11.25 before:right-[12%] before:left-[12%] before:h-0.5 before:bg-line max-md:grid-cols-1 max-md:before:top-[8%] max-md:before:bottom-[8%] max-md:before:left-[42px] max-md:h-auto max-md:before:w-0.5">
+                {revisionSteps.map(([label, title, copy, status], index) => (
+                  <li
+                    className="relative z-1 min-w-0 px-3.5 max-md:grid max-md:grid-cols-[48px_1fr] max-md:gap-x-3 max-md:py-3"
+                    key={label}
+                  >
+                    <span
+                      className={`mx-auto mb-4.25 grid size-9.75 place-items-center rounded-full border-2 bg-white font-mono text-[9px] font-black ring-5 max-md:row-span-4 max-md:m-0 ${
+                        index === 1
+                          ? "border-amber text-amber-dark ring-amber-soft"
+                          : index === 2
+                            ? "border-blue text-blue ring-blue-soft"
+                            : "border-jade text-jade-dark ring-jade-soft"
+                      }`}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <small className="mb-2 block text-center font-mono text-[8px] font-extrabold tracking-[.04em] text-quiet uppercase max-md:text-left">
+                      {label}
+                    </small>
+                    <strong className="block min-h-9.5 text-center text-[11px] leading-[1.4] max-md:min-h-0 max-md:text-left">
+                      {title}
+                    </strong>
+                    <p className="mt-1.75 text-center text-[9px] leading-[1.48] text-muted max-md:text-left">{copy}</p>
+                    <em className="mx-auto mt-2.75 block w-max rounded-[5px] bg-jade-soft px-1.75 py-1.25 font-mono text-[7px] font-extrabold text-jade-dark not-italic uppercase max-md:mx-0">
+                      {status}
+                    </em>
+                  </li>
+                ))}
+              </ol>
+              <aside className="grid grid-cols-[28px_1fr] gap-3 border-t border-line bg-jade-soft px-6 py-4">
+                <span className="font-display text-xl text-jade-dark">↳</span>
+                <div>
+                  <small className="font-mono text-[8px] font-extrabold tracking-[.04em] text-jade-dark uppercase">
+                    Private checkpoint
+                  </small>
+                  <strong className="mt-1 block text-[11px]">
+                    Stores its snapshot version and appends revisions on successful saves.
+                  </strong>
+                  <p className="mt-1 text-[9px] leading-[1.48] text-muted">
+                    It does not silently merge a conflicting edit.
                   </p>
-                  <p className="mt-3 text-[11px] leading-5.5 text-ink-soft">
-                    Related management and feedback terms appeared across the illustrative story and comment. The
-                    question asks for the current process rather than treating either account as fact.
-                  </p>
-                </section>
-                <section className="grid gap-4 p-5 sm:p-6">
-                  <div>
-                    <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-muted uppercase">
-                      Sources
-                    </p>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      <Badge tone="blue">S1 · Story</Badge>
-                      <Badge tone="blue">C1 · Comment</Badge>
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-amber-soft p-3">
-                    <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-amber-dark uppercase">
-                      Evidence gap
-                    </p>
-                    <p className="mt-1.5 text-[10px] leading-4.5 text-ink-soft">
-                      The reports cannot establish the current policy for your team. Ask for direct confirmation.
-                    </p>
-                  </div>
-                </section>
-              </div>
-            </article>
+                </div>
+              </aside>
+              <footer className="flex flex-wrap gap-5 border-t border-line px-6 py-3.5">
+                <Link className="text-[10px] font-extrabold text-jade-dark underline-offset-3 hover:underline" href="/support">
+                  Prepare a source-backed correction →
+                </Link>
+                <Link
+                  className="text-[10px] font-extrabold text-jade-dark underline-offset-3 hover:underline"
+                  href="/#research"
+                >
+                  Open a company source list →
+                </Link>
+              </footer>
+            </div>
           </div>
         </section>
 
-        <section className="py-16 sm:py-20">
-          <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 items-center gap-7 rounded-2xl border border-line-strong bg-white p-6 shadow-panel max-sm:w-[calc(100%_-_28px)] sm:grid-cols-[1fr_auto] sm:p-8">
+        <section className="bg-white py-16">
+          <div className="mx-auto flex w-[calc(100%_-_40px)] max-w-280 items-end justify-between gap-8 max-sm:w-[calc(100%_-_28px)] max-md:flex-col max-md:items-start">
             <div>
-              <p className="mb-2 font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
+              <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
                 Use the method
               </p>
-              <h2 className="font-display text-[clamp(2rem,3.6vw,3rem)] leading-tight font-bold tracking-[-.035em] text-ink">
-                Put a real company through the evidence trail.
+              <h2 className="mt-2.25 font-display text-[clamp(34px,4vw,48px)] leading-[1.05] font-bold tracking-[-.035em]">
+                Put a company through the evidence trail.
               </h2>
-              <p className="mt-3 max-w-165 text-[13px] leading-6 text-ink-soft">
-                Build one checkpoint, compare two companies on the same unknowns, or carry the research into Deshi
-                Mula with the extension.
+              <p className="mt-3 max-w-170 text-[13px] leading-[1.6] text-ink-soft">
+                Build one brief, compare two companies on the same unknowns, or carry the research into Deshi Mula
+                with the extension.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2 sm:max-w-70 sm:justify-end">
+            <nav aria-label="Method next steps" className="flex shrink-0 flex-wrap items-center gap-2.5">
               <Button asChild>
-                <Link href="/#research">Check a company</Link>
+                <Link href="/#research">
+                  Check a company <ArrowRight aria-hidden="true" className="size-4" />
+                </Link>
               </Button>
               <Button asChild variant="outline">
                 <Link href="/compare">Compare companies</Link>
               </Button>
-              <Button asChild variant="ghost">
-                <Link href="/extension">Use the extension</Link>
-              </Button>
-            </div>
+              <Link className="px-2 text-xs font-extrabold text-jade-dark hover:underline" href="/extension">
+                Use the extension →
+              </Link>
+            </nav>
           </div>
         </section>
       </main>

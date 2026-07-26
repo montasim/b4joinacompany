@@ -28,25 +28,34 @@ type SavedCheckpoint = StoredCheckpoint & {
 
 const stagePresentation: Record<
   string,
-  { label: string; nextAction: string; badgeClass: string; accentClass: string }
+  {
+    label: string;
+    nextAction: string;
+    badgeClass: string;
+    accentClass: string;
+    stripeClass: string;
+  }
 > = {
   applying: {
     label: "Checkpoint ready",
     nextAction: "Review the evidence before you submit the application.",
     badgeClass: "bg-jade-soft text-jade-dark",
     accentClass: "bg-jade",
+    stripeClass: "before:bg-jade",
   },
   interviewing: {
     label: "Interview prep",
     nextAction: "Prepare the role and team questions for your next interview.",
     badgeClass: "bg-blue-soft text-blue",
     accentClass: "bg-blue",
+    stripeClass: "before:bg-blue",
   },
   "reviewing an offer": {
     label: "Decision pending",
     nextAction: "Review the checkpoint before your next offer conversation.",
     badgeClass: "bg-amber-soft text-amber-dark",
     accentClass: "bg-amber",
+    stripeClass: "before:bg-amber",
   },
 };
 
@@ -61,6 +70,7 @@ function presentationFor(stage: string) {
       nextAction: "Return to the evidence and continue your decision.",
       badgeClass: "bg-mist-deep text-ink-soft",
       accentClass: "bg-line-strong",
+      stripeClass: "before:bg-line-strong",
     }
   );
 }
@@ -140,14 +150,24 @@ function SignedOutWorkspace() {
   ];
 
   return (
-    <main className="mx-auto grid min-h-[calc(100vh-68px)] w-[calc(100%_-_40px)] max-w-290 grid-cols-[minmax(0,.9fr)_minmax(480px,1.1fr)] items-center gap-16 py-16 max-lg:grid-cols-1 max-lg:gap-10 max-sm:w-[calc(100%_-_28px)] max-sm:py-9 max-sm:pb-24">
+    <main
+      id="main"
+      className="relative min-h-[calc(100vh-64px)] overflow-hidden bg-[linear-gradient(rgba(20,120,110,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(20,120,110,.04)_1px,transparent_1px)] bg-size-[32px_32px]"
+    >
+      <span
+        className="pointer-events-none absolute top-14 right-[max(-170px,calc((100vw-1120px)/2-260px))] size-130 rounded-full border border-jade/15 max-sm:hidden"
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(360px,.88fr)_minmax(510px,1.12fr)] items-center gap-16 py-[60px] pb-[78px] max-lg:grid-cols-1 max-lg:gap-10 max-sm:w-[calc(100%_-_28px)] max-sm:py-9 max-sm:pb-14">
       <section className="max-w-145">
         <p className="mb-3 font-mono text-[10px] leading-tight font-extrabold tracking-[.08em] text-jade uppercase">
           Private decision desk
         </p>
         <h1 className="font-display text-[clamp(44px,6vw,68px)] leading-[.98] font-bold tracking-[-.04em] text-ink">
           Return to the decisions{" "}
-          <em className="not-italic text-jade">still in motion.</em>
+          <em className="text-jade not-italic underline decoration-amber decoration-[6px] underline-offset-5 max-sm:decoration-4">
+            still in motion.
+          </em>
         </h1>
         <p className="mt-5 max-w-130 text-[15px] leading-[1.7] text-ink-soft">
           Keep the company, role, decision stage, priority, private note, and
@@ -174,18 +194,18 @@ function SignedOutWorkspace() {
             Company research and the browser extension do not require an
             account.{" "}
             <Link className="font-extrabold text-jade-dark" href="/#research">
-              Check a company
+              Check a company →
             </Link>{" "}
             or{" "}
             <Link className="font-extrabold text-jade-dark" href="/extension">
-              use the extension
+              Use the extension →
             </Link>
             .
           </p>
         </aside>
       </section>
 
-      <Card className="overflow-hidden shadow-panel">
+      <Card className="relative overflow-hidden rounded-2xl shadow-panel before:absolute before:inset-y-0 before:left-0 before:z-2 before:w-1.25 before:bg-[linear-gradient(to_bottom,#356c82_0_27%,#e9b44c_27%_52%,#14786e_52%_76%,#c95d63_76%)]">
         <header className="flex items-center justify-between gap-4 border-b border-line px-6 py-5">
           <div>
             <p className="mb-1 font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">
@@ -199,14 +219,14 @@ function SignedOutWorkspace() {
             <LockKeyhole aria-hidden className="size-4" />
           </span>
         </header>
-        <ol className="m-0 grid list-none px-6">
+        <ol className="relative m-0 grid list-none px-6 before:absolute before:top-12 before:bottom-12 before:left-[38px] before:w-px before:bg-line-strong">
           {lockedItems.map((item) => (
             <li
               className="grid grid-cols-[12px_minmax(0,1fr)_auto] items-start gap-4 border-b border-line py-5 last:border-b-0"
               key={item.label}
             >
               <span
-                className={`mt-1.5 size-2.5 rounded-full ring-4 ring-mist ${item.marker}`}
+                className={`relative z-1 mt-1.5 size-3.5 rounded-full border-[3px] border-white ring-1 ring-line-strong ${item.marker}`}
                 aria-hidden
               />
               <div>
@@ -229,6 +249,7 @@ function SignedOutWorkspace() {
           <strong className="text-ink-soft">No visitor data is shown here</strong>
         </footer>
       </Card>
+      </div>
     </main>
   );
 }
@@ -299,7 +320,7 @@ function WorkspaceUnavailable() {
 function SavedLedger({ checkpoints }: { checkpoints: SavedCheckpoint[] }) {
   return (
     <section
-      className="overflow-hidden rounded-xl border border-line-strong bg-white"
+      className="overflow-hidden rounded-[14px] border border-line-strong bg-white shadow-[0_12px_35px_rgb(22_56_61_/_6%)]"
       aria-labelledby="saved-ledger-title"
     >
       <header className="flex items-end justify-between gap-6 border-b border-line bg-white px-6 py-5 max-sm:items-start">
@@ -329,7 +350,7 @@ function SavedLedger({ checkpoints }: { checkpoints: SavedCheckpoint[] }) {
 
           return (
             <details
-              className="group border-b border-line last:border-b-0"
+              className={`group relative border-b border-line bg-white before:absolute before:inset-y-0 before:left-0 before:z-2 before:w-1 last:border-b-0 ${presentation.stripeClass}`}
               key={checkpoint.id}
               open={index === 0}
             >
@@ -466,7 +487,7 @@ export default async function SavedPage() {
   return (
     <>
       <SiteHeader active="Saved" />
-      <main className="mx-auto min-h-[calc(100vh-68px)] w-[calc(100%_-_40px)] max-w-290 py-14 max-sm:w-[calc(100%_-_28px)] max-sm:py-8 max-sm:pb-24">
+      <main id="main" className="mx-auto min-h-[calc(100vh-64px)] w-[calc(100%_-_40px)] max-w-280 py-14 max-sm:w-[calc(100%_-_28px)] max-sm:py-8">
         <header className="mb-8 flex items-end justify-between gap-8 max-md:flex-col max-md:items-start">
           <div className="max-w-175">
             <p className="mb-3 font-mono text-[10px] leading-tight font-extrabold tracking-[.08em] text-jade uppercase">

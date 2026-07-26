@@ -1,14 +1,30 @@
 import Link from "next/link";
 
+import { Brand } from "@/components/brand";
+
 export function SiteFooter() {
   return (
-    <footer className="shrink-0 border-t border-line bg-white">
-      <div className="mx-auto flex min-h-27 w-[calc(100%_-_40px)] max-w-290 items-center justify-between gap-5 max-sm:w-[calc(100%_-_28px)] max-sm:flex-col max-sm:items-start max-sm:py-6">
-        <p className="text-[10px] leading-relaxed text-muted">b4join turns reported experiences into questions.<br />It does not verify claims or rate companies.</p>
-        <nav className="flex flex-wrap gap-4">
-          <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/method">Sources</Link>
-          <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/support">Support</Link>
-          <Link className="text-[10px] font-bold text-ink-soft no-underline" href="/extension">Extension</Link>
+    <footer className="shrink-0 border-t border-line bg-white py-9.5">
+      <div className="mx-auto flex w-[calc(100%_-_40px)] max-w-280 items-center justify-between gap-8 max-sm:w-[calc(100%_-_28px)] max-sm:flex-col max-sm:items-start">
+        <div>
+          <Brand />
+          <p className="mt-3 text-[10px] leading-relaxed text-muted">
+            Company research for better questions—not automatic verdicts.
+          </p>
+        </div>
+        <nav className="flex flex-wrap gap-5" aria-label="Footer navigation">
+          <Link
+            className="text-[10px] font-bold text-ink-soft no-underline hover:text-jade-dark"
+            href="/method"
+          >
+            How evidence works
+          </Link>
+          <Link
+            className="text-[10px] font-bold text-ink-soft no-underline hover:text-jade-dark"
+            href="/support"
+          >
+            Support &amp; corrections
+          </Link>
         </nav>
       </div>
     </footer>

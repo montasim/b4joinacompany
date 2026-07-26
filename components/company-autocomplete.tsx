@@ -1,6 +1,13 @@
 "use client";
 
-import { KeyboardEvent, useEffect, useId, useRef, useState } from "react";
+import {
+  type KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { Search } from "lucide-react";
 
 import type { CompanyRecord } from "@/lib/contracts";
@@ -24,7 +31,10 @@ export type CompanySuggestion = Pick<
 >;
 
 interface CompanyAutocompleteProps {
+  className?: string;
+  committedValue?: string | null;
   id: string;
+  leading?: ReactNode;
   value: string;
   placeholder?: string;
   showSearchIcon?: boolean;
@@ -33,7 +43,10 @@ interface CompanyAutocompleteProps {
 }
 
 export function CompanyAutocomplete({
+  className,
+  committedValue,
   id,
+  leading,
   value,
   placeholder = "Search for a company name",
   showSearchIcon = false,
@@ -64,7 +77,13 @@ export function CompanyAutocomplete({
     const query = value.trim();
     requestRef.current?.abort();
 
-    if (selectedValueRef.current === value || query.length < 2) return;
+    if (
+      committedValue === value ||
+      selectedValueRef.current === value ||
+      query.length < 2
+    ) {
+      return;
+    }
 
     const controller = new AbortController();
     requestRef.current = controller;
@@ -89,7 +108,7 @@ export function CompanyAutocomplete({
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [value]);
+  }, [committedValue, value]);
 
   function choose(company: CompanySuggestion) {
     const nextRecent = [company, ...recent.filter((item) => item.slug !== company.slug)].slice(0, 5);
@@ -125,8 +144,9 @@ export function CompanyAutocomplete({
   const visibleItems = showingRecent ? recent : suggestions;
 
   return (
-    <div className="relative min-w-0">
+    <div className={cn("relative min-w-0", className)}>
       <div className={cn("flex min-h-11.25 items-center rounded-lg border border-line-strong bg-white focus-within:border-jade focus-within:ring-3 focus-within:ring-jade/10", showSearchIcon && "pl-3")}>
+        {leading}
         {showSearchIcon && <Search aria-hidden />}
         <input
           className="min-h-10.75 min-w-0 w-full border-0 bg-transparent px-3 text-xs font-bold text-ink outline-none placeholder:text-muted/80"

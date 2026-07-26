@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #12353c;
-  --color-ink-soft: #34545a;
-  --color-muted: #6a8084;
-  --color-quiet: #91a1a3;
-  --color-mist: #eef5f3;
-  --color-mist-deep: #e2eeeb;
-  --color-line: #d2dfdc;
-  --color-line-strong: #afc5c0;
-  --color-jade: #14796f;
-  --color-jade-dark: #0b5b54;
-  --color-jade-soft: #dff1ed;
-  --color-amber: #e6a23c;
-  --color-amber-dark: #83510b;
-  --color-amber-soft: #fff3dc;
-  --color-coral: #c75b61;
-  --color-coral-soft: #f8e7e9;
-  --color-blue: #2d6379;
-  --color-blue-soft: #e4f0f5;
+  --color-ink: #16383d;
+  --color-ink-soft: #36565b;
+  --color-muted: #587175;
+  --color-quiet: #758b8f;
+  --color-mist: #f3f7f6;
+  --color-mist-deep: #e7f0ee;
+  --color-line: #d7e2df;
+  --color-line-strong: #b6cbc6;
+  --color-jade: #14786e;
+  --color-jade-dark: #0d5d56;
+  --color-jade-soft: #e2f2ef;
+  --color-amber: #e9b44c;
+  --color-amber-dark: #78500a;
+  --color-amber-soft: #fff5dd;
+  --color-coral: #c95d63;
+  --color-coral-soft: #fbeaec;
+  --color-blue: #356c82;
+  --color-blue-soft: #e8f1f5;
   --font-display: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
   --font-body: Aptos, "Segoe UI Variable Text", "Noto Sans Bengali", "Segoe UI", sans-serif;
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", monospace;
-  --shadow-panel: 0 24px 70px rgb(18 53 60 / 12%);
+  --shadow-panel: 0 18px 55px rgb(22 56 61 / 10%);
 }

@@ -1,63 +1,79 @@
 import Link from "next/link";
 import { headers } from "next/headers";
-import { Menu } from "lucide-react";
 
 import { Brand } from "@/components/brand";
-import { SignOutButton, UserMenu } from "@/components/user-menu";
+import { SignOutButton } from "@/components/user-menu";
 import { resolveAdminRole } from "@/lib/admin-session";
 import { auth } from "@/lib/auth";
 
+type HeaderPage =
+  | "Research"
+  | "Compare"
+  | "Saved"
+  | "Extension"
+  | "Support"
+  | "Method"
+  | "Admin"
+  | "Sign in";
+
 export async function SiteHeader({
-  active = "Research",
-  purpose
+  active = "Research"
 }: {
-  active?: "Research" | "Compare" | "Saved" | "Extension" | "Support" | "Method" | "Admin" | "Sign in";
+  active?: HeaderPage;
   mode?: "auto" | "public" | "user" | "admin";
   purpose?: string;
 }) {
   const session = await auth.api.getSession({ headers: await headers() });
   const adminRole = resolveAdminRole(session);
-  const resolvedMode = adminRole ? "admin" : session ? "user" : "public";
-  const workspaceIsAdmin = resolvedMode === "admin";
-  const nav =
-    resolvedMode === "admin"
-      ? [
-          ["Admin", "/admin"],
-          ["Research", "/"],
-          ["Method", "/method"]
-        ]
-      : [
-          ["Research", "/"],
-          ["Compare", "/compare"],
-          ["Saved", "/saved"],
-          ["Extension", "/extension"],
-          ["Support", "/support"]
-        ];
+  const isAdmin = Boolean(adminRole);
+  const nav: Array<[HeaderPage, string, string]> = isAdmin
+    ? [
+        ["Admin", "/admin", "Review queue"],
+        ["Research", "/", "Public research"],
+        ["Method", "/method", "Method"]
+      ]
+    : [
+        ["Research", "/", "Research"],
+        ["Compare", "/compare", "Compare"],
+        ["Saved", "/saved", "Saved"],
+        ["Extension", "/extension", "Extension"],
+        ["Support", "/support", "Support"]
+      ];
+
   return (
     <>
+      <a
+        className="fixed top-2 left-2 z-100 -translate-y-[160%] rounded-lg bg-ink px-3 py-2 text-xs font-bold text-white no-underline transition-transform focus:translate-y-0"
+        href="#main"
+      >
+        Skip to content
+      </a>
       <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-md">
-        <div className="mx-auto grid min-h-17 w-[calc(100%_-_40px)] max-w-290 grid-cols-[1fr_auto_1fr] items-center gap-7 max-md:w-[calc(100%_-_28px)] max-md:grid-cols-[1fr_auto] max-sm:min-h-15.5">
-          <Brand purpose={purpose ?? (resolvedMode === "admin" ? "Evidence review" : undefined)} />
-          <nav className="flex gap-1 max-md:hidden" aria-label="Primary navigation">
-            {nav.map(([label, href]) => (
+        <div className="mx-auto grid min-h-16 w-[calc(100%_-_40px)] max-w-280 grid-cols-[1fr_auto_1fr] items-center gap-6 max-md:w-[calc(100%_-_28px)] max-md:grid-cols-[1fr_auto]">
+          <Brand />
+
+          <nav className="flex items-center gap-0.5 max-md:hidden" aria-label="Primary navigation">
+            {nav.map(([key, href, label]) => (
               <Link
-                key={`${label}-${href}`}
-                className={`rounded-lg px-3 py-2 text-xs font-bold no-underline ${
-                  active === label
+                aria-current={active === key ? "page" : undefined}
+                className={`rounded-lg px-3 py-2.25 text-xs font-bold no-underline ${
+                  active === key
                     ? "bg-jade-soft text-jade-dark"
                     : "text-muted hover:bg-jade-soft hover:text-jade-dark"
                 }`}
                 href={href}
+                key={key}
               >
-                {label === "Admin" ? "Review queue" : label}
+                {label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center justify-self-end gap-2.5">
-            <div className="flex items-center gap-2.5 max-md:hidden">
-              {resolvedMode === "public" ? (
+
+          <div className="flex items-center justify-self-end gap-3.5">
+            <div className="flex items-center gap-3.5 max-md:hidden">
+              {!session ? (
                 <Link
-                  className="text-xs font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3"
+                  className="text-xs font-extrabold text-jade-dark underline decoration-jade/30 underline-offset-3"
                   href="/auth/sign-in"
                 >
                   Sign in
@@ -65,59 +81,65 @@ export async function SiteHeader({
               ) : (
                 <>
                   <Link
-                    className="text-xs font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3"
-                    href={workspaceIsAdmin ? "/admin" : "/saved"}
+                    className={`inline-flex items-center gap-2 text-xs font-extrabold text-jade-dark ${
+                      isAdmin
+                        ? "no-underline"
+                        : "underline decoration-jade/30 underline-offset-3"
+                    }`}
+                    href={isAdmin ? "/admin" : "/saved"}
                   >
-                    {workspaceIsAdmin ? "Admin workspace" : "Private workspace"}
+                    {isAdmin && (
+                      <span className="size-2 rounded-full bg-jade" aria-hidden="true" />
+                    )}
+                    {isAdmin ? "Admin workspace" : "Private workspace"}
                   </Link>
-                  <UserMenu
-                    name={session?.user.name}
-                    workspaceHref={workspaceIsAdmin ? "/admin" : "/saved"}
-                    workspaceLabel={workspaceIsAdmin ? "Review queue" : "Private workspace"}
-                  />
+                  <SignOutButton className="inline-flex min-h-9 items-center justify-center rounded-lg border border-line-strong bg-white px-3 py-2 text-[11px] font-extrabold text-ink hover:border-jade hover:text-jade-dark" />
                 </>
               )}
             </div>
+
             <details className="group relative hidden max-md:block">
               <summary
-                className="grid size-10 cursor-pointer list-none place-items-center rounded-lg border border-line bg-white text-ink marker:hidden [&_svg]:size-5"
                 aria-label="Open navigation"
+                className="grid size-10 cursor-pointer list-none place-content-center gap-1 rounded-lg border border-line bg-white text-ink marker:hidden"
               >
-                <Menu aria-hidden="true" />
+                <span className="block h-0.5 w-4 rounded-full bg-current" aria-hidden="true" />
+                <span className="block h-0.5 w-4 rounded-full bg-current" aria-hidden="true" />
               </summary>
-              <div className="absolute top-[calc(100%+10px)] right-0 z-80 w-64 overflow-hidden rounded-xl border border-line-strong bg-white p-2 shadow-panel">
+              <div className="absolute top-[calc(100%+10px)] right-0 z-80 w-[min(290px,calc(100vw-28px))] overflow-hidden rounded-xl border border-line-strong bg-white p-2 shadow-panel">
                 <nav className="grid" aria-label="Mobile navigation">
-                  {nav.map(([label, href]) => (
+                  {nav.map(([key, href, label]) => (
                     <Link
+                      aria-current={active === key ? "page" : undefined}
                       className={`rounded-lg px-3 py-3 text-xs font-bold no-underline ${
-                        active === label
+                        active === key
                           ? "bg-jade-soft text-jade-dark"
                           : "text-muted hover:bg-jade-soft hover:text-jade-dark"
                       }`}
                       href={href}
-                      key={`${label}-${href}-mobile`}
+                      key={`${key}-mobile`}
                     >
-                      {label === "Admin" ? "Review queue" : label}
+                      {label}
                     </Link>
                   ))}
                 </nav>
                 <div className="mt-2 grid gap-1 border-t border-line pt-2">
-                  {resolvedMode === "public" ? (
+                  {!session ? (
                     <Link
                       className="rounded-lg px-3 py-3 text-xs font-extrabold text-jade-dark no-underline hover:bg-jade-soft"
                       href="/auth/sign-in"
                     >
-                      Sign in with Google
+                      Sign in
                     </Link>
                   ) : (
                     <>
                       <Link
                         className="rounded-lg px-3 py-3 text-xs font-extrabold text-jade-dark no-underline hover:bg-jade-soft"
-                        href={workspaceIsAdmin ? "/admin" : "/saved"}
+                        href={isAdmin ? "/admin" : "/saved"}
                       >
-                        {workspaceIsAdmin ? "Admin workspace" : "Private workspace"}
+                        {isAdmin ? "Admin workspace" : "Private workspace"}
                       </Link>
-                      <SignOutButton className="rounded-lg px-3 py-3 text-left text-xs font-bold text-muted hover:bg-jade-soft hover:text-jade-dark" />
+                      <SignOutButton className="rounded-lg px-3 py-3 text-left text-xs font-bold text-white hover:bg-jade-dark bg-jade" />
                     </>
                   )}
                 </div>

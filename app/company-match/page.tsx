@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
 import { PageHead } from "@/components/page-head";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
@@ -8,8 +9,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { searchCompanies } from "@/lib/research";
 import { initials, normalizeText } from "@/lib/utils";
 
-export default async function MatchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const query = (await searchParams).q ?? "Techno";
+export default async function MatchPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const query = ((await searchParams).q ?? "").trim();
   const matches = await searchCompanies(query);
   const normalizedQuery = normalizeText(query).replace(/\s+/g, "");
   const exactMatch = matches.find((company) =>
@@ -23,16 +28,25 @@ export default async function MatchPage({ searchParams }: { searchParams: Promis
   return (
     <>
       <SiteHeader active="Research" />
-      <main className="mx-auto min-h-[calc(100vh-68px)] w-[calc(100%_-_40px)] max-w-290 py-14 max-sm:w-[calc(100%_-_28px)] max-sm:py-8 max-sm:pb-24">
+      <main
+        id="main"
+        className="relative mx-auto min-h-[calc(100vh-64px)] w-[calc(100%_-_40px)] max-w-280 py-12 pb-20 max-sm:w-[calc(100%_-_28px)] max-sm:py-8 max-sm:pb-14"
+      >
         <PageHead
           eyebrow="Confirm the company"
-          title={`Which “${query}” do you mean?`}
-          copy="Choose explicitly so evidence is never attached to the wrong company."
+          title={query ? `Which “${query}” do you mean?` : "Search for a company."}
+          copy={
+            query
+              ? "Choose explicitly so evidence is never attached to the wrong company."
+              : "Enter a company name, alias, website, or LinkedIn address to build a brief."
+          }
         />
-        <div className="mb-4 flex items-center gap-3 text-sm font-semibold text-ink">
-          <Badge>{matches.length} matches</Badge>
-          <span>{query}</span>
-        </div>
+        {query && (
+          <div className="mb-4 flex items-center gap-3 text-sm font-semibold text-ink">
+            <Badge>{matches.length} matches</Badge>
+            <span>{query}</span>
+          </div>
+        )}
 
         {matches.length > 0 ? (
           <section className="grid gap-3" aria-label="Company matches">

@@ -15,15 +15,19 @@ export function AuthShell({
   return (
     <>
       <AuthHeader />
-      <main className="min-h-[calc(100vh-68px)] bg-[linear-gradient(rgba(19,59,66,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(19,59,66,.045)_1px,transparent_1px)] bg-size-[32px_32px]">
-        <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 grid-cols-[minmax(0,.92fr)_minmax(500px,1.08fr)] items-center gap-16 py-12 max-lg:grid-cols-1 max-lg:gap-10 max-sm:w-[calc(100%_-_28px)] max-sm:py-8">
+      <main id="main" className="relative min-h-[calc(100vh-64px)] overflow-hidden bg-[linear-gradient(rgba(20,120,110,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(20,120,110,.04)_1px,transparent_1px)] bg-size-[32px_32px]">
+        <span
+          className="pointer-events-none absolute top-18 left-[max(-170px,calc((100vw-1120px)/2-270px))] size-127.5 rounded-full border border-jade/15 max-sm:hidden"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(360px,.88fr)_minmax(520px,1.12fr)] items-center gap-16 py-[58px] pb-[76px] max-lg:grid-cols-1 max-lg:gap-10 max-sm:w-[calc(100%_-_28px)] max-sm:py-9 max-sm:pb-14">
           <section className="max-w-145">
             <p className="font-mono text-[10px] leading-tight font-extrabold tracking-[.09em] text-jade uppercase">
               Private website workspace
             </p>
             <h1 className="mt-3 font-display text-[clamp(46px,5.4vw,66px)] leading-[.98] font-bold tracking-[-.04em] text-ink">
               Carry the research{" "}
-              <em className="text-jade not-italic">
+              <em className="text-jade not-italic underline decoration-amber decoration-[6px] underline-offset-5 max-sm:decoration-4">
                 behind your next decision.
               </em>
             </h1>
@@ -33,7 +37,7 @@ export function AuthShell({
               research.
             </p>
 
-            <section className="mt-7 overflow-hidden rounded-xl border border-line-strong bg-white shadow-sm">
+            <section className="relative mt-7 overflow-hidden rounded-[13px] border border-line-strong bg-white/95 shadow-[0_14px_38px_rgb(22_56_61_/_7%)] before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-[linear-gradient(90deg,#356c82_0_34%,#e9b44c_34%_67%,#14786e_67%)]">
               <header className="flex items-start justify-between gap-4 px-5 pt-5">
                 <div>
                   <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">
@@ -118,7 +122,7 @@ export function AuthShell({
             </aside>
           </section>
 
-          <figure className="overflow-hidden rounded-xl border border-line-strong bg-white shadow-panel">
+          <figure className="relative overflow-hidden rounded-xl border border-line-strong bg-white shadow-panel before:absolute before:inset-y-0 before:left-0 before:z-2 before:w-1.25 before:bg-[linear-gradient(to_bottom,#356c82_0_25%,#e9b44c_25%_50%,#14786e_50%_75%,#c95d63_75%)]">
             <figcaption className="flex items-start justify-between gap-4 border-b border-line px-6 py-5">
               <div>
                 <p className="font-mono text-[9px] font-extrabold tracking-[.08em] text-jade uppercase">

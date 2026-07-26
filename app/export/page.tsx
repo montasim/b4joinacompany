@@ -1,8 +1,5 @@
-import Link from "next/link";
-import { SiteHeader } from "@/components/site-header";
-import { PageHead } from "@/components/page-head";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { requirePageSession } from "@/lib/page-session";
-export default async function ExportPage(){await requirePageSession("/export");const rows=[["Questions and citations","Always included",true],["Recorded answers","Off by default",false],["Private notes","Never included",false]] as const;return <><SiteHeader/><main className="mx-auto min-h-[calc(100vh-68px)] w-[calc(100%_-_40px)] max-w-290 py-14 max-sm:w-[calc(100%_-_28px)] max-sm:py-8 max-sm:pb-24"><PageHead eyebrow="Take your questions with you" title="Export this checkpoint." copy="Create a portable summary with explicit controls for private content."/><div className="grid grid-cols-[minmax(0,1fr)_300px] gap-7.5 max-lg:grid-cols-1"><Card><CardHeader><p className="mb-2 font-mono text-[10px] font-extrabold tracking-wider text-jade uppercase">b4join decision checkpoint</p><h2 className="font-display text-3xl font-bold">TechnoNext Ltd</h2><p className="mt-2 text-[10px] text-muted">Reviewing an offer · Software Engineer · snapshot 2026-07-24</p></CardHeader><CardContent><ol className="grid list-decimal gap-4 pl-5 text-[11px] leading-relaxed text-ink-soft"><li>How are performance decisions documented?</li><li>Who will manage me, and how often will we meet?</li><li>What salary range and overtime policy are approved?</li></ol></CardContent></Card><Card><CardHeader><h2 className="font-display text-2xl font-bold">Export options</h2><p className="mt-1 text-[10px] text-muted">Choose what leaves your workspace.</p></CardHeader><CardContent className="p-0">{rows.map(([title,copy,on])=><div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-line p-4" key={title}><div><strong className="text-[11px]">{title}</strong><p className="mt-1 text-[9px] text-muted">{copy}</p></div><Badge tone={on?"jade":"blue"}>{on?"On":"Off"}</Badge></div>)}<div className="grid gap-2 p-4"><Button>Download PDF</Button><Button asChild variant="outline"><Link href="/company/technonext-ltd">Cancel</Link></Button></div></CardContent></Card></div></main></>}
+import { redirect } from "next/navigation";
+
+export default function ExportPage() {
+  redirect("/saved");
+}

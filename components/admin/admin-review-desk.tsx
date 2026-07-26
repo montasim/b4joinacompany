@@ -6,14 +6,12 @@ import {
   Database,
   ExternalLink,
   Info,
-  LogOut,
   RotateCw,
   ShieldCheck,
   X
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-import { SignOutButton } from "@/components/user-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/input";
@@ -451,20 +449,20 @@ export function AdminReviewDesk({
   }
 
   return (
-    <main className="min-h-[calc(100vh-68px)] bg-mist pb-20 max-sm:pb-24">
-      <header className="border-b border-line bg-[linear-gradient(90deg,#eef5f3_0%,#eef5f3_63%,#e2eeeb_63%,#e2eeeb_100%)] max-lg:bg-mist">
-        <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-290 grid-cols-[minmax(0,1fr)_minmax(360px,470px)] items-center gap-14 py-14 max-lg:grid-cols-1 max-lg:gap-7 max-sm:w-[calc(100%_-_28px)] max-sm:py-9">
+    <main id="main" className="min-h-[calc(100vh-64px)] bg-mist pb-20">
+      <header className="border-b border-line bg-[linear-gradient(rgba(20,120,110,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(20,120,110,.03)_1px,transparent_1px)] bg-size-[32px_32px]">
+        <div className="mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(0,1fr)_410px] items-end gap-[58px] py-[51px] pb-[45px] max-lg:grid-cols-1 max-lg:gap-7 max-sm:w-[calc(100%_-_28px)] max-sm:py-9">
           <div className="max-w-170">
             <p className="font-mono text-[10px] leading-tight font-extrabold tracking-[.1em] text-jade uppercase">
               Evidence review desk
             </p>
-            <h1 className="mt-3 font-display text-[clamp(42px,5.5vw,68px)] leading-[.96] font-bold tracking-[-.04em] text-ink">
+            <h1 className="mt-2.5 font-display text-[clamp(46px,5vw,64px)] leading-[.98] font-bold tracking-[-.04em] text-ink">
               Decide what can enter{" "}
               <em className="text-jade not-italic">
                 the next snapshot.
               </em>
             </h1>
-            <p className="mt-5 max-w-157 text-[15px] leading-[1.7] text-ink-soft">
+            <p className="mt-3.75 max-w-175 text-[14px] leading-[1.6] text-ink-soft">
               Pending changes stay outside public research until their company
               identity, source, evidence label, and limitations are reviewed.
             </p>
@@ -474,24 +472,16 @@ export function AdminReviewDesk({
             className="overflow-hidden rounded-xl border border-line-strong bg-white shadow-panel"
             aria-label="Review queue summary"
           >
-            <header className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
+            <header className="grid grid-cols-[1fr_auto] items-center gap-x-3 border-b border-line px-5 py-4">
               <div>
                 <span className="block font-mono text-[8px] font-extrabold tracking-[.08em] text-muted uppercase">
-                  Google session verified
+                  Signed in with Google
                 </span>
                 <strong className="mt-1 block text-[12px] text-ink">
                   {roleLabel}
                 </strong>
               </div>
-              <div className="flex items-center gap-2">
-                <Badge>Restricted</Badge>
-                <SignOutButton
-                  className="inline-flex min-h-8 items-center gap-2 rounded-md px-3 text-[10px] font-bold text-ink-soft hover:bg-mist hover:text-ink"
-                >
-                  <LogOut className="size-3.5" aria-hidden="true" />
-                  Sign out
-                </SignOutButton>
-              </div>
+              <Badge tone="coral">Restricted</Badge>
             </header>
             <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-3 bg-[#f8fbfa] px-5 py-5 text-center">
               <p>
@@ -524,7 +514,7 @@ export function AdminReviewDesk({
       </header>
 
       <section
-        className="mx-auto w-[calc(100%_-_40px)] max-w-290 pt-7 max-sm:w-[calc(100%_-_28px)] max-sm:pt-4"
+        className="mx-auto w-[calc(100%_-_40px)] max-w-280 pt-7 max-sm:w-[calc(100%_-_28px)] max-sm:pt-4"
         id="corrections"
       >
         <ReviewQueueNotice source={source} />

@@ -1,13 +1,9 @@
 const allowedDestinations = new Set([
   "/",
   "/admin",
-  "/answer",
   "/compare",
   "/extension",
-  "/export",
-  "/history",
   "/method",
-  "/notifications",
   "/saved",
   "/support"
 ]);
