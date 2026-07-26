@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RouteFooter } from "@/components/route-footer";
+import { SupportKoriWidget } from "@/components/support-kori-widget";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="flex min-h-screen flex-col bg-mist font-body text-ink antialiased">
         <div className="flex-1">{children}</div>
         <RouteFooter />
+        <SupportKoriWidget />
       </body>
     </html>
   );
