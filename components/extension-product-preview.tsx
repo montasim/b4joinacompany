@@ -251,7 +251,7 @@ export function ExtensionProductPreview({
       id="extension-preview"
     >
       <figcaption className="sr-only">
-        Interactive preview of the b4join research panel beside a Deshi Mula company page.
+        Interactive preview of the b4joinacompany research panel beside a Deshi Mula company page.
       </figcaption>
       <div
         className="grid min-h-10.5 grid-cols-[72px_minmax(0,1fr)_30px] items-center gap-3 rounded-t-[15px] border border-line-strong border-b-line bg-white px-3.5"
@@ -379,7 +379,7 @@ export function ExtensionProductPreview({
               <i className="size-1.5 rounded-full bg-jade" /> Snapshot · {snapshotDate}
             </span>
             <strong className="text-[7px] text-jade-dark">Sources</strong>
-            <strong className="text-[7px] text-jade-dark">Open b4join ↗</strong>
+            <strong className="text-[7px] text-jade-dark">Open b4joinacompany ↗</strong>
           </footer>
         </aside>
       </div>

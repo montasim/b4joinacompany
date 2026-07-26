@@ -1,4 +1,4 @@
-# b4join Research
+# b4joinacompany Research
 
 This context defines the language for turning workplace reports into decision prompts that remain visibly separate from verified company policy.
 

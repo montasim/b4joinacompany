@@ -214,7 +214,7 @@ export function CheckpointView({
           Research
         </Link>
         <span>/</span>
-        <span>B4Join Brief</span>
+        <span>b4joinacompany Brief</span>
       </nav>
 
       <header className="grid grid-cols-[auto_1fr_auto] items-center gap-4 border-b border-line pb-6 max-sm:grid-cols-[auto_1fr]">
@@ -273,7 +273,7 @@ export function CheckpointView({
         <header className="flex items-end justify-between gap-6 p-6.5 max-sm:grid max-sm:items-start max-sm:p-5">
           <div>
             <p className="font-mono text-[10px] font-extrabold tracking-[.08em] text-jade uppercase">
-              Your B4Join Brief
+              Your b4joinacompany Brief
             </p>
             <h2
               className="mt-2 font-display text-[clamp(28px,3.5vw,40px)] leading-[1.08] font-bold tracking-[-.035em]"
@@ -736,7 +736,7 @@ export function CheckpointView({
             Ask one focused question
           </h2>
           <p className="mt-2 max-w-175 text-sm leading-relaxed text-muted">
-            b4join retrieves relevant evidence for this company, then returns a
+            b4joinacompany retrieves relevant evidence for this company, then returns a
             cited answer or an explicit evidence gap.
           </p>
         </header>
@@ -753,7 +753,12 @@ export function CheckpointView({
             />
           </label>
           <Button asChild>
-            <Link href={`/ask?company=${encodeURIComponent(company.slug)}`}>
+            <Link
+              href={`/ask?company=${encodeURIComponent(company.slug)}&question=${encodeURIComponent(
+                questions[0]?.title ??
+                  `What should I verify directly with ${company.name}?`,
+              )}`}
+            >
               Ask from the evidence →
             </Link>
           </Button>

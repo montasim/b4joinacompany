@@ -25,10 +25,10 @@ const supportPaths = [
   },
   {
     mark: "T",
-    eyebrow: "Something on b4join broke",
+    eyebrow: "Something on b4joinacompany broke",
     title: "Prepare a technical-support email",
     action: "Email →",
-    href: "mailto:montasimmamun@gmail.com?subject=b4join%20website%20problem",
+    href: "mailto:montasimmamun@gmail.com?subject=b4joinacompany%20website%20problem",
     accent: "before:bg-coral",
     markStyle: "bg-coral-soft text-coral",
   },

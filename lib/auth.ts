@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export const auth = betterAuth({
-  appName: "b4join",
+  appName: "b4joinacompany",
   baseURL:
     process.env.BETTER_AUTH_URL ??
     process.env.NEXT_PUBLIC_APP_URL ??

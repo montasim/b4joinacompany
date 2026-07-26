@@ -4,22 +4,22 @@ import { SupportKoriWidget } from "@/components/support-kori-widget";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "b4join", template: "%s — b4join" },
+  title: { default: "b4joinacompany", template: "%s — b4joinacompany" },
   description: "Turn workplace evidence into company-specific questions you can verify before joining.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://b4joinacompany.netlify.app"),
-  applicationName: "b4join",
-  keywords: ["workplace research", "company reviews", "job offer questions", "Bangladesh jobs", "b4join"],
+  applicationName: "b4joinacompany",
+  keywords: ["workplace research", "company reviews", "job offer questions", "Bangladesh jobs", "b4joinacompany"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    siteName: "b4join",
-    title: "b4join — Verify before you join",
+    siteName: "b4joinacompany",
+    title: "b4joinacompany — Verify before you join",
     description: "Turn workplace evidence into company-specific questions you can verify before joining.",
     url: "/"
   },
   twitter: {
     card: "summary",
-    title: "b4join — Verify before you join",
+    title: "b4joinacompany — Verify before you join",
     description: "Turn workplace evidence into company-specific questions you can verify before joining."
   },
   robots: { index: true, follow: true }

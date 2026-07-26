@@ -3,7 +3,7 @@ import Link from "next/link";
 export function Brand() {
   return (
     <Link
-      aria-label="b4join home"
+      aria-label="b4joinacompany home"
       className="inline-flex items-center gap-2.5 justify-self-start text-ink no-underline"
       href="/"
     >
@@ -14,7 +14,7 @@ export function Brand() {
           <path d="m20 22 2.5 2.5L27 19" />
         </svg>
       </span>
-      <span className="font-display text-[21px] leading-none font-bold tracking-[-.025em]">b4join</span>
+      <span className="font-display text-[21px] leading-none font-bold tracking-[-.025em]">b4joinacompany</span>
     </Link>
   );
 }

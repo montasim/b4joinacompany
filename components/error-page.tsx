@@ -44,7 +44,7 @@ const pageContent: Record<
     code: "404",
     eyebrow: "Route not found",
     title: "This link does not lead to a",
-    accent: "b4join page.",
+    accent: "b4joinacompany page.",
     description:
       "The address may be outdated or incomplete. Start with a company search, or compare two confirmed companies.",
     cardEyebrow: "Available research paths",
@@ -97,7 +97,7 @@ const pageContent: Record<
       {
         label: "Company address",
         title: "No company record matched this route.",
-        copy: "b4join will not attach evidence to an uncertain identity.",
+        copy: "b4joinacompany will not attach evidence to an uncertain identity.",
         state: "Unresolved",
         markerClass: "bg-coral",
         stateClass: "bg-coral-soft text-coral",

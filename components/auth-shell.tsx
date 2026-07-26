@@ -51,7 +51,7 @@ export function AuthShell({
               </header>
               <div className="px-5 pb-5">
                 <p className="mt-3 text-[10px] leading-relaxed text-muted">
-                  Google identifies your workspace. b4join does not receive or
+                  Google identifies your workspace. b4joinacompany does not receive or
                   store your Google password.
                 </p>
                 <div className="mt-4">
@@ -66,7 +66,7 @@ export function AuthShell({
                 </div>
 
                 <p className="mt-3 text-center text-[9px] text-muted">
-                  Account-scoped workspace · No separate b4join password
+                  Account-scoped workspace · No separate b4joinacompany password
                 </p>
               </div>
             </section>

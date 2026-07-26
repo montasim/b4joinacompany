@@ -60,7 +60,7 @@ export function SupportCorrectionForm() {
 
     if (company.length < 2) {
       nextErrors.company =
-        "Add the company name or b4join page this concerns.";
+        "Add the company name or b4joinacompany page this concerns.";
     }
     if (source) {
       try {
@@ -155,7 +155,7 @@ export function SupportCorrectionForm() {
       </header>
 
       <p className="border-b border-line bg-[#fbfdfc] py-4 pr-6 pl-7.5 text-[10px] leading-relaxed text-muted max-sm:pr-4.5 max-sm:pl-5.5">
-        Add the company or b4join page, then include the strongest official
+        Add the company or b4joinacompany page, then include the strongest official
         source you have. A source helps separate a correction from an
         unsupported claim.
       </p>
@@ -185,7 +185,7 @@ export function SupportCorrectionForm() {
           </label>
 
           <label className="grid content-start gap-1.5 text-[10px] font-extrabold">
-            Company or b4join page
+            Company or b4joinacompany page
             <Input
               aria-invalid={Boolean(errors.company)}
               autoComplete="organization"
@@ -291,7 +291,7 @@ export function SupportCorrectionForm() {
       >
         {[
           ["You send", "A company and source", "bg-jade"],
-          ["b4join checks", "The destination or evidence", "bg-blue"],
+          ["b4joinacompany checks", "The destination or evidence", "bg-blue"],
           ["If accepted", "A later snapshot is updated", "bg-amber"],
         ].map(([label, copy, color]) => (
           <li

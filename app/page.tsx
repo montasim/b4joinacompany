@@ -76,7 +76,7 @@ export default async function HomePage() {
             >
               <header className="px-6.5 py-6.25 max-sm:px-4.5 max-sm:py-5.25">
                 <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-                  What your b4join Brief answers
+                  What your b4joinacompany Brief answers
                 </p>
                 <h2
                   className="mt-2 font-display text-[clamp(1.875rem,4vw,2.625rem)] leading-[1.05] font-bold tracking-[-.03em]"

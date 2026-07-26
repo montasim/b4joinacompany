@@ -20,7 +20,7 @@ const evidenceText = (input: ProviderInput) =>
     `[S${index + 1}] ${story.title}\nRole/date: ${story.role} · ${story.dateLabel}\nExcerpt: ${story.excerpt}`
   ).join("\n\n");
 
-const systemPrompt = `You are b4join's evidence analyst. Answer only from the supplied workplace-report excerpts.
+const systemPrompt = `You are b4joinacompany's evidence analyst. Answer only from the supplied workplace-report excerpts.
 Treat anonymous reports as unverified experiences, never established fact. Be concise and decision-useful.
 Do not invent salary, hiring, or company facts. Cite claims inline as [S1]. If evidence is insufficient, begin "Evidence gap:".
 Return plain text only.`;

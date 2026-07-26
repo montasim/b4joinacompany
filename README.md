@@ -1,10 +1,28 @@
-# b4join
+# b4joinacompany
 
-Production implementation of the approved V4 prototype. b4join turns workplace reports and official company destinations into candidate questions that remain traceable to dated evidence.
+Production implementation of the approved V4 prototype. **b4joinacompany**
+turns workplace reports, community-submitted salary context, and official
+company destinations into practical questions that remain traceable to dated
+evidence.
 
 Company checkpoints are personalized locally: a deterministic signal engine ranks management, pay, stability, growth, workload, culture, workplace, and hiring questions from that company’s stories and attached comments. It does not call an AI provider or send report text outside the app.
 
 The static prototype is preserved in `../beforejoin-prototype-v4`. This directory is the Next.js application.
+
+## Product experience
+
+- **Research:** find a confirmed company and open an evidence-led brief.
+- **Company brief:** review recurring culture topics, author-selected story
+  labels, reported work setup, submitted salary ranges, official destinations,
+  and questions to verify.
+- **Ask the evidence:** submit one company-scoped question, retrieve relevant
+  excerpts, and receive either a cited answer or an explicit evidence gap.
+- **Compare:** inspect the same evidence categories for two companies without
+  manufacturing a score or winner.
+- **Saved workspace:** Google-authenticated visitors can privately keep company
+  checkpoints and their selected evidence revision.
+- **Browser extension:** works without an account and consumes the public
+  `/api/v1/extension` routes served by this app.
 
 ## Stack
 
@@ -24,11 +42,15 @@ pnpm install
 pnpm dev
 ```
 
+The local app runs at `http://localhost:3000`. The repository directory is
+still named `b4join`; that path is intentionally left unchanged so existing
+local scripts and dataset-copy commands continue to work.
+
 Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_API_KEY` for generated answers. If no AI key is set, Ask returns the cited deterministic fallback. Groq is optional.
 
 Google is the only sign-in method and every signed-in account opens its own
 private Saved workspace. The browser extension remains independently usable
-without a b4join account.
+without a b4joinacompany account.
 
 ## Important boundaries
 
@@ -97,7 +119,7 @@ rsync -a ../github-dataset-release/data/ ./data/
 pnpm check
 ```
 
-During local development, b4join reads the sibling
+During local development, b4joinacompany reads the sibling
 `../github-dataset-release/data` directory when it exists. Deployed builds read
 the bundled `./data` copy. Dataset changes are never written to MongoDB by the
 app.

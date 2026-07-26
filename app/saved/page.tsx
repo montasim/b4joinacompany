@@ -183,7 +183,7 @@ function SignedOutWorkspace() {
           </Link>
         </Button>
         <p className="mt-2 max-w-92 text-center text-[10px] text-muted">
-          One Google account · No separate b4join password
+          One Google account · No separate b4joinacompany password
         </p>
         <aside className="mt-7 flex max-w-125 items-start gap-3 rounded-xl border border-line bg-white/65 p-4">
           <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-jade-soft text-jade">

@@ -6,7 +6,7 @@ export async function GET() {
   const stats = await datasetStats();
   return NextResponse.json({
     ok: true,
-    service: "b4join-extension-api",
+    service: "b4joinacompany-extension-api",
     snapshotVersion: stats.snapshotDate,
     snapshotDate: stats.snapshotDate,
     companies: stats.companies,

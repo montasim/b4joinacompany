@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { datasetStats } from "@/lib/research";
 
 export const metadata: Metadata = {
-  title: "How b4join handles evidence",
+  title: "How b4joinacompany handles evidence",
   description:
-    "See how b4join preserves evidence origin, names every transformation, limits AI answers, and keeps uncertainty visible."
+    "See how b4joinacompany preserves evidence origin, names every transformation, limits AI answers, and keeps uncertainty visible."
 };
 
 const questionPaths = [
@@ -54,7 +54,7 @@ const questionPaths = [
       [
         "Request",
         "The provider is instructed to stay cited",
-        "Retrieved excerpts leave b4join only after Ask is used."
+        "Retrieved excerpts leave b4joinacompany only after Ask is used."
       ],
       [
         "Return",
@@ -116,7 +116,7 @@ export default async function MethodPage() {
                 </em>
               </h1>
               <p className="mt-5 max-w-130 text-sm leading-[1.68] text-ink-soft">
-                b4join preserves what each source can support, names every transformation, and turns recurring terms
+                b4joinacompany preserves what each source can support, names every transformation, and turns recurring terms
                 and missing facts into questions—not conclusions.
               </p>
               <div className="mt-6.25 flex flex-wrap gap-2.25">
@@ -266,7 +266,7 @@ export default async function MethodPage() {
             <div className="grid grid-cols-2 overflow-hidden rounded-[13px] border border-white/16 bg-white/4 max-sm:grid-cols-1">
               {[
                 [
-                  "b4join can say",
+                  "b4joinacompany can say",
                   [
                     "Several dated reports mention a related concern.",
                     "A submitted role range provides unverified negotiation context.",
@@ -275,7 +275,7 @@ export default async function MethodPage() {
                   "jade"
                 ],
                 [
-                  "b4join will not say",
+                  "b4joinacompany will not say",
                   [
                     "The company has good or bad culture.",
                     "A submitted amount is an HR-approved salary band.",

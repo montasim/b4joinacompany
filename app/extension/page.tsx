@@ -10,7 +10,7 @@ import { datasetStats, getCompany } from "@/lib/research";
 export const metadata: Metadata = {
   title: "Browser extension",
   description:
-    "Turn a Deshi Mula company page into an evidence-labeled decision brief with the independent b4join browser extension."
+    "Turn a Deshi Mula company page into an evidence-labeled decision brief with the independent b4joinacompany browser extension."
 };
 
 const releaseUrl = "https://github.com/montasim/deshi-mula-extended/releases/latest";
@@ -29,7 +29,7 @@ export default async function ExtensionPage() {
           <div className="relative mx-auto grid w-[calc(100%_-_40px)] max-w-280 grid-cols-[minmax(340px,.76fr)_minmax(590px,1.24fr)] items-center gap-14.5 max-sm:w-[calc(100%_-_28px)] max-lg:grid-cols-1">
             <div>
               <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-                b4join for Deshi Mula
+                b4joinacompany for Deshi Mula
               </p>
               <h1 className="mt-3 max-w-135 font-display text-[clamp(49px,5vw,68px)] leading-[.98] font-bold tracking-[-.04em] text-ink">
                 Know what to ask{" "}
@@ -57,7 +57,7 @@ export default async function ExtensionPage() {
                 aria-label="Extension requirements"
                 className="mt-5.75 flex list-none flex-wrap gap-x-4.5 gap-y-2.5 p-0 text-[11px] font-bold text-muted"
               >
-                {["No b4join account", "No setup screen", "Works on Deshi Mula"].map((item) => (
+                {["No b4joinacompany account", "No setup screen", "Works on Deshi Mula"].map((item) => (
                   <li className="flex items-center gap-1.75" key={item}>
                     <span className="grid size-4.25 place-items-center rounded-full bg-jade-soft text-jade-dark">
                       <Check aria-hidden="true" className="size-2.5 stroke-3" />
@@ -215,7 +215,7 @@ export default async function ExtensionPage() {
                   variant="outline"
                 >
                   <Link href="/#research">
-                    Use b4join on the web <ArrowRight aria-hidden="true" className="size-4" />
+                    Use b4joinacompany on the web <ArrowRight aria-hidden="true" className="size-4" />
                   </Link>
                 </Button>
               </div>
@@ -242,7 +242,7 @@ export default async function ExtensionPage() {
             </ol>
             <p className="col-span-full -mt-0.5 border-t border-white/15 pt-3.75 text-[9px] leading-3.5 text-white/62 max-lg:col-span-1">
               <strong className="text-white">Manual distribution:</strong> GitHub-installed versions do not update
-              automatically. Return to Releases for future updates. Published b4join evidence currently covers{" "}
+              automatically. Return to Releases for future updates. Published b4joinacompany evidence currently covers{" "}
               {stats.companies.toLocaleString()} companies and {stats.stories.toLocaleString()} workplace stories.
             </p>
           </div>

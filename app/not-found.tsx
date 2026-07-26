@@ -4,7 +4,7 @@ import { ErrorPage } from "@/components/error-page";
 
 export const metadata: Metadata = {
   title: "Page not found",
-  description: "The requested address does not match a published b4join page.",
+  description: "The requested address does not match a published b4joinacompany page.",
 };
 
 export default function NotFound() {

@@ -520,12 +520,12 @@ function ComparisonBrief({
   return (
     <section
       className="relative mt-8.5 overflow-hidden rounded-[14px] border border-line-strong bg-white shadow-[0_18px_52px_rgb(22_56_61_/_8%)] before:absolute before:inset-y-0 before:left-0 before:z-10 before:w-1.25 before:bg-[linear-gradient(to_bottom,var(--color-jade)_0_24%,var(--color-blue)_24%_48%,var(--color-amber)_48%_72%,var(--color-ink)_72%)]"
-      aria-label="Two-company b4join Brief"
+      aria-label="Two-company b4joinacompany Brief"
     >
       <header className="flex items-end justify-between gap-5 px-7.5 py-6.25 max-sm:grid max-sm:px-5.75 max-sm:py-5.25">
         <div>
           <p className="font-mono text-[10px] font-extrabold tracking-[.1em] text-jade uppercase">
-            Two-company b4join Brief
+            Two-company b4joinacompany Brief
           </p>
           <h2 className="mt-1.75 font-display text-[clamp(1.9375rem,4vw,2.6875rem)] leading-[1.05] font-bold tracking-[-.03em]">
             What each company still needs to answer.
