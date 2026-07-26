@@ -7,13 +7,13 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(process.cwd(), ".."),
   outputFileTracingIncludes: {
     "/*": [
-      "../github-dataset-release/data/companies.jsonl",
-      "../github-dataset-release/data/company_web_profiles.jsonl",
-      "../github-dataset-release/data/stories.jsonl",
-      "../github-dataset-release/data/comments.jsonl",
-      "../github-dataset-release/data/comment_threads.jsonl",
-      "../github-dataset-release/data/company_work_arrangements.jsonl",
-      "../github-dataset-release/data/analytics_summary.json"
+      "data/companies.jsonl",
+      "data/company_web_profiles.jsonl",
+      "data/stories.jsonl",
+      "data/comments.jsonl",
+      "data/comment_threads.jsonl",
+      "data/company_work_arrangements.jsonl",
+      "data/analytics_summary.json"
     ]
   },
   experimental: {

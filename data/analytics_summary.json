@@ -1,0 +1,613 @@
+{
+  "comments": {
+    "language_labels": {
+      "bn": 1360,
+      "bn-en-mixed": 41,
+      "en-or-banglish-latin": 2730,
+      "und": 104
+    },
+    "listed_count_matches": 2494,
+    "listed_count_mismatches": 4,
+    "privacy_pattern_comment_counts": {
+      "email_like": 1,
+      "ipv4_like": 5,
+      "long_number_like": 7,
+      "social_handle_like": 124,
+      "url_like": 47
+    },
+    "threads": 2498,
+    "threads_with_comments": 1323,
+    "total": 4235
+  },
+  "companies": {
+    "deshimula_reviews_total_reported": 2418,
+    "glassdoor_reviews_total_reported": 10803,
+    "mixed_total_reported": 273,
+    "negative_total_reported": 1889,
+    "positive_total_reported": 274,
+    "total": 781,
+    "with_crawled_story_links": 698,
+    "with_profiles": 781
+  },
+  "dataset_version": "1.2.0",
+  "generated_at": "2026-07-25T16:47:23.107050+00:00",
+  "stories": {
+    "blank_titles": 2,
+    "body_characters_max": 16817,
+    "body_characters_p50": 1015.5,
+    "body_characters_p90": 2656.4000000000015,
+    "body_words_p50": 168.5,
+    "body_words_p90": 442.0,
+    "comments_total": 4230,
+    "date_max": "2026-07-23",
+    "date_min": "2025-05-05",
+    "downvotes_total": 4077,
+    "duplicate_content_groups": 12,
+    "language_heuristic_counts": {
+      "bangla_dominant": 1115,
+      "latin_dominant": 1329,
+      "mixed_bangla_latin": 28,
+      "other": 26
+    },
+    "language_labels": {
+      "bn": 1115,
+      "bn-en-mixed": 28,
+      "en-or-banglish-latin": 1329,
+      "und": 26
+    },
+    "monthly_counts": {
+      "2025-05": 790,
+      "2025-06": 159,
+      "2025-07": 181,
+      "2025-08": 162,
+      "2025-09": 122,
+      "2025-10": 166,
+      "2025-11": 135,
+      "2025-12": 86,
+      "2026-01": 78,
+      "2026-02": 91,
+      "2026-03": 105,
+      "2026-04": 112,
+      "2026-05": 98,
+      "2026-06": 122,
+      "2026-07": 91
+    },
+    "privacy_pattern_story_counts": {
+      "bangladesh_phone_like": 1,
+      "long_number_like": 2,
+      "social_handle_like": 126,
+      "url_like": 11
+    },
+    "split_counts": {
+      "test": 224,
+      "train": 1990,
+      "validation": 284
+    },
+    "top_companies_by_story_count": [
+      [
+        "Betopi@ Group",
+        90
+      ],
+      [
+        "TechnoNe><t Ltd",
+        81
+      ],
+      [
+        "Opt!m!zely",
+        44
+      ],
+      [
+        "Ther@p BD",
+        42
+      ],
+      [
+        "M!r Inf0 Systems Ltd",
+        42
+      ],
+      [
+        "We11Dev",
+        42
+      ],
+      [
+        "WWW Engineers Ltd",
+        40
+      ],
+      [
+        "Mogoj Station 23",
+        36
+      ],
+      [
+        "Cef@lo",
+        33
+      ],
+      [
+        "2SL Wireless",
+        32
+      ],
+      [
+        "A11 Gen3rat!on Tech",
+        32
+      ],
+      [
+        "Ak!j iB0s",
+        31
+      ],
+      [
+        "App!fy1ab",
+        29
+      ],
+      [
+        "8RAC IT",
+        28
+      ],
+      [
+        "N3xt Ventur3s",
+        25
+      ],
+      [
+        "Viv@soft",
+        25
+      ],
+      [
+        "Ech0l0gyx Ltd",
+        25
+      ],
+      [
+        "@stha IT",
+        22
+      ],
+      [
+        "Bg!T",
+        22
+      ],
+      [
+        "Ro><nor",
+        22
+      ],
+      [
+        "Inter@ctive Cares",
+        22
+      ],
+      [
+        "Cod3m3n Solut!ons Ltd",
+        20
+      ],
+      [
+        "Mi11enn!um Information Solution Ltd",
+        19
+      ],
+      [
+        "Med!uswar3 Ltd",
+        18
+      ],
+      [
+        "LalDot Digital",
+        17
+      ],
+      [
+        "R!seup L@bs",
+        17
+      ],
+      [
+        "Get L3vrg",
+        16
+      ],
+      [
+        "T3n Minute Sch00l",
+        16
+      ],
+      [
+        "$oftvence Agency",
+        16
+      ],
+      [
+        "Oce@nget",
+        16
+      ]
+    ],
+    "top_job_titles": [
+      [
+        "Anonymous",
+        509
+      ],
+      [
+        "Software Engineer",
+        327
+      ],
+      [
+        "Employee",
+        106
+      ],
+      [
+        "Interviewee",
+        79
+      ],
+      [
+        "Developer",
+        79
+      ],
+      [
+        "Engineer",
+        73
+      ],
+      [
+        "Senior Software Engineer",
+        58
+      ],
+      [
+        "Executive",
+        53
+      ],
+      [
+        "Ex Employee",
+        44
+      ],
+      [
+        "Software Developer",
+        41
+      ],
+      [
+        "Manager",
+        26
+      ],
+      [
+        "Full Stack Developer",
+        25
+      ],
+      [
+        "Sr. Software Engineer",
+        25
+      ],
+      [
+        "Ex Software Engineer",
+        23
+      ],
+      [
+        "Web Developer",
+        19
+      ],
+      [
+        "Former Employee",
+        15
+      ],
+      [
+        "Frontend Developer",
+        15
+      ],
+      [
+        "Designer",
+        13
+      ],
+      [
+        "UI/UX Designer",
+        12
+      ],
+      [
+        "Junior Software Engineer",
+        12
+      ],
+      [
+        "Business Analyst",
+        11
+      ],
+      [
+        "Intern",
+        11
+      ],
+      [
+        "Dev",
+        11
+      ],
+      [
+        "QA",
+        10
+      ],
+      [
+        "SQA",
+        10
+      ],
+      [
+        "Former Software Engineer",
+        9
+      ],
+      [
+        "Senior Executive",
+        9
+      ],
+      [
+        "Ex Engineer",
+        9
+      ],
+      [
+        "MDS",
+        8
+      ],
+      [
+        "EX Employee",
+        8
+      ]
+    ],
+    "top_stories_by_total_engagement": [
+      {
+        "comments": 1,
+        "company_display_name": "8RAC IT",
+        "downvotes": 75,
+        "source_url": "https://deshimula.com/story/681cd50ce0407d2029de4fa2",
+        "story_id": "681cd50ce0407d2029de4fa2",
+        "title": "A Real Look Inside BR@C IT: What Many Won’t Say Out Loud",
+        "upvotes": 337
+      },
+      {
+        "comments": 3,
+        "company_display_name": "8RAC IT",
+        "downvotes": 323,
+        "source_url": "https://deshimula.com/story/681cc3a2e0407d2029de32eb",
+        "story_id": "681cc3a2e0407d2029de32eb",
+        "title": "Counterstatement to Misleading and Discriminatory Review on Deshi Mula",
+        "upvotes": 41
+      },
+      {
+        "comments": 1,
+        "company_display_name": "Viv@soft",
+        "downvotes": 47,
+        "source_url": "https://deshimula.com/story/681da2e8a17808d7cca3def7",
+        "story_id": "681da2e8a17808d7cca3def7",
+        "title": "Misuse of open environment culture",
+        "upvotes": 124
+      },
+      {
+        "comments": 82,
+        "company_display_name": "Cef@lo",
+        "downvotes": 22,
+        "source_url": "https://deshimula.com/story/682cbc986a7101469d1ac3fa",
+        "story_id": "682cbc986a7101469d1ac3fa",
+        "title": "C3fa1o - story of a syndicate",
+        "upvotes": 24
+      },
+      {
+        "comments": 2,
+        "company_display_name": "Viv@soft",
+        "downvotes": 80,
+        "source_url": "https://deshimula.com/story/681de07220329a43b221b584",
+        "story_id": "681de07220329a43b221b584",
+        "title": "Haters Gonna Hate",
+        "upvotes": 30
+      },
+      {
+        "comments": 5,
+        "company_display_name": "Kana SL",
+        "downvotes": 50,
+        "source_url": "https://deshimula.com/story/6a240a801e28231383f906e3",
+        "story_id": "6a240a801e28231383f906e3",
+        "title": "A blackship remains a blackship",
+        "upvotes": 54
+      },
+      {
+        "comments": 1,
+        "company_display_name": "8RAC IT",
+        "downvotes": 4,
+        "source_url": "https://deshimula.com/story/681db7ce20329a43b221545e",
+        "story_id": "681db7ce20329a43b221545e",
+        "title": "ব্র‍্যাক আইটির করণীয়",
+        "upvotes": 78
+      },
+      {
+        "comments": 1,
+        "company_display_name": "Opt!m!zely",
+        "downvotes": 7,
+        "source_url": "https://deshimula.com/story/681d4a0de0407d2029debb1a",
+        "story_id": "681d4a0de0407d2029debb1a",
+        "title": "কফটিমাইজলি",
+        "upvotes": 69
+      },
+      {
+        "comments": 40,
+        "company_display_name": "$elise Digital Platforms",
+        "downvotes": 15,
+        "source_url": "https://deshimula.com/story/6825a7b9dd32cba9c8f66fd6",
+        "story_id": "6825a7b9dd32cba9c8f66fd6",
+        "title": "bad and bad culture",
+        "upvotes": 20
+      },
+      {
+        "comments": 47,
+        "company_display_name": "Oce@nget",
+        "downvotes": 7,
+        "source_url": "https://deshimula.com/story/6a1de028673f1e99bbf744d7",
+        "story_id": "6a1de028673f1e99bbf744d7",
+        "title": "রিয়েল ঘটনা গুলা এপ্রোভ করেন কাইন্ডলি।",
+        "upvotes": 18
+      },
+      {
+        "comments": 25,
+        "company_display_name": "TechnoNe><t Ltd",
+        "downvotes": 36,
+        "source_url": "https://deshimula.com/story/69135ee3670cc6563ff16af7",
+        "story_id": "69135ee3670cc6563ff16af7",
+        "title": "Addressing Recent Concerns",
+        "upvotes": 6
+      },
+      {
+        "comments": 3,
+        "company_display_name": "Mogoj Station 23",
+        "downvotes": 21,
+        "source_url": "https://deshimula.com/story/681dde7420329a43b221b25a",
+        "story_id": "681dde7420329a43b221b25a",
+        "title": "Where Code Meets Care: My Four-Year Journey at Mogoj Station 23",
+        "upvotes": 41
+      },
+      {
+        "comments": 37,
+        "company_display_name": "Opt!m!zely",
+        "downvotes": 0,
+        "source_url": "https://deshimula.com/story/6836125c2c63e14523575a12",
+        "story_id": "6836125c2c63e14523575a12",
+        "title": "কৃতজ্ঞ!",
+        "upvotes": 27
+      },
+      {
+        "comments": 0,
+        "company_display_name": "8RAC IT",
+        "downvotes": 8,
+        "source_url": "https://deshimula.com/story/681da48520329a43b2213189",
+        "story_id": "681da48520329a43b2213189",
+        "title": "Why BRAC IT Becoming Selies 2.0 – A Comedy Show in IT World",
+        "upvotes": 52
+      },
+      {
+        "comments": 22,
+        "company_display_name": "TechnoNe><t Ltd",
+        "downvotes": 30,
+        "source_url": "https://deshimula.com/story/693006e1602e8949fddca801",
+        "story_id": "693006e1602e8949fddca801",
+        "title": "Operational Report For The Recent Activities",
+        "upvotes": 7
+      },
+      {
+        "comments": 28,
+        "company_display_name": "App!fy1ab",
+        "downvotes": 12,
+        "source_url": "https://deshimula.com/story/6a33d81efd367c4715aa5c39",
+        "story_id": "6a33d81efd367c4715aa5c39",
+        "title": "Review of App!fy1ab",
+        "upvotes": 18
+      },
+      {
+        "comments": 2,
+        "company_display_name": "Shopno71 Bangladesh Ltd",
+        "downvotes": 3,
+        "source_url": "https://deshimula.com/story/681d8bb4e807d5b7cc142edc",
+        "story_id": "681d8bb4e807d5b7cc142edc",
+        "title": "Dream71 Bangladesh Ltd: একটা ধান্দাবাজের জীবন বৃত্তান্ত",
+        "upvotes": 53
+      },
+      {
+        "comments": 11,
+        "company_display_name": "Mogoj Station 23",
+        "downvotes": 37,
+        "source_url": "https://deshimula.com/story/683ad8149b26c33c76697a96",
+        "story_id": "683ad8149b26c33c76697a96",
+        "title": "অফিসে লাঞ্চ করা এদের সবচেয়ে বড় প্রজেক্ট",
+        "upvotes": 9
+      },
+      {
+        "comments": 28,
+        "company_display_name": "App!fy1ab",
+        "downvotes": 12,
+        "source_url": "https://deshimula.com/story/6a3575fdfd367c4715ac127e",
+        "story_id": "6a3575fdfd367c4715ac127e",
+        "title": "One of the best if not the best company",
+        "upvotes": 16
+      },
+      {
+        "comments": 10,
+        "company_display_name": "Betopi@ Group",
+        "downvotes": 46,
+        "source_url": "https://deshimula.com/story/6845bdde9056acc6a3b11147",
+        "story_id": "6845bdde9056acc6a3b11147",
+        "title": "Supportive Work Environment with Strong Growth Opportunities",
+        "upvotes": 0
+      },
+      {
+        "comments": 12,
+        "company_display_name": "SIXam Tech",
+        "downvotes": 23,
+        "source_url": "https://deshimula.com/story/6825d17cdd32cba9c8fb3f7f",
+        "story_id": "6825d17cdd32cba9c8fb3f7f",
+        "title": "চাকরি না, এটা আসলে আমার জন্য একটা জোস জার্নি!",
+        "upvotes": 21
+      },
+      {
+        "comments": 0,
+        "company_display_name": "8RAC IT",
+        "downvotes": 3,
+        "source_url": "https://deshimula.com/story/681d9d2ba17808d7cca3d224",
+        "story_id": "681d9d2ba17808d7cca3d224",
+        "title": "সত্যিটা জানতে চান?",
+        "upvotes": 53
+      },
+      {
+        "comments": 1,
+        "company_display_name": "LalDot Digital",
+        "downvotes": 0,
+        "source_url": "https://deshimula.com/story/681dbab820329a43b2215bcb",
+        "story_id": "681dbab820329a43b2215bcb",
+        "title": "An organization purely built to secure Robi’s tax rebates; No vision .",
+        "upvotes": 54
+      },
+      {
+        "comments": 1,
+        "company_display_name": "P@thao",
+        "downvotes": 5,
+        "source_url": "https://deshimula.com/story/681d9767a17808d7cca3c358",
+        "story_id": "681d9767a17808d7cca3c358",
+        "title": "Vibe engineer to Kamla Pro",
+        "upvotes": 49
+      },
+      {
+        "comments": 35,
+        "company_display_name": "Opt!m!zely",
+        "downvotes": 8,
+        "source_url": "https://deshimula.com/story/6835a32e2c63e1452351b53d",
+        "story_id": "6835a32e2c63e1452351b53d",
+        "title": "Acts like a director, actually a thief; with an as*l**ker group",
+        "upvotes": 11
+      },
+      {
+        "comments": 17,
+        "company_display_name": "App!fy1ab",
+        "downvotes": 15,
+        "source_url": "https://deshimula.com/story/6a1efdd9673f1e99bbfacc22",
+        "story_id": "6a1efdd9673f1e99bbfacc22",
+        "title": "Family Entertainment or Software Company? 😅",
+        "upvotes": 20
+      },
+      {
+        "comments": 18,
+        "company_display_name": "Cef@lo",
+        "downvotes": 19,
+        "source_url": "https://deshimula.com/story/682e47636a7101469d2a4421",
+        "story_id": "682e47636a7101469d2a4421",
+        "title": "All That Glitters Are Not Gold – A.K.A “Great Place To Work” - LOL",
+        "upvotes": 14
+      },
+      {
+        "comments": 6,
+        "company_display_name": "Mogoj Station 23",
+        "downvotes": 31,
+        "source_url": "https://deshimula.com/story/6827512d01234c5a47ae6531",
+        "story_id": "6827512d01234c5a47ae6531",
+        "title": "90% valo",
+        "upvotes": 14
+      },
+      {
+        "comments": 13,
+        "company_display_name": "Met@morphosis Ltd",
+        "downvotes": 33,
+        "source_url": "https://deshimula.com/story/69d6b0f52732820c61a7fb0a",
+        "story_id": "69d6b0f52732820c61a7fb0a",
+        "title": "জয়েন করার পর বেতন ছাড়া অপমান অপদস্ত, সহ সব পাইবেন মাগার বেতন পাইবেন না।",
+        "upvotes": 4
+      },
+      {
+        "comments": 12,
+        "company_display_name": "Mogoj Station 23",
+        "downvotes": 35,
+        "source_url": "https://deshimula.com/story/683a60302c6222498d893ffd",
+        "story_id": "683a60302c6222498d893ffd",
+        "title": "কোম্পানির লাঞ্চ নিয়ে সমস্যা কি?",
+        "upvotes": 2
+      }
+    ],
+    "total": 2498,
+    "total_body_characters": 3330483,
+    "total_body_words_whitespace": 556722,
+    "upvotes_total": 13412,
+    "vibe_counts": {
+      "mixed": 284,
+      "negative": 1930,
+      "positive": 284
+    },
+    "with_body": 2498
+  }
+}
