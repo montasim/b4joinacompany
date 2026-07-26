@@ -11,7 +11,7 @@ The static prototype is preserved in `../beforejoin-prototype-v4`. This director
 - Next.js 16, React 19, TypeScript
 - Tailwind CSS with reusable shadcn-compatible primitives
 - Better Auth with Google sign-in
-- MongoDB for auth/workspace/synced records, with the versioned release files as the local dataset source
+- MongoDB for authentication and private saved workspaces
 - Gemini → Groq → deterministic AI adapter chain
 - Netlify deployment configuration
 - Locally processed Deshi Mula dataset, served through versioned APIs
@@ -26,7 +26,9 @@ pnpm dev
 
 Set `MONGODB_URI`, a 32+ character `BETTER_AUTH_SECRET`, and at least `GEMINI_API_KEY` for generated answers. If no AI key is set, Ask returns the cited deterministic fallback. Groq is optional.
 
-Google is the only sign-in method. Set `OWNER_EMAIL` to the Google account that should open the admin review desk; all other accounts open the private Saved workspace. The browser extension remains independently usable without a b4join account.
+Google is the only sign-in method and every signed-in account opens its own
+private Saved workspace. The browser extension remains independently usable
+without a b4join account.
 
 ## Important boundaries
 
@@ -41,7 +43,9 @@ Google is the only sign-in method. Set `OWNER_EMAIL` to the Google account that 
 - An absent salary range or hiring result is shown as an evidence gap, not a negative signal.
 - Saved checkpoints are immutable revisions. Refreshing creates a new revision.
 - AI-provider prompts and answers are not stored in operational logs. Logs contain metadata only and expire after 30 days.
-- The source dataset at `../github-dataset-release/data` is the local release source. The admin update control refreshes it only after an authenticated local admin action.
+- The source dataset at `../github-dataset-release/data` is maintained manually
+  with the dataset repository's command-line scripts. The app never starts a
+  scrape or changes the dataset through its web interface.
 
 ## Research API
 
@@ -58,9 +62,7 @@ Google is the only sign-in method. Set `OWNER_EMAIL` to the Google account that 
 | POST | `/api/v1/ask` | Provider-neutral cited answer |
 | GET/POST | `/api/v1/workspace/checkpoints` | Authenticated private checkpoints |
 | PATCH | `/api/v1/workspace/checkpoints/:id` | Optimistic revision update |
-| POST | `/api/v1/corrections` | Create a review task |
-| GET/PATCH | `/api/v1/admin/review-queue` | Owner/operator-only correction review docket |
-| GET/POST | `/api/v1/admin/dataset-update` | Owner/operator-only local dataset update status and start control |
+| POST | `/api/v1/corrections` | Submit a correction for manual follow-up |
 
 All API failures use `{ "error": { "code", "message", "requestId" } }`.
 
@@ -70,16 +72,32 @@ All API failures use `{ "error": { "code", "message", "requestId" } }`.
 pnpm check
 ```
 
-The build traces the local dataset files and update scripts into the server output. For local updates, configure Google OAuth and the owner email, then open `/admin` and use “Update records.” The pipeline runs the crawler, paginated comment refresh, enrichment, Parquet export, manifest refresh, validation, and MongoDB upsert in sequence.
+## Manual dataset updates
 
-Useful local update variables:
+Dataset maintenance stays outside the web app. Run collectors only when a new
+source capture is intended, then rebuild and validate the versioned release:
 
 ```bash
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-OWNER_EMAIL=you@example.com
-DATASET_UPDATE_ENABLED=true
-DATASET_PYTHON=python3
-DATASET_UPDATE_DELAY=1.0
-DATASET_UPDATE_WORKERS=3
+cd ../github-dataset-release
+
+# Optional: capture newly published stories and paginated comments.
+python3 scripts/scraper.py crawl --refresh --delay 1.0 --workers 3
+python3 scripts/scraper.py comments --refresh --delay 1.0 --workers 3
+
+# Refresh derived work-setup and company-destination records.
+python3 scripts/extract_work_arrangements.py
+python3 scripts/enrich_company_web_profiles.py
+
+# Rebuild release artifacts, exports, checksums, and validation.
+python3 scripts/prepare_release.py
+
+# Bundle the validated release for deployment, then verify the app.
+cd ../b4join
+rsync -a ../github-dataset-release/data/ ./data/
+pnpm check
 ```
+
+During local development, b4join reads the sibling
+`../github-dataset-release/data` directory when it exists. Deployed builds read
+the bundled `./data` copy. Dataset changes are never written to MongoDB by the
+app.

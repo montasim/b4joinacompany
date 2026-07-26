@@ -75,15 +75,15 @@ const revisionSteps = [
   ],
   [
     "New source or correction",
-    "Prepared for operator review",
-    "The correction desk creates a review task; it changes nothing automatically.",
+    "Prepared for maintainer review",
+    "The correction form stores a review record; it changes nothing automatically.",
     "Not published"
   ],
   [
     "Integrity review",
     "Identity, labels, joins, and files are checked",
     "Integrity checks do not fact-check personal claims.",
-    "Owner run"
+    "Maintainer run"
   ],
   [
     "Later release",
@@ -340,8 +340,8 @@ export default async function MethodPage() {
                 </h2>
               </div>
               <p className="max-w-140 justify-self-end text-[13px] leading-[1.68] text-ink-soft max-md:justify-self-start">
-                Evidence is published in versioned releases. Corrections and new source material require an owner-run
-                review and update before they can appear in a later release.
+                Evidence is published in versioned releases. Corrections and new source material require manual
+                maintainer review and a dataset update before they can appear in a later release.
               </p>
             </header>
 

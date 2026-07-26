@@ -25,7 +25,7 @@ function companySlug(value: string) {
     const companyPath = url.pathname.match(/\/company\/([^/?#]+)/);
     if (companyPath?.[1]) return decodeURIComponent(companyPath[1]);
   } catch {
-    // A company name is also accepted and normalized for the review queue.
+    // A company name is also accepted and normalized for manual review.
   }
   return trimmed
     .toLocaleLowerCase()
@@ -272,10 +272,10 @@ export function SupportCorrectionForm() {
         <footer className="grid grid-cols-[1fr_auto] items-center gap-5 border-t border-line bg-[#fbfdfc] py-4 pr-6 pl-7.5 max-sm:grid-cols-1 max-sm:pr-4.5 max-sm:pl-5.5">
           <p className="text-[8px] leading-relaxed text-muted">
             <strong className="block text-ink">
-              Enters the review queue.
+              Saved for manual review.
             </strong>
-            Nothing changes a published company record until an administrator
-            reviews the evidence.
+            Nothing changes a published company record until a maintainer
+            verifies the source and includes it in a later dataset release.
           </p>
           <Button disabled={status.kind === "pending"} type="submit">
             {status.kind === "pending"
@@ -286,7 +286,7 @@ export function SupportCorrectionForm() {
       </form>
 
       <ol
-        aria-label="How correction review works"
+        aria-label="How manual correction review works"
         className="relative grid grid-cols-3 border-t border-line bg-mist px-7.5 py-5 before:absolute before:top-7.25 before:right-[16.5%] before:left-[16.5%] before:h-px before:bg-line-strong max-sm:grid-cols-1 max-sm:gap-4 max-sm:before:top-7 max-sm:before:bottom-7 max-sm:before:left-7.5 max-sm:h-auto max-sm:before:h-auto max-sm:before:w-px"
       >
         {[

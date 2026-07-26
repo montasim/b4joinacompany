@@ -1,6 +1,5 @@
 const allowedDestinations = new Set([
   "/",
-  "/admin",
   "/compare",
   "/extension",
   "/method",

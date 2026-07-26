@@ -3,7 +3,6 @@ import { headers } from "next/headers";
 
 import { Brand } from "@/components/brand";
 import { SignOutButton } from "@/components/user-menu";
-import { resolveAdminRole } from "@/lib/admin-session";
 import { auth } from "@/lib/auth";
 
 type HeaderPage =
@@ -13,32 +12,23 @@ type HeaderPage =
   | "Extension"
   | "Support"
   | "Method"
-  | "Admin"
   | "Sign in";
 
 export async function SiteHeader({
   active = "Research"
 }: {
   active?: HeaderPage;
-  mode?: "auto" | "public" | "user" | "admin";
+  mode?: "auto" | "public" | "user";
   purpose?: string;
 }) {
   const session = await auth.api.getSession({ headers: await headers() });
-  const adminRole = resolveAdminRole(session);
-  const isAdmin = Boolean(adminRole);
-  const nav: Array<[HeaderPage, string, string]> = isAdmin
-    ? [
-        ["Admin", "/admin", "Review queue"],
-        ["Research", "/", "Public research"],
-        ["Method", "/method", "Method"]
-      ]
-    : [
-        ["Research", "/", "Research"],
-        ["Compare", "/compare", "Compare"],
-        ["Saved", "/saved", "Saved"],
-        ["Extension", "/extension", "Extension"],
-        ["Support", "/support", "Support"]
-      ];
+  const nav: Array<[HeaderPage, string, string]> = [
+    ["Research", "/", "Research"],
+    ["Compare", "/compare", "Compare"],
+    ["Saved", "/saved", "Saved"],
+    ["Extension", "/extension", "Extension"],
+    ["Support", "/support", "Support"]
+  ];
 
   return (
     <>
@@ -81,17 +71,10 @@ export async function SiteHeader({
               ) : (
                 <>
                   <Link
-                    className={`inline-flex items-center gap-2 text-xs font-extrabold text-jade-dark ${
-                      isAdmin
-                        ? "no-underline"
-                        : "underline decoration-jade/30 underline-offset-3"
-                    }`}
-                    href={isAdmin ? "/admin" : "/saved"}
+                    className="inline-flex items-center gap-2 text-xs font-extrabold text-jade-dark underline decoration-jade/30 underline-offset-3"
+                    href="/saved"
                   >
-                    {isAdmin && (
-                      <span className="size-2 rounded-full bg-jade" aria-hidden="true" />
-                    )}
-                    {isAdmin ? "Admin workspace" : "Private workspace"}
+                    Private workspace
                   </Link>
                   <SignOutButton className="inline-flex min-h-9 items-center justify-center rounded-lg border border-line-strong bg-white px-3 py-2 text-[11px] font-extrabold text-ink hover:border-jade hover:text-jade-dark" />
                 </>
@@ -135,9 +118,9 @@ export async function SiteHeader({
                     <>
                       <Link
                         className="rounded-lg px-3 py-3 text-xs font-extrabold text-jade-dark no-underline hover:bg-jade-soft"
-                        href={isAdmin ? "/admin" : "/saved"}
+                        href="/saved"
                       >
-                        {isAdmin ? "Admin workspace" : "Private workspace"}
+                        Private workspace
                       </Link>
                       <SignOutButton className="rounded-lg px-3 py-3 text-left text-xs font-bold text-white hover:bg-jade-dark bg-jade" />
                     </>

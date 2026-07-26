@@ -4,7 +4,6 @@ import { authMongoDb } from "@/lib/auth-storage";
 
 const googleConfigured = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
 const authSecret = process.env.BETTER_AUTH_SECRET;
-const ownerEmail = process.env.OWNER_EMAIL?.trim().toLowerCase();
 
 if (process.env.NODE_ENV === "production") {
   const missing = [
@@ -12,8 +11,7 @@ if (process.env.NODE_ENV === "production") {
     "BETTER_AUTH_URL",
     "NEXT_PUBLIC_APP_URL",
     "GOOGLE_CLIENT_ID",
-    "GOOGLE_CLIENT_SECRET",
-    "OWNER_EMAIL"
+    "GOOGLE_CLIENT_SECRET"
   ].filter((name) => !process.env[name]?.trim());
   if (missing.length) {
     throw new Error(
@@ -41,28 +39,17 @@ export const auth = betterAuth({
         }
       }
     : undefined,
-  user: {
-    additionalFields: {
-      role: {
-        type: "string",
-        required: false,
-        defaultValue: "user",
-        input: false
-      }
-    }
-  },
-  databaseHooks: {
-    user: {
-      create: {
-        before: async (user) => ({
-          data: {
-            ...user,
-            role: ownerEmail && user.email.toLowerCase() === ownerEmail
-              ? "owner"
-              : "user"
-          }
-        })
-      }
+  account: {
+    accountLinking: {
+      enabled: true,
+      disableImplicitLinking: false,
+      trustedProviders: [],
+      // Keep Google's verified-email check, but let that verified identity
+      // claim a stale same-email record created before Google sign-in.
+      requireLocalEmailVerified: false,
+      allowDifferentEmails: false,
+      allowUnlinkingAll: false,
+      updateUserInfoOnLink: false
     }
   }
 });
