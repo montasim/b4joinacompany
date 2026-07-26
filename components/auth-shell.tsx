@@ -65,38 +65,6 @@ export function AuthShell({
                   />
                 </div>
 
-                <details className="group mt-4 rounded-lg border border-line bg-mist/55" open>
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-[10px] font-extrabold text-ink marker:hidden">
-                    After Google sign-in
-                    <span className="text-jade transition-transform group-open:rotate-45">
-                      +
-                    </span>
-                  </summary>
-                  <div className="grid grid-cols-2 gap-2 border-t border-line p-3 max-sm:grid-cols-1">
-                    <article className="rounded-lg border border-line bg-white p-3">
-                      <small className="font-mono text-[8px] font-extrabold tracking-[.07em] text-jade uppercase">
-                        Personal
-                      </small>
-                      <strong className="mt-1 block text-[11px]">
-                        User workspace
-                      </strong>
-                      <p className="mt-1 text-[9px] leading-relaxed text-muted">
-                        Resume your real saved checkpoints.
-                      </p>
-                    </article>
-                    <article className="rounded-lg border border-line bg-white p-3">
-                      <small className="font-mono text-[8px] font-extrabold tracking-[.07em] text-coral uppercase">
-                        Restricted
-                      </small>
-                      <strong className="mt-1 block text-[11px]">
-                        Admin workspace
-                      </strong>
-                      <p className="mt-1 text-[9px] leading-relaxed text-muted">
-                        Review withheld evidence changes.
-                      </p>
-                    </article>
-                  </div>
-                </details>
                 <p className="mt-3 text-center text-[9px] text-muted">
                   Account-scoped workspace · No separate b4join password
                 </p>
