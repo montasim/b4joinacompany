@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { ArrowRight, ChevronDown, Repeat2 } from "lucide-react";
 
 import {
@@ -9,16 +9,26 @@ import {
   type CompanySuggestion,
 } from "@/components/company-autocomplete";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  roleKey,
+  roleOptionsFor,
+  type RoleOption,
+  type SalaryEvidence,
+  type SalaryRole,
+} from "@/lib/compare-roles";
 import { initials } from "@/lib/utils";
 
 const RECENT_COMPANIES_KEY = "b4join:recent-companies";
-
-const defaultRoles = [
-  "Software Engineer",
-  "Senior Software Engineer",
-  "Junior Software Engineer",
-  "Business Analyst",
-] as const;
 
 const topicLabels: Record<string, string> = {
   management: "Management & feedback",
@@ -79,23 +89,6 @@ interface CompanyEvidence {
   workArrangement: WorkArrangement | null;
 }
 
-interface SalaryRole {
-  id: string;
-  role: string;
-  range: {
-    minimumBdt: number;
-    maximumBdt: number;
-    currency: "BDT";
-    payPeriod: "unspecified";
-  };
-  sampleSize: number | null;
-}
-
-interface SalaryEvidence {
-  observedAt: string | null;
-  roles: SalaryRole[];
-}
-
 interface CompanyComparisonEvidence {
   company: CompanySuggestion;
   evidence: CompanyEvidence;
@@ -114,29 +107,23 @@ function rememberCompany(
   setRecent(next);
 }
 
-function normalizeRole(value: string) {
-  return value
-    .toLocaleLowerCase()
-    .replace(/\b(junior|senior|sr|jr|lead)\b/g, "")
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+function salaryForRole(records: SalaryRole[], role: string) {
+  if (!role) return undefined;
+  return records.find((record) => roleKey(record.role) === role);
 }
 
-function salaryForRole(records: SalaryRole[], role: string) {
-  const exact = records.find(
-    (record) => record.role.toLocaleLowerCase() === role.toLocaleLowerCase(),
+async function loadSalaryEvidence(
+  company: Pick<CompanySuggestion, "slug" | "name">,
+  signal?: AbortSignal,
+) {
+  const response = await fetch(
+    `/api/v1/companies/${encodeURIComponent(company.slug)}/salary`,
+    { signal },
   );
-  if (exact) return exact;
-
-  const normalizedRole = normalizeRole(role);
-  return records.find((record) => {
-    const candidate = normalizeRole(record.role);
-    return (
-      candidate === normalizedRole ||
-      candidate.includes(normalizedRole) ||
-      normalizedRole.includes(candidate)
-    );
-  });
+  if (!response.ok) {
+    throw new Error(`Salary roles for ${company.name} could not be loaded.`);
+  }
+  return (await response.json()) as SalaryEvidence;
 }
 
 function money(value: number) {
@@ -510,11 +497,14 @@ function ComparisonBrief({
   first,
   second,
   role,
+  roleLabel,
 }: {
   first: CompanyComparisonEvidence;
   second: CompanyComparisonEvidence;
   role: string;
+  roleLabel: string;
 }) {
+  const displayedRole = roleLabel || "No submitted salary role";
   const firstSalary = salaryForRole(first.salary.roles, role);
   const secondSalary = salaryForRole(second.salary.roles, role);
   const salaryScale = Math.max(
@@ -542,7 +532,7 @@ function ComparisonBrief({
           </h2>
         </div>
         <span className="w-max rounded-full bg-amber-soft px-2.5 py-1.75 text-[11px] font-extrabold text-amber-dark">
-          {role}
+          {displayedRole}
         </span>
       </header>
 
@@ -595,7 +585,7 @@ function ComparisonBrief({
       </EvidenceCategory>
 
       <EvidenceCategory
-        label={`Submitted amount for ${role}`}
+        label={`Submitted amount for ${displayedRole}`}
         description="Community submitted · period unspecified · not company verified"
         first={first}
         second={second}
@@ -667,9 +657,11 @@ export function CompanyCompare() {
   const [secondQuery, setSecondQuery] = useState("");
   const [first, setFirst] = useState<CompanySuggestion | null>(null);
   const [second, setSecond] = useState<CompanySuggestion | null>(null);
-  const [role, setRole] = useState<(typeof defaultRoles)[number]>(
-    "Software Engineer",
-  );
+  const [role, setRole] = useState("");
+  const [roleOptions, setRoleOptions] = useState<RoleOption[]>([]);
+  const [roleState, setRoleState] = useState<
+    "idle" | "loading" | "ready" | "empty" | "error"
+  >("idle");
   const [recent, setRecent] = useState<CompanySuggestion[]>(() => {
     if (typeof window === "undefined") return [];
     try {
@@ -688,18 +680,84 @@ export function CompanyCompare() {
 
   const duplicate = Boolean(first && second && first.slug === second.slug);
   const ready = Boolean(first && second && !duplicate);
+  const canBuild =
+    ready &&
+    ((roleState === "ready" && Boolean(role)) || roleState === "empty");
   const selectedCount = Number(Boolean(first)) + Number(Boolean(second));
+  const selectedRoleLabel =
+    roleOptions.find((option) => option.value === role)?.role ?? "";
+  const sharedRoleOptions = roleOptions.filter(
+    (option) => option.availability === "both",
+  );
+  const singleCompanyRoleOptions = roleOptions.filter(
+    (option) => option.availability !== "both",
+  );
+  const rolePlaceholder = !ready
+    ? "Select two companies first"
+    : roleState === "loading"
+      ? "Loading submitted roles…"
+      : roleState === "error"
+        ? "Salary roles unavailable"
+        : roleState === "empty"
+          ? "No submitted salary roles"
+          : "Choose a submitted salary role";
+
+  useEffect(() => {
+    if (!first || !second || first.slug === second.slug) return;
+
+    const controller = new AbortController();
+    Promise.all([
+      loadSalaryEvidence(first, controller.signal),
+      loadSalaryEvidence(second, controller.signal),
+    ])
+      .then(([firstSalary, secondSalary]) => {
+        const options = roleOptionsFor(
+          firstSalary,
+          secondSalary,
+          first.name,
+          second.name,
+        );
+        setRoleOptions(options);
+        setRole((current) =>
+          options.some((option) => option.value === current) ? current : "",
+        );
+        setRoleState(options.length ? "ready" : "empty");
+      })
+      .catch((caught) => {
+        if ((caught as Error).name === "AbortError") return;
+        setRole("");
+        setRoleOptions([]);
+        setRoleState("error");
+      });
+
+    return () => controller.abort();
+  }, [first, second]);
+
   const message = useMemo(() => {
     if (duplicate) return "Choose a different second company.";
     if (ready) {
+      if (roleState === "loading") {
+        return "Loading submitted salary roles for both companies.";
+      }
+      if (roleState === "error") {
+        return "The submitted salary roles could not be loaded. Try selecting the companies again.";
+      }
+      if (roleState === "empty") {
+        return "Ready. Neither company has a submitted salary role; the other evidence can still be compared.";
+      }
       return comparison
         ? "Comparison built. Missing evidence remains visible."
-        : "Ready. The same categories will be shown for both companies.";
+        : "Ready. Shared salary roles appear first; one-company roles keep their evidence gap visible.";
     }
     return "Choose two different companies from the suggestions.";
-  }, [comparison, duplicate, ready]);
+  }, [comparison, duplicate, ready, roleState]);
 
   function selectFirst(company: CompanySuggestion) {
+    setRole("");
+    setRoleOptions([]);
+    setRoleState(
+      second && second.slug !== company.slug ? "loading" : "idle",
+    );
     setFirst(company);
     setFirstQuery(company.name);
     rememberCompany(company, recent, setRecent);
@@ -708,6 +766,11 @@ export function CompanyCompare() {
   }
 
   function selectSecond(company: CompanySuggestion) {
+    setRole("");
+    setRoleOptions([]);
+    setRoleState(
+      first && first.slug !== company.slug ? "loading" : "idle",
+    );
     setSecond(company);
     setSecondQuery(company.name);
     rememberCompany(company, recent, setRecent);
@@ -730,6 +793,9 @@ export function CompanyCompare() {
     setFirstQuery(secondQuery);
     setSecond(oldFirst);
     setSecondQuery(oldFirstQuery);
+    if (oldFirst && second && oldFirst.slug !== second.slug) {
+      setRoleState("loading");
+    }
     if (comparison) {
       setComparison({
         first: comparison.second,
@@ -753,7 +819,8 @@ export function CompanyCompare() {
       const url = new URL(window.location.href);
       url.searchParams.set("a", first.slug);
       url.searchParams.set("b", second.slug);
-      url.searchParams.set("role", role);
+      if (role) url.searchParams.set("role", role);
+      else url.searchParams.delete("role");
       window.history.replaceState({}, "", url);
     } catch (caught) {
       setComparison(null);
@@ -795,6 +862,9 @@ export function CompanyCompare() {
             onQueryChange={(value) => {
               setFirstQuery(value);
               if (value !== first?.name) {
+                setRole("");
+                setRoleOptions([]);
+                setRoleState("idle");
                 setFirst(null);
                 setComparison(null);
               }
@@ -817,6 +887,9 @@ export function CompanyCompare() {
             onQueryChange={(value) => {
               setSecondQuery(value);
               if (value !== second?.name) {
+                setRole("");
+                setRoleOptions([]);
+                setRoleState("idle");
                 setSecond(null);
                 setComparison(null);
               }
@@ -826,28 +899,60 @@ export function CompanyCompare() {
         </div>
 
         <div className="grid grid-cols-[minmax(220px,290px)_1fr_auto] items-end gap-5.5 border-t border-line bg-[#fbfdfc] px-6 py-5 max-md:grid-cols-2 max-sm:grid-cols-1 max-sm:px-4.5">
-          <label className="grid gap-1.75 text-xs font-extrabold">
-            Role you are considering
-            <span className="relative">
-              <select
-                className="min-h-11 w-full appearance-none rounded-lg border border-line-strong bg-white px-3 pr-9 text-xs outline-none focus:border-jade focus:ring-3 focus:ring-jade/10"
-                value={role}
-                onChange={(event) => {
-                  setRole(
-                    event.target.value as (typeof defaultRoles)[number],
-                  );
-                }}
-              >
-                {defaultRoles.map((option) => (
-                  <option key={option}>{option}</option>
-                ))}
-              </select>
-              <ChevronDown
-                className="pointer-events-none absolute top-1/2 right-3 size-3.5 -translate-y-1/2"
-                aria-hidden
-              />
-            </span>
-          </label>
+          <div className="grid gap-1.75 text-xs font-extrabold">
+            <span id="comparison-role-label">Salary role to compare</span>
+            <Select
+              disabled={
+                !ready ||
+                roleState === "loading" ||
+                roleState === "error" ||
+                roleState === "empty"
+              }
+              value={role || undefined}
+              onValueChange={(value) => {
+                setRole(value);
+                setComparison(null);
+              }}
+            >
+              <SelectTrigger aria-labelledby="comparison-role-label">
+                <SelectValue placeholder={rolePlaceholder} />
+              </SelectTrigger>
+              <SelectContent>
+                {sharedRoleOptions.length > 0 && (
+                  <SelectGroup>
+                    <SelectLabel>Submitted for both companies</SelectLabel>
+                    {sharedRoleOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                )}
+                {sharedRoleOptions.length > 0 &&
+                  singleCompanyRoleOptions.length > 0 && <SelectSeparator />}
+                {singleCompanyRoleOptions.length > 0 && (
+                  <SelectGroup>
+                    <SelectLabel>Submitted for one company</SelectLabel>
+                    {singleCompanyRoleOptions.map((option) => (
+                      <SelectItem
+                        key={`${option.availability}-${option.value}`}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                )}
+              </SelectContent>
+            </Select>
+            <small className="font-normal leading-[1.45] text-muted">
+              {roleState === "ready"
+                ? roleOptions.some((option) => option.availability === "both")
+                  ? "Shared roles are listed first. “Only” means the other company has no matched submission."
+                  : "No shared role was found. Each option names the company with submitted evidence."
+                : "Roles come from community-submitted salary records, not a generic list."}
+            </small>
+          </div>
 
           <div className="flex flex-wrap items-center gap-1.75 pb-0.5">
             <span className="w-full text-[10px] text-muted">
@@ -874,7 +979,7 @@ export function CompanyCompare() {
           <Button
             className="max-md:col-start-2 max-sm:col-auto max-sm:w-full"
             type="submit"
-            disabled={!ready || loading}
+            disabled={!canBuild || loading}
           >
             {loading ? "Building comparison…" : "Build comparison"}
             {!loading && <ArrowRight aria-hidden />}
@@ -898,6 +1003,7 @@ export function CompanyCompare() {
           first={comparison.first}
           second={comparison.second}
           role={role}
+          roleLabel={selectedRoleLabel}
         />
       ) : (
         <EmptyComparison

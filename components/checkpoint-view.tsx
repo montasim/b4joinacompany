@@ -8,6 +8,15 @@ import { ReportedSalaryEvidence } from "@/components/reported-salary-evidence";
 import { ReportedWorkArrangement } from "@/components/reported-work-arrangement";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type {
   CompanyRecord,
   CompanySalaryEvidence,
@@ -122,6 +131,7 @@ function OfficialLinks({
 }
 
 export function CheckpointView({
+  canSaveCompany,
   company,
   questions,
   stories,
@@ -129,6 +139,7 @@ export function CheckpointView({
   salaryEvidence,
   cultureTopics,
 }: {
+  canSaveCompany: boolean;
   company: CompanyRecord;
   questions: EvidenceQuestion[];
   stories: StoryRecord[];
@@ -228,22 +239,24 @@ export function CheckpointView({
           <div className="hidden max-sm:block">
             <OfficialLinks company={company} compact />
           </div>
-          <Button
-            aria-pressed={saveState === "saved"}
-            disabled={saveState === "saving" || saveState === "saved"}
-            onClick={saveCompany}
-            size="sm"
-            type="button"
-            variant="outline"
-          >
-            {saveState === "saving"
-              ? "Saving…"
-              : saveState === "saved"
-                ? "Saved"
-                : "Save company"}
-          </Button>
+          {canSaveCompany && (
+            <Button
+              aria-pressed={saveState === "saved"}
+              disabled={saveState === "saving" || saveState === "saved"}
+              onClick={saveCompany}
+              size="sm"
+              type="button"
+              variant="outline"
+            >
+              {saveState === "saving"
+                ? "Saving…"
+                : saveState === "saved"
+                  ? "Saved"
+                  : "Save company"}
+            </Button>
+          )}
         </div>
-        {saveState === "error" && (
+        {canSaveCompany && saveState === "error" && (
           <p
             className="col-span-full text-right text-[10px] font-bold text-coral max-sm:text-left"
             role="alert"
@@ -269,24 +282,32 @@ export function CheckpointView({
               What to know before the next conversation.
             </h2>
           </div>
-          <label className="grid min-w-61 gap-2 text-xs font-extrabold max-sm:min-w-0">
-            Salary role
-            <select
-              className="min-h-10.5 rounded-lg border border-line-strong bg-[#fbfdfc] px-3 text-xs outline-none focus:border-jade focus:ring-3 focus:ring-jade/10 disabled:text-muted"
-              disabled={!salaryEvidence.length}
-              onChange={(event) => setSelectedRole(event.target.value)}
-              value={selectedRole}
-            >
-              {!salaryEvidence.length && (
-                <option value="">No submitted role data</option>
-              )}
-              {salaryEvidence.map((record) => (
-                <option key={record.id} value={record.role}>
-                  {record.role}
-                </option>
-              ))}
-            </select>
-          </label>
+          {salaryEvidence.length > 0 && (
+            <div className="grid min-w-61 gap-2 text-xs font-extrabold max-sm:min-w-0">
+              <span id="company-salary-role-label">Salary role</span>
+              <Select
+                onValueChange={setSelectedRole}
+                value={selectedRole || undefined}
+              >
+                <SelectTrigger
+                  aria-labelledby="company-salary-role-label"
+                  className="bg-[#fbfdfc]"
+                >
+                  <SelectValue placeholder="Choose a submitted salary role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Community-submitted roles</SelectLabel>
+                    {salaryEvidence.map((record) => (
+                      <SelectItem key={record.id} value={record.role}>
+                        {record.role}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          )}
         </header>
 
         <div className="grid grid-cols-3 border-t border-line max-md:grid-cols-2 max-sm:grid-cols-1">
@@ -404,7 +425,7 @@ export function CheckpointView({
 
       <nav
         aria-label="Company brief sections"
-        className="sticky top-17 z-30 mt-5 mb-6 flex items-center gap-1 overflow-x-auto rounded-lg border border-line bg-white/95 p-1.75 backdrop-blur-md max-sm:top-15.5 [&_a]:whitespace-nowrap [&_a]:rounded-md [&_a]:px-3 [&_a]:py-2 [&_a]:text-xs [&_a]:font-bold [&_a]:text-muted [&_a]:no-underline [&_a]:hover:bg-jade-soft [&_a]:hover:text-jade-dark"
+        className="sticky top-17 z-30 mt-5 mb-8 flex items-center gap-1 overflow-x-auto rounded-xl border border-line-strong bg-white/98 p-2 shadow-[0_10px_28px_rgb(22_56_61_/_14%)] backdrop-blur-md max-sm:top-15.5 max-sm:mb-6 [&_a]:whitespace-nowrap [&_a]:rounded-md [&_a]:border [&_a]:border-transparent [&_a]:px-3 [&_a]:py-2 [&_a]:text-xs [&_a]:font-bold [&_a]:text-muted [&_a]:no-underline [&_a]:transition-colors [&_a]:hover:border-line [&_a]:hover:bg-jade-soft [&_a]:hover:text-jade-dark [&_a]:focus-visible:border-jade [&_a]:focus-visible:bg-jade-soft [&_a]:focus-visible:text-jade-dark [&_a]:focus-visible:outline-none"
       >
         <a href="#questions">Questions</a>
         <a href="#culture">Culture</a>
@@ -438,7 +459,15 @@ export function CheckpointView({
               className="grid grid-cols-[34px_1fr_auto] items-start gap-4 border-t border-line py-5 first:border-t-0 first:pt-0 max-sm:grid-cols-[30px_1fr]"
               key={question.id}
             >
-              <span className="grid size-8.5 place-items-center rounded-full bg-ink text-xs font-extrabold text-white">
+              <span
+                className={`grid size-8.5 place-items-center rounded-full text-xs font-extrabold text-white ring-4 ${
+                  index === 0
+                    ? "bg-coral ring-coral-soft"
+                    : index === 1
+                      ? "bg-jade ring-jade-soft"
+                      : "bg-amber ring-amber-soft"
+                }`}
+              >
                 {index + 1}
               </span>
               <div>

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import { CheckpointView } from "@/components/checkpoint-view";
 import { SiteHeader } from "@/components/site-header";
+import { auth } from "@/lib/auth";
 import {
   getCompany,
   getCompanyQuestions,
@@ -58,16 +60,20 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const company = await getCompany(slug);
   if (!company) notFound();
-  const [stories, questions, workArrangement, salaryEvidence] = await Promise.all([
-    getStories(slug, "", Math.max(company.storyCount, 20)),
-    getCompanyQuestions(slug, company.name),
-    getCompanyWorkArrangement(slug),
-    getCompanySalaryEvidence(slug),
-  ]);
+  const requestHeaders = await headers();
+  const [stories, questions, workArrangement, salaryEvidence, session] =
+    await Promise.all([
+      getStories(slug, "", Math.max(company.storyCount, 20)),
+      getCompanyQuestions(slug, company.name),
+      getCompanyWorkArrangement(slug),
+      getCompanySalaryEvidence(slug),
+      auth.api.getSession({ headers: requestHeaders }),
+    ]);
   return (
     <>
       <SiteHeader />
       <CheckpointView
+        canSaveCompany={Boolean(session)}
         company={company}
         cultureTopics={cultureTopics(stories)}
         questions={questions.slice(0, 3)}
