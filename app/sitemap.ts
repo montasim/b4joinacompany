@@ -1,13 +1,21 @@
 import type { MetadataRoute } from "next";
-
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://b4joinacompany.netlify.app";
+import { seoConfig } from "@/config/seo";
+import { getIndexableCompanies } from "@/lib/research";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticRoutes = ["/", "/compare", "/method", "/extension", "/support"].map((path) => ({
-    url: `${baseUrl}${path}`,
+  const staticRoutes = Object.values(seoConfig.pages).map((page) => ({
+    url: `${seoConfig.site.siteUrl}${page.path}`,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: path === "/" ? 1 : 0.6
+    changeFrequency: page.changeFrequency ?? ("monthly" as const),
+    priority: page.priority ?? 0.5,
   }));
-  return staticRoutes;
+  const companies = await getIndexableCompanies();
+  const companyRoutes = companies.map((company) => ({
+    url: `${seoConfig.site.siteUrl}/company/${company.slug}`,
+    lastModified: company.snapshotDate,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...companyRoutes];
 }

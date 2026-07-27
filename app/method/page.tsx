@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, Check, X } from "lucide-react";
 
@@ -6,12 +5,9 @@ import { MethodProvenance } from "@/components/method-provenance";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { datasetStats } from "@/lib/research";
+import { generatePageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "How b4joinacompany handles evidence",
-  description:
-    "See how b4joinacompany preserves evidence origin, names every transformation, limits AI answers, and keeps uncertainty visible."
-};
+export const metadata = generatePageMetadata("method");
 
 const questionPaths = [
   {

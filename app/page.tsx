@@ -2,7 +2,15 @@ import Link from "next/link";
 
 import { CompanySearch } from "@/components/company-search";
 import { SiteHeader } from "@/components/site-header";
+import { StructuredData } from "@/components/structured-data";
 import { datasetStats } from "@/lib/research";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+import {
+  buildWebApplicationSchema,
+  buildWebSiteSchema,
+} from "@/lib/seo/structured-data";
+
+export const metadata = generatePageMetadata("home");
 
 const outcomes = [
   {
@@ -36,6 +44,9 @@ export default async function HomePage() {
 
   return (
     <>
+      <StructuredData
+        data={[buildWebSiteSchema(), buildWebApplicationSchema()]}
+      />
       <SiteHeader mode="public" />
       <main id="main">
         <section className="relative overflow-hidden border-b border-line py-19 max-sm:py-9.5 sm:pb-20.5">

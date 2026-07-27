@@ -3,6 +3,9 @@ import { Check } from "lucide-react";
 
 import { SiteHeader } from "@/components/site-header";
 import { SupportCorrectionForm } from "@/components/support-correction-form";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = generatePageMetadata("support");
 
 const supportPaths = [
   {

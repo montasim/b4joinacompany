@@ -286,6 +286,13 @@ export async function getCompany(slug: string) {
   return (await loadCompanies()).find((company) => company.slug === slug) ?? (slug === technonext.slug ? technonext : null);
 }
 
+export async function getIndexableCompanies() {
+  return (await loadCompanies()).map((company) => ({
+    slug: company.slug,
+    snapshotDate: company.snapshotDate,
+  }));
+}
+
 export async function getCompanyWorkArrangement(
   slug: string
 ): Promise<CompanyWorkArrangement | null> {

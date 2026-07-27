@@ -1,5 +1,8 @@
 import { CompanyCompare } from "@/components/company-compare";
 import { SiteHeader } from "@/components/site-header";
+import { generatePageMetadata } from "@/lib/seo/metadata";
+
+export const metadata = generatePageMetadata("compare");
 
 export default function ComparePage() {
   return (

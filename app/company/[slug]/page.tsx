@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { CheckpointView } from "@/components/checkpoint-view";
 import { SiteHeader } from "@/components/site-header";
+import { StructuredData } from "@/components/structured-data";
 import { auth } from "@/lib/auth";
 import {
   getCompany,
@@ -10,6 +12,8 @@ import {
   getCompanyWorkArrangement,
   getStories,
 } from "@/lib/research";
+import { generateDynamicPageMetadata } from "@/lib/seo/metadata";
+import { buildCompanyPageSchema } from "@/lib/seo/structured-data";
 
 const topicTaxonomy = [
   {
@@ -56,6 +60,44 @@ function cultureTopics(
     .slice(0, 4);
 }
 
+function companyDescription(company: {
+  name: string;
+  storyCount: number;
+}) {
+  const storyLabel =
+    company.storyCount === 1 ? "workplace story" : "workplace stories";
+
+  return `Research ${company.name} before joining. Review ${company.storyCount.toLocaleString()} source-linked ${storyLabel}, submitted salary context, work-setup evidence, and questions to verify.`;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const company = await getCompany(slug);
+
+  if (!company) {
+    return {
+      title: "Company not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return generateDynamicPageMetadata({
+    title: `${company.name} workplace stories, salary, and questions`,
+    description: companyDescription(company),
+    path: `/company/${company.slug}`,
+    keywords: [
+      `${company.name} reviews`,
+      `${company.name} salary`,
+      `${company.name} work culture`,
+      `${company.name} interview questions`,
+    ],
+  });
+}
+
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const company = await getCompany(slug);
@@ -71,6 +113,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
     ]);
   return (
     <>
+      <StructuredData
+        data={buildCompanyPageSchema({
+          companyName: company.name,
+          description: companyDescription(company),
+          slug: company.slug,
+        })}
+      />
       <SiteHeader />
       <CheckpointView
         canSaveCompany={Boolean(session)}

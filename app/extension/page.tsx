@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, Check, ExternalLink } from "lucide-react";
 
@@ -6,12 +5,9 @@ import { ExtensionProductPreview } from "@/components/extension-product-preview"
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { datasetStats, getCompany } from "@/lib/research";
+import { generatePageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Browser extension",
-  description:
-    "Turn a Deshi Mula company page into an evidence-labeled decision brief with the independent b4joinacompany browser extension."
-};
+export const metadata = generatePageMetadata("extension");
 
 const releaseUrl = "https://github.com/montasim/deshi-mula-extended/releases/latest";
 
