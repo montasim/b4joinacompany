@@ -1,7 +1,13 @@
+"use client";
+
 import { ChevronDown, ExternalLink } from "lucide-react";
+import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import type { CompanySalaryEvidence } from "@/lib/contracts";
+
+const salaryPreviewCount = 7;
 
 function compactBdt(value: number) {
   if (value < 1_000) return `৳${value.toLocaleString("en-BD")}`;
@@ -27,9 +33,22 @@ export function ReportedSalaryEvidence({
   records: CompanySalaryEvidence[];
   selectedRole?: string;
 }) {
+  const [salariesExpanded, setSalariesExpanded] = useState(false);
+
   if (records.length === 0) return null;
 
   const source = records[0];
+  const selectedSalary =
+    records.find((record) => record.role === selectedRole) ?? records[0];
+  const previewRecords = records.slice(0, salaryPreviewCount);
+  if (
+    selectedSalary &&
+    !previewRecords.some((record) => record.id === selectedSalary.id)
+  ) {
+    previewRecords[salaryPreviewCount - 1] = selectedSalary;
+  }
+  const visibleRecords = salariesExpanded ? records : previewRecords;
+  const hiddenSalaryCount = Math.max(0, records.length - previewRecords.length);
   const contributors = records.reduce(
     (total, record) => total + (record.sampleSize ?? 0),
     0,
@@ -84,8 +103,8 @@ export function ReportedSalaryEvidence({
             Community-submitted BDT amount ranges and sample sizes by role. Pay
             period is not supplied.
           </figcaption>
-          <div className="grid gap-0">
-            {records.map((record) => {
+          <div className="grid gap-0" id="salary-role-list">
+            {visibleRecords.map((record) => {
               const selected =
                 record.role === (selectedRole || records[0]?.role);
               const left =
@@ -137,6 +156,29 @@ export function ReportedSalaryEvidence({
               );
             })}
           </div>
+          {hiddenSalaryCount > 0 && (
+            <div className="flex justify-center border-t border-line pt-5">
+              <Button
+                aria-controls="salary-role-list"
+                aria-expanded={salariesExpanded}
+                onClick={() => setSalariesExpanded((expanded) => !expanded)}
+                type="button"
+                variant="outline"
+              >
+                {salariesExpanded
+                  ? "Show fewer salary roles"
+                  : `See ${hiddenSalaryCount} more salary ${
+                      hiddenSalaryCount === 1 ? "role" : "roles"
+                    }`}
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`size-3.5 transition-transform ${
+                    salariesExpanded ? "rotate-180" : ""
+                  }`}
+                />
+              </Button>
+            </div>
+          )}
         </figure>
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-[11px] leading-relaxed text-muted">
