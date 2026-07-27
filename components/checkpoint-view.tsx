@@ -31,6 +31,8 @@ export interface CultureTopic {
   count: number;
 }
 
+const questionPreviewCount = 3;
+
 function shortDate(value: string) {
   const date = new Date(`${value}T00:00:00Z`);
   if (Number.isNaN(date.valueOf())) return value;
@@ -153,6 +155,7 @@ export function CheckpointView({
   const [saveState, setSaveState] = useState<
     "idle" | "saving" | "saved" | "error"
   >("idle");
+  const [questionsExpanded, setQuestionsExpanded] = useState(false);
   const selectedSalary =
     salaryEvidence.find((record) => record.role === selectedRole) ??
     salaryEvidence[0] ??
@@ -161,6 +164,13 @@ export function CheckpointView({
     company.positiveCount + company.mixedCount + company.negativeCount;
   const topicMaximum = Math.max(1, ...cultureTopics.map((topic) => topic.count));
   const leadingTopics = questions.slice(0, 2).map(topicLabel);
+  const visibleQuestions = questionsExpanded
+    ? questions
+    : questions.slice(0, questionPreviewCount);
+  const hiddenQuestionCount = Math.max(
+    0,
+    questions.length - questionPreviewCount,
+  );
   const storySourceCount = stories.length || company.storyCount;
   const workSourceCount =
     (workArrangement?.workArrangement.evidenceSourceCount ?? 0) +
@@ -454,66 +464,91 @@ export function CheckpointView({
           </div>
         </header>
         <div className="px-6 pb-6 max-sm:px-5 max-sm:pb-5">
-          {questions.map((question, index) => (
-            <article
-              className="grid grid-cols-[34px_1fr_auto] items-start gap-4 border-t border-line py-5 first:border-t-0 first:pt-0 max-sm:grid-cols-[30px_1fr]"
-              key={question.id}
-            >
-              <span
-                className={`grid size-8.5 place-items-center rounded-full text-xs font-extrabold text-white ring-4 ${
-                  index === 0
-                    ? "bg-coral ring-coral-soft"
-                    : index === 1
-                      ? "bg-jade ring-jade-soft"
-                      : "bg-amber ring-amber-soft"
-                }`}
+          <div id="questions-list">
+            {visibleQuestions.map((question, index) => (
+              <article
+                className="grid grid-cols-[34px_1fr_auto] items-start gap-4 border-t border-line py-5 first:border-t-0 first:pt-0 max-sm:grid-cols-[30px_1fr]"
+                key={question.id}
               >
-                {index + 1}
-              </span>
-              <div>
-                <h3 className="font-display text-[22px] leading-tight font-bold tracking-[-.02em]">
-                  {question.title}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                  {question.guidance}
-                </p>
-                <details className="group mt-3">
-                  <summary className="cursor-pointer list-none text-[11px] font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3 marker:hidden [&::-webkit-details-marker]:hidden">
-                    Why ask this? · {question.citations.length} cited{" "}
-                    {question.citations.length === 1 ? "source" : "sources"}
-                  </summary>
-                  <div className="mt-3 rounded-lg bg-mist p-3.5">
-                    <p className="text-[11px] leading-relaxed text-ink-soft">
-                      {question.rationale}
-                    </p>
-                    {question.citations.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {question.citations.map((citation) => (
-                          <span
-                            className="rounded-md bg-white px-2 py-1 font-mono text-[8px] leading-relaxed text-blue"
-                            key={citation}
-                          >
-                            {citation}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    {question.gap && (
-                      <p className="mt-3 rounded-lg bg-coral-soft p-3 text-[10px] leading-relaxed text-coral">
-                        <strong>Evidence gap:</strong> {question.gap}
+                <span
+                  className={`grid size-8.5 place-items-center rounded-full text-xs font-extrabold text-white ring-4 ${
+                    index % 3 === 0
+                      ? "bg-coral ring-coral-soft"
+                      : index % 3 === 1
+                        ? "bg-jade ring-jade-soft"
+                        : "bg-amber ring-amber-soft"
+                  }`}
+                >
+                  {index + 1}
+                </span>
+                <div>
+                  <h3 className="font-display text-[22px] leading-tight font-bold tracking-[-.02em]">
+                    {question.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                    {question.guidance}
+                  </p>
+                  <details className="group mt-3">
+                    <summary className="cursor-pointer list-none text-[11px] font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3 marker:hidden [&::-webkit-details-marker]:hidden">
+                      Why ask this? · {question.citations.length} cited{" "}
+                      {question.citations.length === 1 ? "source" : "sources"}
+                    </summary>
+                    <div className="mt-3 rounded-lg bg-mist p-3.5">
+                      <p className="text-[11px] leading-relaxed text-ink-soft">
+                        {question.rationale}
                       </p>
-                    )}
-                  </div>
-                </details>
-              </div>
-              <a
-                className="text-[11px] font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3 max-sm:col-start-2"
-                href="#sources"
+                      {question.citations.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {question.citations.map((citation) => (
+                            <span
+                              className="rounded-md bg-white px-2 py-1 font-mono text-[8px] leading-relaxed text-blue"
+                              key={citation}
+                            >
+                              {citation}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {question.gap && (
+                        <p className="mt-3 rounded-lg bg-coral-soft p-3 text-[10px] leading-relaxed text-coral">
+                          <strong>Evidence gap:</strong> {question.gap}
+                        </p>
+                      )}
+                    </div>
+                  </details>
+                </div>
+                <a
+                  className="text-[11px] font-extrabold text-jade-dark underline decoration-jade/35 underline-offset-3 max-sm:col-start-2"
+                  href="#sources"
+                >
+                  Sources ↓
+                </a>
+              </article>
+            ))}
+          </div>
+          {hiddenQuestionCount > 0 && (
+            <div className="flex justify-center border-t border-line pt-5">
+              <Button
+                aria-controls="questions-list"
+                aria-expanded={questionsExpanded}
+                onClick={() => setQuestionsExpanded((expanded) => !expanded)}
+                type="button"
+                variant="outline"
               >
-                Sources ↓
-              </a>
-            </article>
-          ))}
+                {questionsExpanded
+                  ? "Show fewer questions"
+                  : `See ${hiddenQuestionCount} more ${
+                      hiddenQuestionCount === 1 ? "question" : "questions"
+                    }`}
+                <ChevronDown
+                  aria-hidden="true"
+                  className={`size-3.5 transition-transform ${
+                    questionsExpanded ? "rotate-180" : ""
+                  }`}
+                />
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 

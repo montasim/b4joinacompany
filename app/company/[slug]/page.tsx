@@ -76,7 +76,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         canSaveCompany={Boolean(session)}
         company={company}
         cultureTopics={cultureTopics(stories)}
-        questions={questions.slice(0, 3)}
+        questions={questions}
         salaryEvidence={salaryEvidence}
         stories={stories.map((story) => ({
           id: story.id,
