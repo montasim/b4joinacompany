@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Review evidence and correction submissions in b4join.">
+  <title>Admin review — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="admin">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="admin-gate" data-admin-gate>
+      <div class="shell admin-gate-grid">
+        <div class="admin-gate-copy">
+          <p class="eyebrow" data-admin-gate-eyebrow>Restricted evidence desk</p>
+          <h1 data-admin-gate-title>Review changes <em>before they become research.</em></h1>
+          <p data-admin-gate-copy>The queue is visible only to the configured admin Google account. Public company research remains available without signing in.</p>
+          <a class="admin-google-link" data-admin-gate-signin href="./auth.html?reason=admin&amp;return=admin.html">
+            <span class="google-g" aria-hidden="true">G</span>
+            <span>Continue with Google</span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="button button-primary admin-gate-return" data-admin-gate-return href="./saved.html?preview=signed-in" hidden>Return to your private workspace →</a>
+          <p class="admin-gate-note" data-admin-gate-note>Role checked after Google sign-in · No separate admin password</p>
+        </div>
+
+        <figure class="admin-gate-docket" aria-labelledby="admin-gate-title">
+          <figcaption>
+            <div><p class="eyebrow">Protected workflow</p><h2 id="admin-gate-title">What the review desk controls.</h2></div>
+            <span>Admin only</span>
+          </figcaption>
+          <ol>
+            <li><span>1</span><div><strong>Confirm the company</strong><p>Keep evidence away from the wrong company record.</p></div></li>
+            <li><span>2</span><div><strong>Inspect the source</strong><p>See where the change came from and what remains uncertain.</p></div></li>
+            <li><span>3</span><div><strong>Prepare a revision</strong><p>Approval never edits a published snapshot in place.</p></div></li>
+          </ol>
+          <footer><span aria-hidden="true">●</span><p>No queue records are exposed before role verification.</p></footer>
+        </figure>
+      </div>
+    </section>
+
+    <section class="admin-workspace" data-admin-workspace hidden>
+      <header class="admin-workspace-hero">
+        <div class="shell admin-workspace-hero-grid">
+          <div>
+            <p class="eyebrow">Evidence review desk</p>
+            <h1>Decide what can enter <em>the next snapshot.</em></h1>
+            <p>Pending changes stay outside public research until their company identity, source, evidence label, and limitations are reviewed.</p>
+          </div>
+          <aside class="admin-queue-receipt" aria-label="Admin review queue summary">
+            <header><span>Signed in with Google</span><strong>Admin reviewer</strong><em>Restricted</em></header>
+            <div>
+              <p><strong data-admin-queue-count>3</strong><span>waiting</span></p>
+              <i aria-hidden="true">→</i>
+              <p><strong>1 at a time</strong><span>reviewed</span></p>
+              <i aria-hidden="true">→</i>
+              <p><strong>Next revision</strong><span>prepared</span></p>
+            </div>
+            <footer>Approval prepares a later revision. It never edits a published snapshot in place.</footer>
+          </aside>
+        </div>
+      </header>
+
+      <div class="admin-review-stage">
+        <div class="shell">
+          <aside class="admin-prototype-note">
+            <span aria-hidden="true">i</span>
+            <p><strong>Example review queue · prototype data</strong>Decisions update this screen only and reset when the page reloads.</p>
+          </aside>
+
+          <div class="admin-review-layout">
+            <aside class="admin-queue" aria-labelledby="admin-queue-title">
+              <header>
+                <div><p class="eyebrow">Withheld evidence</p><h2 id="admin-queue-title">Review queue</h2></div>
+                <span><strong data-admin-queue-count>3</strong> pending</span>
+              </header>
+              <div class="admin-queue-filters" aria-label="Filter review queue">
+                <button type="button" data-admin-filter="all" aria-pressed="true">All <span>3</span></button>
+                <button type="button" data-admin-filter="destination" aria-pressed="false">Destinations <span>1</span></button>
+                <button type="button" data-admin-filter="match" aria-pressed="false">Matches <span>1</span></button>
+                <button type="button" data-admin-filter="refresh" aria-pressed="false">Refreshes <span>1</span></button>
+              </div>
+              <div class="admin-queue-items" role="list">
+                <button class="is-selected" type="button" role="listitem" data-admin-item="destination-a" data-admin-kind="destination" aria-pressed="true">
+                  <span class="admin-queue-type is-official">Destination</span>
+                  <strong>Example company A</strong>
+                  <small>Does this LinkedIn page belong here?</small>
+                  <em data-admin-item-state>Waiting</em>
+                </button>
+                <button type="button" role="listitem" data-admin-item="match-b" data-admin-kind="match" aria-pressed="false">
+                  <span class="admin-queue-type is-match">Company match</span>
+                  <strong>Example company B</strong>
+                  <small>Can submitted salary evidence attach?</small>
+                  <em data-admin-item-state>Waiting</em>
+                </button>
+                <button type="button" role="listitem" data-admin-item="refresh-c" data-admin-kind="refresh" aria-pressed="false">
+                  <span class="admin-queue-type is-refresh">Refresh</span>
+                  <strong>Example company C</strong>
+                  <small>Is candidate revision R5 ready?</small>
+                  <em data-admin-item-state>Waiting</em>
+                </button>
+              </div>
+              <p class="admin-filter-empty" data-admin-filter-empty hidden>No items match this filter.</p>
+            </aside>
+
+            <article class="admin-inspector" aria-live="polite">
+              <section data-admin-panel="destination-a">
+                <header class="admin-docket-head">
+                  <div>
+                    <p class="eyebrow">Docket D-014 · destination correction</p>
+                    <h2>Does this LinkedIn page belong to Example company A?</h2>
+                  </div>
+                  <span>Withheld</span>
+                </header>
+                <div class="admin-evidence-compare">
+                  <article><small>Current record</small><strong>No LinkedIn destination recorded</strong><p>The public company brief currently links only to its verified website.</p></article>
+                  <i aria-hidden="true">→</i>
+                  <article><small>Proposed destination</small><strong>linkedin.com/company/example-a</strong><p>Captured from an example correction note on 24 Jul 2026.</p></article>
+                </div>
+                <dl class="admin-provenance">
+                  <div><dt>Supports the match</dt><dd>Legal name, country, and website domain agree.</dd></div>
+                  <div><dt>Still uncertain</dt><dd>The proposed page is not linked from the verified website.</dd></div>
+                  <div><dt>If approved</dt><dd>Prepare the LinkedIn destination for snapshot R5.</dd></div>
+                </dl>
+              </section>
+
+              <section data-admin-panel="match-b" hidden>
+                <header class="admin-docket-head">
+                  <div>
+                    <p class="eyebrow">Docket M-009 · company identity</p>
+                    <h2>Does “Example Co.” mean Example company B?</h2>
+                  </div>
+                  <span>Withheld</span>
+                </header>
+                <div class="admin-evidence-compare">
+                  <article><small>Submitted salary source</small><strong>Example Co.</strong><p>12 role submissions · source.example/example-co</p></article>
+                  <i aria-hidden="true">→</i>
+                  <article><small>Canonical candidate</small><strong>Example company B</strong><p>example-b.test · 18 workplace stories</p></article>
+                </div>
+                <dl class="admin-provenance">
+                  <div><dt>Supports the match</dt><dd>Name overlap and location agree; fuzzy confidence is 0.80.</dd></div>
+                  <div><dt>Still uncertain</dt><dd>No official destination cross-links the submitted source record.</dd></div>
+                  <div><dt>If approved</dt><dd>Attach the submitted ranges to the next reviewable revision.</dd></div>
+                </dl>
+              </section>
+
+              <section data-admin-panel="refresh-c" hidden>
+                <header class="admin-docket-head">
+                  <div>
+                    <p class="eyebrow">Docket R-021 · evidence refresh</p>
+                    <h2>Is candidate snapshot R5 ready for review?</h2>
+                  </div>
+                  <span>Withheld</span>
+                </header>
+                <div class="admin-evidence-compare">
+                  <article><small>Published snapshot R4</small><strong>18 stories · 6 salary roles</strong><p>Work setup remains unknown from the available evidence.</p></article>
+                  <i aria-hidden="true">→</i>
+                  <article><small>Candidate snapshot R5</small><strong>20 stories · 7 salary roles</strong><p>Two new stories mention hybrid work; policy remains unverified.</p></article>
+                </div>
+                <dl class="admin-provenance">
+                  <div><dt>Supports the refresh</dt><dd>Two new story URLs and one submitted salary role passed integrity checks.</dd></div>
+                  <div><dt>Still uncertain</dt><dd>Hybrid mentions are reported experiences, not verified company policy.</dd></div>
+                  <div><dt>If approved</dt><dd>Prepare R5 while saved user checkpoints remain pinned to R4.</dd></div>
+                </dl>
+              </section>
+
+              <form class="admin-decision" data-admin-decision-form novalidate>
+                <div class="field">
+                  <label for="admin-reason">Decision reason</label>
+                  <select id="admin-reason" required data-admin-reason>
+                    <option value="">Choose the evidence basis</option>
+                    <option>Source and identity support the change</option>
+                    <option>Identity is not sufficiently supported</option>
+                    <option>Source is stale or unreachable</option>
+                    <option>More evidence is required</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="admin-note">Reviewer note <span>Optional</span></label>
+                  <textarea id="admin-note" rows="3" placeholder="Record the detail another reviewer would need."></textarea>
+                </div>
+                <p class="admin-decision-status" data-admin-decision-status role="status" hidden></p>
+                <footer>
+                  <button class="button" type="button" data-admin-decision="rejected">Reject change</button>
+                  <button class="button button-primary" type="button" data-admin-decision="approved">Approve for next revision</button>
+                </footer>
+              </form>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

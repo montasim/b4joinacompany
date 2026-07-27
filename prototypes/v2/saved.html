@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your private saved company research." />
+    <title>Saved research — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to saved research</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html" aria-label="BeforeJoin home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path>
+              <path d="M8 7.5v17M8 24.5h8"></path>
+              <path d="m20 22 2.5 2.5L27 19"></path>
+            </svg>
+          </span>
+          <span class="brand-name">BeforeJoin</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="./index.html">Research</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./saved.html" aria-current="page">Saved</a>
+          <a href="./support.html">Support</a>
+        </nav>
+
+        <a class="header-action" href="./index.html#research">New research</a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <header class="page-head">
+        <p class="eyebrow">Private to you</p>
+        <h1>Saved research</h1>
+        <p>
+          Return to a brief, update your questions, or compare two companies.
+        </p>
+      </header>
+
+      <div class="saved-toolbar">
+        <label class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="m16 16 4 4"></path>
+          </svg>
+          <input type="search" placeholder="Search saved companies" aria-label="Search saved companies" />
+        </label>
+        <select class="select-control" aria-label="Filter saved briefs">
+          <option>All stages</option>
+          <option>Applying</option>
+          <option>Interviewing</option>
+          <option>Reviewing an offer</option>
+        </select>
+      </div>
+
+      <section aria-label="Saved company briefs">
+        <article class="saved-card">
+          <span class="company-avatar">TN</span>
+          <div>
+            <h3>TechnoNext Ltd</h3>
+            <p>
+              Reviewing an offer · Software Engineer · Updated today
+            </p>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open brief</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+
+        <article class="saved-card">
+          <span class="company-avatar amber">BJ</span>
+          <div>
+            <h3>BJIT</h3>
+            <p>Interviewing · Backend Engineer · Updated 2 days ago</p>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open brief</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+
+        <article class="saved-card">
+          <span class="company-avatar rose">BS</span>
+          <div>
+            <h3>Brain Station 23</h3>
+            <p>Applying · Product Designer · Updated 8 days ago</p>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open brief</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+      </section>
+
+      <div class="trust-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 4.5 6v5.5c0 4.4 3 7.7 7.5 9.5 4.5-1.8 7.5-5.1 7.5-9.5V6L12 3Z"></path>
+          <path d="m8.8 12 2 2 4.4-4.4"></path>
+        </svg>
+        <span>
+          Saved notes are designed to be private. The production version should
+          store them separately from public company data.
+        </span>
+      </div>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="./index.html">Research</a>
+      <a href="./compare.html">Compare</a>
+      <a href="./saved.html" aria-current="page">Saved</a>
+    </nav>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-copy">Your saved research and notes stay private.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="./support.html">Support</a>
+          <a href="./states.html">Empty state</a>
+          <a href="#">Privacy</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

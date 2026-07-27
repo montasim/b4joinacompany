@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Essential empty, loading, and error states for the BeforeJoin prototype."
+    />
+    <title>UI states — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to UI states</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html" aria-label="BeforeJoin home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path>
+              <path d="M8 7.5v17M8 24.5h8"></path>
+              <path d="m20 22 2.5 2.5L27 19"></path>
+            </svg>
+          </span>
+          <span class="brand-name">BeforeJoin</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="./index.html">Research</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./saved.html">Saved</a>
+          <a href="./support.html">Support</a>
+        </nav>
+
+        <a class="header-action" href="./index.html#research">New research</a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <header class="page-head">
+        <p class="eyebrow">Prototype reference</p>
+        <h1>Essential UI states</h1>
+        <p>
+          Each state explains what happened and gives one clear next action.
+        </p>
+      </header>
+
+      <div class="states-grid">
+        <section class="state-card" aria-labelledby="empty-title">
+          <span class="state-icon" aria-hidden="true">⌕</span>
+          <h2 id="empty-title">No saved briefs yet</h2>
+          <p>
+            Research a company and save its brief. It will appear here with
+            your private notes.
+          </p>
+          <a class="button button-primary" href="./index.html#research">
+            Research a company
+          </a>
+        </section>
+
+        <section class="state-card" aria-labelledby="not-found-title">
+          <span class="state-icon" aria-hidden="true">?</span>
+          <h2 id="not-found-title">Company not found</h2>
+          <p>
+            Try another spelling or paste the company’s website or LinkedIn
+            address.
+          </p>
+          <a class="button" href="./index.html#research">Change search</a>
+        </section>
+
+        <section class="state-card" aria-labelledby="loading-title">
+          <span class="state-icon" aria-hidden="true">…</span>
+          <h2 id="loading-title">Building your brief</h2>
+          <p>
+            We’re matching workplace stories with verified company links. This
+            usually takes a few seconds.
+          </p>
+          <span class="loading-line" aria-hidden="true"></span>
+        </section>
+
+        <section class="state-card error" aria-labelledby="error-title">
+          <span class="state-icon" aria-hidden="true">!</span>
+          <h2 id="error-title">The brief could not be updated</h2>
+          <p>
+            Your saved version is still available. Check the API connection and
+            try the update again.
+          </p>
+          <a class="button" href="./brief.html">Open saved version</a>
+        </section>
+      </div>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="./index.html">Research</a>
+      <a href="./compare.html">Compare</a>
+      <a href="./saved.html">Saved</a>
+    </nav>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-copy">State reference for the v2 prototype.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="./support.html">Support</a>
+          <a href="./index.html">Research</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

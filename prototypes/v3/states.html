@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Essential empty, loading, not-found, and error states for BeforeJoin v3."
+    />
+    <title>UI states — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to UI states</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html" aria-label="BeforeJoin home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path>
+              <path d="M8 7.5v17M8 24.5h8"></path>
+              <path d="m20 22 2.5 2.5L27 19"></path>
+            </svg>
+          </span>
+          <span class="brand-name">BeforeJoin</span>
+          <span class="brand-purpose">Decision checkpoint</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="./index.html">Research</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./saved.html">Saved</a>
+          <a href="./support.html">Support</a>
+        </nav>
+
+        <a class="header-action" href="./index.html#research">Check a company</a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <header class="page-head">
+        <p class="eyebrow">Prototype reference</p>
+        <h1>Essential checkpoint states.</h1>
+        <p>
+          Every interruption explains what happened and gives one useful next
+          action.
+        </p>
+      </header>
+
+      <div class="states-grid">
+        <section class="state-card" aria-labelledby="empty-title">
+          <span class="state-icon" aria-hidden="true">○</span>
+          <h2 id="empty-title">No decisions in progress</h2>
+          <p>
+            Check a company to create your first evidence-backed question list.
+          </p>
+          <a class="button button-primary" href="./index.html#research">
+            Check a company
+          </a>
+        </section>
+
+        <section class="state-card" aria-labelledby="not-found-title">
+          <span class="state-icon" aria-hidden="true">?</span>
+          <h2 id="not-found-title">Company not found</h2>
+          <p>
+            Try another spelling or paste the company website or LinkedIn
+            address.
+          </p>
+          <a class="button" href="./index.html#research">Change search</a>
+        </section>
+
+        <section class="state-card" aria-labelledby="loading-title">
+          <span class="state-icon" aria-hidden="true">→</span>
+          <h2 id="loading-title">Finding what to verify</h2>
+          <p>
+            Matching workplace reports, recurring evidence, and official
+            information.
+          </p>
+          <span class="loading-path" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </section>
+
+        <section class="state-card error" aria-labelledby="error-title">
+          <span class="state-icon" aria-hidden="true">!</span>
+          <h2 id="error-title">The checkpoint could not be updated</h2>
+          <p>
+            Your saved questions are still available. Check the API connection
+            and try again.
+          </p>
+          <a class="button" href="./brief.html">Open saved checkpoint</a>
+        </section>
+
+        <section class="state-card" aria-labelledby="gap-title" id="system">
+          <span class="state-icon" aria-hidden="true">?</span>
+          <h2 id="gap-title">Not enough evidence</h2>
+          <p>
+            We found one supported question for this company. The missing
+            information is shown as an Evidence Gap instead of a guess.
+          </p>
+          <a class="button" href="./brief.html">Open available evidence</a>
+        </section>
+
+        <section class="state-card" aria-labelledby="quota-title">
+          <span class="state-icon" aria-hidden="true">5</span>
+          <h2 id="quota-title">Today’s AI allowance is used</h2>
+          <p>
+            Public evidence and deterministic checkpoints still work. Ask
+            becomes available again tomorrow.
+          </p>
+          <a class="button" href="./brief.html">Use the checkpoint</a>
+        </section>
+
+        <section class="state-card" aria-labelledby="fallback-title">
+          <span class="state-icon" aria-hidden="true">S</span>
+          <h2 id="fallback-title">Generated prose is unavailable</h2>
+          <p>
+            The evidence service returned a deterministic cited summary while
+            the configured AI provider is unavailable.
+          </p>
+          <a class="button" href="./ask.html">View cited summary</a>
+        </section>
+
+        <section class="state-card error" aria-labelledby="conflict-title">
+          <span class="state-icon" aria-hidden="true">⇄</span>
+          <h2 id="conflict-title">This answer changed elsewhere</h2>
+          <p>
+            The website and extension edited the same answer. Review both
+            versions before choosing what to keep.
+          </p>
+          <button class="button" type="button">Review both versions</button>
+        </section>
+
+        <section class="state-card" aria-labelledby="offline-title">
+          <span class="state-icon" aria-hidden="true">↓</span>
+          <h2 id="offline-title">Saved for later sync</h2>
+          <p>
+            The extension is offline. Your change is queued once and will sync
+            against the revision you last opened.
+          </p>
+          <button class="button" type="button">Keep working</button>
+        </section>
+
+        <section class="state-card" aria-labelledby="signin-title">
+          <span class="state-icon" aria-hidden="true">↗</span>
+          <h2 id="signin-title">Sign in to save this decision</h2>
+          <p>
+            You can inspect public evidence anonymously. An account is required
+            only for notes, answers, AI generation, and synchronization.
+          </p>
+          <a class="button button-primary" href="./auth.html">Sign in</a>
+        </section>
+      </div>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="./index.html">Research</a>
+      <a href="./compare.html">Compare</a>
+      <a href="./saved.html">Saved</a>
+    </nav>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-copy">State reference for the v3 prototype.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="./support.html">Support</a>
+          <a href="./index.html">Research</a>
+          <a href="./prototype-map.html">Build map</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

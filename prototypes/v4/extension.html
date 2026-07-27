@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Turn a Deshi Mula company page into an evidence-labeled decision brief with the independent b4join browser extension.">
+  <title>Browser extension — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="extension">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="extension-hero">
+      <div class="shell extension-hero-grid">
+        <div class="extension-thesis">
+          <p class="eyebrow">b4join for Deshi Mula</p>
+          <h1>Know what to ask <em>without leaving the story.</em></h1>
+          <p>Open one panel for culture patterns, community-submitted pay, reported work setup, source stories, and cited questions.</p>
+          <div class="extension-actions">
+            <a class="button button-primary" href="https://github.com/montasim/deshi-mula-extended/releases/latest" target="_blank" rel="noreferrer">Get the extension ↗</a>
+            <a class="button" href="#extension-preview">See it in action ↓</a>
+          </div>
+          <ul class="extension-trust" aria-label="Extension requirements">
+            <li>No b4join account</li>
+            <li>No setup screen</li>
+            <li>Works on Deshi Mula</li>
+          </ul>
+          <p class="extension-desktop-note">Install on a desktop Brave or Chrome browser.</p>
+        </div>
+
+        <figure class="extension-browser" id="extension-preview" aria-labelledby="extension-preview-caption">
+          <figcaption class="sr-only" id="extension-preview-caption">Interactive preview of the b4join research panel beside a Deshi Mula company page.</figcaption>
+          <div class="extension-browser-bar" aria-hidden="true">
+            <span class="browser-dots"><i></i><i></i><i></i></span>
+            <span class="browser-address"><i></i> deshimula.com/companies/technonext-ltd</span>
+            <span class="browser-menu">•••</span>
+          </div>
+          <div class="extension-browser-stage">
+            <div class="deshi-context" aria-hidden="true">
+              <header>
+                <span class="deshi-mark">DM</span>
+                <strong>Deshi Mula</strong>
+                <nav><span>Stories</span><span>Companies</span><span>Hiring</span></nav>
+              </header>
+              <div class="deshi-context-body">
+                <p>COMPANY STORIES</p>
+                <h2>TechnoNext Ltd</h2>
+                <button type="button" tabindex="-1"><span>⌕</span> Research</button>
+                <article>
+                  <span>TN</span>
+                  <div><strong>Engineering culture and growth</strong><i></i><i></i><i></i></div>
+                </article>
+                <article>
+                  <span>TN</span>
+                  <div><strong>What to know before joining</strong><i></i><i></i></div>
+                </article>
+              </div>
+            </div>
+
+            <aside class="extension-dock" aria-label="Extension product preview">
+              <header class="extension-dock-head">
+                <span class="extension-dock-mark" aria-hidden="true">
+                  <svg viewBox="0 0 32 32"><path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path><path d="M8 7.5v17M8 24.5h8"></path><path d="m20 22 2.5 2.5L27 19"></path></svg>
+                </span>
+                <div><small>Researching</small><strong>TechnoNext Ltd</strong></div>
+                <span class="extension-dock-support" aria-hidden="true">♥</span>
+                <span class="extension-dock-close" aria-hidden="true">×</span>
+              </header>
+              <div class="extension-tabs" role="tablist" aria-label="Preview extension views">
+                <button id="extension-tab-brief" class="is-active" type="button" role="tab" aria-selected="true" aria-controls="extension-pane-brief" data-extension-tab="brief">Brief</button>
+                <button id="extension-tab-stories" type="button" role="tab" aria-selected="false" aria-controls="extension-pane-stories" tabindex="-1" data-extension-tab="stories">Stories</button>
+                <button id="extension-tab-jobs" type="button" role="tab" aria-selected="false" aria-controls="extension-pane-jobs" tabindex="-1" data-extension-tab="jobs">Jobs &amp; salary</button>
+                <button id="extension-tab-ask" type="button" role="tab" aria-selected="false" aria-controls="extension-pane-ask" tabindex="-1" data-extension-tab="ask">Ask</button>
+              </div>
+              <div class="extension-dock-body">
+                <section class="extension-pane is-active" id="extension-pane-brief" role="tabpanel" aria-labelledby="extension-tab-brief" data-extension-pane="brief">
+                  <div class="dock-intro">
+                    <p class="evidence-label official">Deshi Mula evidence</p>
+                    <h3>Turn reported experiences into questions to verify.</h3>
+                    <p>81 workplace stories organized without rating the company.</p>
+                  </div>
+                  <article class="dock-scan">
+                    <header><div><small>Decision scan</small><strong>The inside view</strong></div><span>Not a verdict</span></header>
+                    <div class="dock-signal">
+                      <span>Culture</span>
+                      <div><strong>Compensation and leadership recur</strong><small>Read the source stories for context</small></div>
+                    </div>
+                    <div class="dock-signal">
+                      <span>Work</span>
+                      <div><strong>Current setup needs confirmation</strong><small>Derived from reports · not company policy</small></div>
+                    </div>
+                    <div class="dock-signal">
+                      <span>Pay</span>
+                      <div><strong>12 community-submitted role ranges</strong><small>Pay period not supplied</small></div>
+                    </div>
+                  </article>
+                  <div class="dock-question">
+                    <span>3 questions ready</span>
+                    <strong>How are performance decisions documented?</strong>
+                  </div>
+                </section>
+
+                <section class="extension-pane" id="extension-pane-stories" role="tabpanel" aria-labelledby="extension-tab-stories" data-extension-pane="stories" hidden>
+                  <div class="dock-intro">
+                    <p class="evidence-label reported">Source explorer</p>
+                    <h3>Find the stories that matter.</h3>
+                    <p>Search this company’s published workplace experiences.</p>
+                  </div>
+                  <label class="dock-search"><span aria-hidden="true">⌕</span><input type="text" value="management" readonly aria-label="Story search preview"></label>
+                  <div class="dock-filter-row" aria-hidden="true"><span>Recent</span><span>Positive</span><span>Mixed</span><span class="is-active">Negative</span></div>
+                  <div class="dock-story-list">
+                    <article><span></span><div><strong>What engineers report about feedback</strong><small>Software Engineer · published story</small><em>Negative</em></div></article>
+                    <article><span></span><div><strong>Growth depends on the team</strong><small>Anonymous · published story</small><em>Mixed</em></div></article>
+                  </div>
+                </section>
+
+                <section class="extension-pane" id="extension-pane-jobs" role="tabpanel" aria-labelledby="extension-tab-jobs" data-extension-pane="jobs" hidden>
+                  <div class="dock-intro">
+                    <p class="evidence-label community">Community submitted · unverified</p>
+                    <h3>See role context before the conversation.</h3>
+                    <p>Reported BDT amounts are negotiation context, not company-confirmed ranges.</p>
+                  </div>
+                  <article class="dock-salary">
+                    <header><div><small>Selected role</small><strong>Software Engineer</strong></div><span>10 submissions</span></header>
+                    <strong>৳62.3k–72.3k</strong>
+                    <div><i></i></div>
+                    <p>Pay period not supplied · confirm the complete package.</p>
+                  </article>
+                  <article class="dock-hiring">
+                    <span class="evidence-label official">Official destination</span>
+                    <strong>Company careers page ↗</strong>
+                    <p>A destination to check—not a guaranteed live vacancy.</p>
+                  </article>
+                </section>
+
+                <section class="extension-pane" id="extension-pane-ask" role="tabpanel" aria-labelledby="extension-tab-ask" data-extension-pane="ask" hidden>
+                  <div class="dock-intro">
+                    <p class="evidence-label reported">Cited company research</p>
+                    <h3>Ask one focused question.</h3>
+                    <p>The answer is limited to retrieved company evidence.</p>
+                  </div>
+                  <div class="dock-ask">
+                    <span>Your question</span>
+                    <strong>What do engineers report about management feedback?</strong>
+                  </div>
+                  <article class="dock-answer">
+                    <span>Answer from the evidence</span>
+                    <p>Reports are mixed. Peer learning appears positively, while management feedback and decision consistency recur as concerns. <a href="#extension-preview">[S12] [S28] [S41]</a></p>
+                  </article>
+                  <p class="dock-retention">Ask requires an explicit retention disclosure before the first request.</p>
+                </section>
+              </div>
+              <footer class="extension-dock-footer"><span><i></i> Snapshot · 2026-07-24</span><strong>Sources</strong><strong>Open b4join ↗</strong></footer>
+            </aside>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="extension-workflow" aria-labelledby="extension-workflow-title">
+      <div class="shell">
+        <header class="extension-section-head">
+          <p class="eyebrow">A shorter path to the useful part</p>
+          <h2 id="extension-workflow-title">From company page to decision brief in one click.</h2>
+        </header>
+        <div class="extension-steps">
+          <article><span>Open</span><strong>Visit a Deshi Mula company or story.</strong><p>The extension adds Research beside a confirmed company identity.</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span>Recognize</span><strong>Open the company panel.</strong><p>No copying a company name and no separate account or setup flow.</p></article>
+          <i aria-hidden="true">→</i>
+          <article><span>Research</span><strong>Read, filter, or ask.</strong><p>Move from summarized signals back to the stories and cited evidence.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="extension-integrity" aria-labelledby="extension-integrity-title">
+      <div class="shell extension-integrity-sheet">
+        <header>
+          <p class="eyebrow">The labels travel with the evidence</p>
+          <h2 id="extension-integrity-title">Nothing is blurred into a company score.</h2>
+          <p>The panel keeps four kinds of information separate so you can judge what deserves trust—and what still needs a direct question.</p>
+        </header>
+        <div class="extension-evidence-key">
+          <article class="reported"><span>Reported</span><strong>Workplace stories</strong><p>Personal accounts with their original source context.</p></article>
+          <article class="community"><span>Submitted</span><strong>Salary amounts</strong><p>Community context with sample and missing-period labels.</p></article>
+          <article class="derived"><span>Derived</span><strong>Work setup</strong><p>Unverified mentions, never presented as current policy.</p></article>
+          <article class="official"><span>Official</span><strong>Company destinations</strong><p>Website, careers, and LinkedIn links when accepted.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="extension-install" aria-labelledby="extension-install-title">
+      <div class="shell extension-install-sheet">
+        <div class="extension-install-copy">
+          <p class="eyebrow">Install from GitHub</p>
+          <h2 id="extension-install-title">Research while you browse.</h2>
+          <p>The extension works independently. Use the website only when you want a larger company brief, comparison, or private saved research.</p>
+          <div class="extension-actions">
+            <a class="button button-primary" href="https://github.com/montasim/deshi-mula-extended/releases/latest" target="_blank" rel="noreferrer">Download the latest release ↗</a>
+            <a class="button" href="./index.html#company-search">Use b4join on the web</a>
+          </div>
+        </div>
+        <ol class="extension-install-steps">
+          <li><span>1</span><div><strong>Download and extract</strong><p>Keep the extracted extension folder in a permanent location.</p></div></li>
+          <li><span>2</span><div><strong>Open browser extensions</strong><p>Enable Developer mode in desktop Brave or Chrome.</p></div></li>
+          <li><span>3</span><div><strong>Load unpacked</strong><p>Choose the extracted folder containing <code>manifest.json</code>.</p></div></li>
+        </ol>
+        <p class="extension-update-note"><strong>Manual distribution:</strong> GitHub-installed versions do not update automatically. Return to Releases for future updates.</p>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

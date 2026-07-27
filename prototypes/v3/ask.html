@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ask the evidence — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path><path d="M8 7.5v17M8 24.5h8"></path><path d="m20 22 2.5 2.5L27 19"></path></svg></span>
+          <span class="brand-name">BeforeJoin</span><span class="brand-purpose">Cited research</span>
+        </a>
+        <nav class="site-nav"><a href="./index.html" aria-current="page">Research</a><a href="./compare.html">Compare</a><a href="./saved.html">Saved</a><a href="./support.html">Support</a></nav>
+        <div class="header-tools"><a class="notification-link" href="./notifications.html" aria-label="Notifications">○</a><a class="profile-link" href="./account.html">MM</a></div>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <nav class="breadcrumb"><a href="./brief.html">TechnoNext checkpoint</a><span>/</span><span>Ask the evidence</span></nav>
+      <header class="page-head">
+        <p class="eyebrow">Company-scoped research</p>
+        <h1>Ask one focused question.</h1>
+        <p>BeforeJoin retrieves relevant sources for TechnoNext Ltd, then answers only from that evidence with visible citations.</p>
+      </header>
+
+      <div class="ask-layout">
+        <section>
+          <article class="ask-card">
+            <div class="preview-company">
+              <span class="company-avatar">TN</span>
+              <div><strong>TechnoNext Ltd</strong><span>81 reports · Snapshot 2026-07-24</span></div>
+            </div>
+            <div class="prompt-chips">
+              <button type="button">What do engineers report?</button>
+              <button type="button">What changed recently?</button>
+              <button type="button">Show mixed experiences</button>
+            </div>
+            <label class="field">
+              Your question
+              <textarea class="ask-input">What concerns repeat most often for software engineers?</textarea>
+            </label>
+            <div class="ask-submit">
+              <p>Relevant excerpts are sent to the selected AI provider only after you choose Find answer.</p>
+              <a class="button button-primary" href="#answer">Find answer →</a>
+            </div>
+          </article>
+
+          <article class="generated-answer" id="answer">
+            <div class="utility-row">
+              <span class="status-pill">3 cited sources</span>
+              <span class="status-pill">Gemini</span>
+            </div>
+            <h3>Management communication and job stability recur most often.</h3>
+            <p>
+              Recent engineering accounts repeatedly mention unclear evaluation decisions and communication during team changes [S1][S2].
+              A smaller group describes strong technical learning, suggesting that experience may differ by assigned team [S4].
+            </p>
+            <div class="citation-list">
+              <a href="https://deshimula.com/" target="_blank">[S1] AI Engineer · July 2026 · Open original story ↗</a>
+              <a href="https://deshimula.com/" target="_blank">[S2] Software Engineer · July 2026 · Open original story ↗</a>
+              <a href="https://deshimula.com/" target="_blank">[S4] Engineer · June 2026 · Open original story ↗</a>
+            </div>
+            <p class="auth-foot">Generated from unverified workplace reports. Request 08179988 · Saved to this workspace.</p>
+          </article>
+        </section>
+
+        <aside>
+          <section class="context-card">
+            <h3>Evidence used</h3>
+            <ul><li>Role: Software Engineer</li><li>Period: May–July 2026</li><li>3 of 81 stories selected</li></ul>
+          </section>
+          <section class="context-card">
+            <h3>Your generation allowance</h3>
+            <p><strong>3 of 5</strong> used today<br />18 of 50 used this month</p>
+          </section>
+          <section class="context-card">
+            <h3>Ask is not general chat</h3>
+            <p>Questions stay scoped to this company. Unsupported claims return an Evidence Gap instead of a guess.</p>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

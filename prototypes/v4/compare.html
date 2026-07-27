@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare two companies using the same evidence boundaries.">
+  <title>Compare companies — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="compare">
+  <div data-site-header></div>
+  <main class="page-main" id="main">
+    <div class="shell">
+      <header class="compare-page-head">
+        <p class="eyebrow">Side-by-side research</p>
+        <h1>Compare two companies <em>without inventing a winner.</em></h1>
+        <p>Put culture topics, salary for the same role, work-setup evidence, and unanswered questions on one decision surface.</p>
+      </header>
+
+      <form class="compare-builder" data-compare-form>
+        <header>
+          <div><p class="eyebrow">Build a fair comparison</p><h2>Choose two confirmed companies.</h2></div>
+          <span>Same categories · missing evidence stays visible</span>
+        </header>
+        <div class="compare-pickers">
+          <div class="compare-picker" data-compare-picker="a">
+            <label for="company-a">First company</label>
+            <div class="compare-input">
+              <span class="company-avatar" data-picker-avatar="a">A</span>
+              <input id="company-a" placeholder="Search company name" autocomplete="off">
+            </div>
+            <p class="field-message" data-compare-field-message="a"></p>
+            <div class="compare-suggestions" data-compare-suggestions="a" hidden></div>
+          </div>
+          <button class="swap-companies" type="button" data-compare-swap aria-label="Swap selected companies"><span aria-hidden="true">⇄</span><small>Swap</small></button>
+          <div class="compare-picker" data-compare-picker="b">
+            <label for="company-b">Second company</label>
+            <div class="compare-input">
+              <span class="company-avatar" data-picker-avatar="b">B</span>
+              <input id="company-b" placeholder="Search company name" autocomplete="off">
+            </div>
+            <p class="field-message" data-compare-field-message="b"></p>
+            <div class="compare-suggestions" data-compare-suggestions="b" hidden></div>
+          </div>
+        </div>
+
+        <div class="compare-builder-footer">
+          <label class="compare-role" for="compare-role">Role you are considering
+            <select id="compare-role" data-compare-role>
+              <option>Software Engineer</option>
+              <option>Senior Software Engineer</option>
+              <option>Junior Software Engineer</option>
+              <option>Business Analyst</option>
+            </select>
+          </label>
+          <div class="compare-recent" aria-label="Recently viewed companies">
+            <span>Recently viewed</span>
+            <button type="button" data-compare-recent="TechnoNext Ltd">TechnoNext Ltd</button>
+            <button type="button" data-compare-recent="BJIT">BJIT</button>
+            <button type="button" data-compare-recent="bKash">bKash</button>
+          </div>
+          <button class="button button-primary" type="submit" data-compare-submit disabled>Build comparison →</button>
+        </div>
+        <p class="compare-message" data-compare-message aria-live="polite">Choose two different companies from the suggestions.</p>
+      </form>
+
+      <section class="compare-preview" data-compare-empty aria-live="polite">
+        <header><p class="eyebrow">What the comparison answers</p><h2>See the same questions for both companies.</h2></header>
+        <div>
+          <span>Culture topics</span>
+          <span>Salary for one role</span>
+          <span>Work-setup evidence</span>
+          <span>Questions to verify</span>
+          <span>Sources &amp; freshness</span>
+        </div>
+        <footer>No scores. Unknown information remains unknown.</footer>
+      </section>
+
+      <section class="compare-brief" data-compare-results hidden aria-label="Two-company B4Join Brief">
+        <header class="compare-brief-header">
+          <div><p class="eyebrow">Two-company B4Join Brief</p><h2>What each company still needs to answer.</h2></div>
+          <span data-compare-role-label>Software Engineer</span>
+        </header>
+
+        <div class="compare-company-heads">
+          <div></div>
+          <article><span class="company-avatar" data-compare-avatar="a">—</span><div><strong data-compare-name="a">First company</strong><small data-compare-meta="a">—</small></div><a data-compare-brief-link="a" href="./company.html">Open full brief →</a></article>
+          <article><span class="company-avatar" data-compare-avatar="b">—</span><div><strong data-compare-name="b">Second company</strong><small data-compare-meta="b">—</small></div><a data-compare-brief-link="b" href="./company.html">Open full brief →</a></article>
+        </div>
+
+        <section class="compare-category compare-questions">
+          <header><span>Questions to verify</span><p>Prompts come from evidence gaps, not company scores.</p></header>
+          <div class="compare-side-grid">
+            <article><span class="compare-side-name" data-compare-side-name="a">First company</span><ul data-compare-questions="a"></ul></article>
+            <article><span class="compare-side-name" data-compare-side-name="b">Second company</span><ul data-compare-questions="b"></ul></article>
+          </div>
+        </section>
+
+        <section class="compare-category">
+          <header><span>Culture topics</span><p>Most frequent fixed-taxonomy topics in each third-party review set. Frequency is not sentiment.</p></header>
+          <div class="compare-side-grid">
+            <article><span class="compare-side-name" data-compare-side-name="a">First company</span><div class="topic-pills" data-compare-topics="a"></div><p data-compare-topic-meta="a"></p></article>
+            <article><span class="compare-side-name" data-compare-side-name="b">Second company</span><div class="topic-pills" data-compare-topics="b"></div><p data-compare-topic-meta="b"></p></article>
+          </div>
+        </section>
+
+        <section class="compare-category compare-salary-category">
+          <header><span>Submitted amount for <b data-compare-role-inline>Software Engineer</b></span><p>Community submitted · period unspecified · not company verified</p></header>
+          <div class="compare-side-grid">
+            <article data-compare-salary-card="a">
+              <span class="compare-side-name" data-compare-side-name="a">First company</span>
+              <strong data-compare-salary="a">—</strong>
+              <div class="compare-salary-track" aria-hidden="true"><i data-compare-salary-band="a"></i></div>
+              <p data-compare-salary-meta="a">—</p>
+            </article>
+            <article data-compare-salary-card="b">
+              <span class="compare-side-name" data-compare-side-name="b">Second company</span>
+              <strong data-compare-salary="b">—</strong>
+              <div class="compare-salary-track" aria-hidden="true"><i data-compare-salary-band="b"></i></div>
+              <p data-compare-salary-meta="b">—</p>
+            </article>
+          </div>
+        </section>
+
+        <details class="compare-category" open>
+          <summary><div><span>Work setup</span><p>Derived from stories · not verified company policy</p></div><span aria-hidden="true">⌄</span></summary>
+          <div class="compare-side-grid">
+            <article><span class="compare-side-name" data-compare-side-name="a">First company</span><strong data-compare-work="a">—</strong><p data-compare-work-meta="a"></p></article>
+            <article><span class="compare-side-name" data-compare-side-name="b">Second company</span><strong data-compare-work="b">—</strong><p data-compare-work-meta="b"></p></article>
+          </div>
+        </details>
+
+        <details class="compare-category">
+          <summary><div><span>Evidence basis &amp; freshness</span><p>Coverage explains confidence; it does not rank employers.</p></div><span aria-hidden="true">⌄</span></summary>
+          <div class="compare-side-grid">
+            <article><span class="compare-side-name" data-compare-side-name="a">First company</span><strong data-compare-basis="a">—</strong><p data-compare-official="a"></p></article>
+            <article><span class="compare-side-name" data-compare-side-name="b">Second company</span><strong data-compare-basis="b">—</strong><p data-compare-official="b"></p></article>
+          </div>
+        </details>
+
+        <footer><span>Snapshot 24 Jul 2026</span><strong>No winner is calculated. Verify role-specific conditions directly.</strong></footer>
+      </section>
+    </div>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

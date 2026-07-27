@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account settings — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html"><span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path><path d="M8 7.5v17M8 24.5h8"></path><path d="m20 22 2.5 2.5L27 19"></path></svg></span><span class="brand-name">BeforeJoin</span><span class="brand-purpose">Your account</span></a>
+        <nav class="site-nav"><a href="./index.html">Research</a><a href="./compare.html">Compare</a><a href="./saved.html">Saved</a><a href="./support.html">Support</a></nav>
+        <div class="header-tools"><a class="notification-link" href="./notifications.html">○</a><a class="profile-link" href="./account.html">MM</a></div>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <header class="page-head">
+        <div class="utility-row"><p class="eyebrow">Private workspace</p><span class="status-pill">Owner account</span></div>
+        <h1>Account and privacy.</h1>
+        <p>Manage your identity, evidence notifications, connected extension sessions, and workspace data.</p>
+      </header>
+
+      <div class="workspace-layout">
+        <nav class="settings-nav">
+          <a href="#profile" aria-current="page">Profile</a>
+          <a href="#notifications">Notifications</a>
+          <a href="#extension">Extension</a>
+          <a href="#privacy">Privacy</a>
+          <a href="./admin.html">Owner console ↗</a>
+        </nav>
+
+        <div class="settings-stack">
+          <section class="settings-card" id="profile">
+            <header><div><h2>Profile</h2><p>The identity used by the website and connected extension.</p></div><div class="utility-row"><span class="status-pill">Verified</span><span class="status-pill">Owner</span></div></header>
+            <div class="setting-row"><div><strong>Montasim Mamun</strong><p>montasimmamun@gmail.com · Google and password sign-in</p></div><button class="button button-small">Edit profile</button></div>
+            <div class="setting-row"><div><strong>Password</strong><p>Last changed 24 July 2026</p></div><button class="button button-small">Change password</button></div>
+          </section>
+
+          <section class="settings-card" id="notifications">
+            <header><div><h2>Evidence updates</h2><p>Saved checkpoints never refresh automatically.</p></div></header>
+            <div class="setting-row"><div><strong>In-app notices</strong><p>Always on for relevant evidence changes</p></div><span class="toggle on"></span></div>
+            <div class="setting-row"><div><strong>Weekly email digest</strong><p>Off by default and never includes notes or answers</p></div><span class="toggle"></span></div>
+          </section>
+
+          <section class="settings-card" id="extension">
+            <header><div><h2>Connected extension</h2><p>Revocable sessions created through one-time pairing.</p></div><a class="button button-primary button-small" href="./pair-extension.html">Connect extension</a></header>
+            <div class="setting-row"><div><strong>Brave · Deshi Mula Extended</strong><p>Dhaka · Active now · Paired 24 July 2026</p></div><button class="button button-small">Revoke</button></div>
+          </section>
+
+          <section class="settings-card">
+            <header><div><h2>Administrative access</h2><p>This account can enter the restricted Owner console.</p></div><span class="status-pill">Owner</span></header>
+            <div class="setting-row"><div><strong>Owner permissions</strong><p>Roles, providers, global quotas, snapshot activation, and all Operator capabilities</p></div><a class="button button-small" href="./admin.html">Open console</a></div>
+          </section>
+
+          <section class="settings-card" id="privacy">
+            <header><div><h2>Workspace data</h2><p>Your notes, answers, saved comparisons, and research history.</p></div></header>
+            <div class="setting-row"><div><strong>Export workspace</strong><p>Download your private data and checkpoint history</p></div><button class="button button-small">Request export</button></div>
+            <div class="setting-row"><div><strong>Delete account and workspace</strong><p>Sessions revoke immediately; active data is removed within 24 hours and encrypted backups expire within 30 days.</p></div><button class="button button-small">Delete account</button></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

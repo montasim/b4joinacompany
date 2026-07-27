@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access after sign-in — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path><path d="M8 7.5v17M8 24.5h8"></path><path d="m20 22 2.5 2.5L27 19"></path></svg></span>
+          <span class="brand-name">BeforeJoin</span>
+          <span class="brand-purpose">Access model</span>
+        </a>
+        <nav class="site-nav"><a href="./index.html">Research</a><a href="./auth.html" aria-current="page">Sign in</a><a href="./method.html">How it works</a></nav>
+        <a class="header-action" href="./auth.html">Back to sign in</a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <header class="page-head">
+        <p class="eyebrow">Automatic access after authentication</p>
+        <h1>Two experiences, one sign-in.</h1>
+        <p>
+          People never choose a role on the login form. Better Auth identifies
+          the account, then BeforeJoin routes it to the permitted experience.
+        </p>
+      </header>
+
+      <div class="access-grid">
+        <section class="access-card">
+          <header>
+            <div><p class="eyebrow">Most accounts</p><h2>Regular user</h2><p>A private place to research a job decision.</p></div>
+            <span class="status-pill">Workspace</span>
+          </header>
+          <ul class="access-list">
+            <li>Search public company evidence and create checkpoints</li>
+            <li>Save private notes, answers, comparisons, and history</li>
+            <li>Ask cited company questions within the generation quota</li>
+            <li>Export checkpoints and connect the browser extension</li>
+            <li>Manage notifications, sessions, privacy, and deletion</li>
+          </ul>
+          <footer><a class="button button-primary button-full" href="./saved.html">Preview user workspace</a></footer>
+        </section>
+
+        <section class="access-card admin-access">
+          <header>
+            <div><p class="eyebrow">Restricted accounts</p><h2>Administrator</h2><p>A separate console for operating the evidence system.</p></div>
+            <span class="status-pill">Admin</span>
+          </header>
+          <ul class="access-list">
+            <li>Review corrections and verified enrichment candidates</li>
+            <li>Monitor snapshots, quotas, abuse, sessions, and provider health</li>
+            <li>Inspect metadata-only diagnostics—not private workspace content</li>
+          </ul>
+          <div class="permission-split">
+            <article><strong>Owner</strong><p>Roles, providers, global quotas, and snapshot activation.</p></article>
+            <article><strong>Operator</strong><p>Corrections, support, abuse, sessions, and diagnostics.</p></article>
+          </div>
+          <footer><a class="button button-full" href="./admin.html">Preview owner console</a></footer>
+        </section>
+      </div>
+
+      <p class="access-note">
+        Your initial account is an <strong>Owner</strong>. It can use the regular
+        research workspace and enter the restricted Owner console from Account.
+        Administrators cannot browse another user’s notes or answers without
+        explicit, temporary Support Access.
+      </p>
+    </main>
+  </body>
+</html>

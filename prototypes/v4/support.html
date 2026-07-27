@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Correct company information, inspect the evidence method, or get help with b4join.">
+  <title>Support and corrections — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="support">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="support-stage">
+      <div class="shell support-grid">
+        <div class="support-thesis">
+          <p class="eyebrow">Corrections, questions &amp; support</p>
+          <h1>Every brief should lead <em>back to its source.</em></h1>
+          <p>Flag a wrong company destination, identity, evidence label, or salary source. Nothing changes a published snapshot until it is reviewed.</p>
+
+          <nav class="support-paths" aria-label="Choose a support path">
+            <a class="is-correction" href="#correction-note" data-support-correction-link>
+              <span aria-hidden="true">C</span>
+              <span><small>Correct company information</small><strong>Prepare a source-backed correction note</strong></span>
+              <em>Start ↓</em>
+            </a>
+            <a class="is-evidence" href="./method.html">
+              <span aria-hidden="true">E</span>
+              <span><small>Question how evidence is used</small><strong>Read the method and evidence boundaries</strong></span>
+              <em>Method →</em>
+            </a>
+            <a class="is-technical" href="mailto:montasimmamun@gmail.com?subject=b4join%20website%20problem">
+              <span aria-hidden="true">T</span>
+              <span><small>Something on b4join broke</small><strong>Prepare a technical-support email</strong></span>
+              <em>Email →</em>
+            </a>
+            <a class="is-project" href="https://www.supportkori.com/montasim" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">S</span>
+              <span><small>Support the independent project</small><strong>Continue to SupportKori</strong></span>
+              <em>External ↗</em>
+            </a>
+          </nav>
+
+          <aside class="support-boundary">
+            <span aria-hidden="true">✓</span>
+            <p><strong>No account is required.</strong>Never send passwords, Google credentials, private saved notes, or confidential workplace details.</p>
+          </aside>
+        </div>
+
+        <section class="support-casefile" id="correction-note" aria-labelledby="correction-title">
+          <header>
+            <div>
+              <p class="eyebrow">Correction note</p>
+              <h2 id="correction-title">Show what should be checked.</h2>
+            </div>
+            <span data-support-draft-state>Draft · not sent</span>
+          </header>
+
+          <p class="support-casefile-intro">Add the company or b4join page, then include the strongest official source you have. A source helps separate a correction from an unsupported claim.</p>
+
+          <form data-support-form novalidate>
+            <div class="support-form-grid">
+              <div class="support-field">
+                <label for="support-kind">What needs correction?</label>
+                <select id="support-kind" name="kind" required aria-describedby="support-kind-help support-kind-error">
+                  <option value="website">Official website</option>
+                  <option value="linkedin">LinkedIn profile</option>
+                  <option value="careers">Careers page</option>
+                  <option value="identity">Company identity or name</option>
+                  <option value="other">Evidence or salary context</option>
+                </select>
+                <small id="support-kind-help">Choose the published detail that needs review.</small>
+                <span class="support-field-error" id="support-kind-error" data-support-error="kind"></span>
+              </div>
+
+              <div class="support-field">
+                <label for="support-company">Company or b4join page</label>
+                <input id="support-company" name="company" type="text" placeholder="Company name or page URL" autocomplete="organization" required aria-describedby="support-company-help support-company-error">
+                <small id="support-company-help">Use the exact company name when possible.</small>
+                <span class="support-field-error" id="support-company-error" data-support-error="company"></span>
+              </div>
+
+              <div class="support-field support-field-wide">
+                <label for="support-source">Official source to review <span>Optional</span></label>
+                <input id="support-source" name="source" type="url" inputmode="url" placeholder="https://company.com/careers" autocomplete="url" aria-describedby="support-source-help support-source-error">
+                <small id="support-source-help">Website, LinkedIn, careers, or another first-party URL.</small>
+                <span class="support-field-error" id="support-source-error" data-support-error="source"></span>
+              </div>
+
+              <div class="support-field support-field-wide">
+                <label for="support-details">What should change?</label>
+                <textarea id="support-details" name="details" minlength="10" maxlength="3000" placeholder="Describe what is wrong, what you believe is correct, and where the evidence can be checked." required aria-describedby="support-details-help support-details-error"></textarea>
+                <small id="support-details-help">At least 10 characters. Keep private workplace details out.</small>
+                <span class="support-field-error" id="support-details-error" data-support-error="details"></span>
+              </div>
+            </div>
+
+            <div class="support-form-message" data-support-form-message role="status" aria-live="polite" hidden></div>
+
+            <footer>
+              <p><strong>Opens your email app.</strong> Nothing is uploaded by this static prototype, and no published record changes automatically.</p>
+              <button class="button button-primary" type="submit">Prepare correction email →</button>
+            </footer>
+          </form>
+
+          <ol class="support-review-trail" aria-label="How correction review works">
+            <li><span></span><div><small>You send</small><strong>A company and source</strong></div></li>
+            <li><span></span><div><small>b4join checks</small><strong>The destination or evidence</strong></div></li>
+            <li><span></span><div><small>If accepted</small><strong>A later snapshot is updated</strong></div></li>
+          </ol>
+        </section>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

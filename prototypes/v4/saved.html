@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Return to saved company research.">
+  <title>Saved research — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="saved">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="saved-gate-stage" data-saved-gate>
+      <div class="shell saved-gate-grid">
+        <div class="saved-gate-copy">
+          <p class="eyebrow">Private decision desk</p>
+          <h1>Return to the decisions <em>still in motion.</em></h1>
+          <p>Keep the company, role, decision stage, priority, private note, and exact evidence snapshot together.</p>
+          <a class="saved-google-link" href="./auth.html?return=saved.html">
+            <span class="google-g" aria-hidden="true">G</span>
+            <span>Continue with Google</span>
+            <span aria-hidden="true">→</span>
+          </a>
+          <p class="saved-account-note">One Google account · No separate b4join password</p>
+          <aside class="saved-public-boundary">
+            <span aria-hidden="true">✓</span>
+            <p><strong>Public research stays open.</strong>Company research and the browser extension do not require an account.<a href="./index.html#company-search">Check a company →</a><a href="./extension.html">Use the extension →</a></p>
+          </aside>
+        </div>
+
+        <figure class="saved-locked-sheet" aria-labelledby="saved-locked-title">
+          <figcaption>
+            <div><p class="eyebrow">Locked workspace</p><h2 id="saved-locked-title">What waits behind sign-in.</h2></div>
+            <span aria-hidden="true">⌁</span>
+          </figcaption>
+          <ol>
+            <li><span class="saved-lock-marker is-blue"></span><div><small>Company checkpoint</small><strong>Your company, role, stage, and priority</strong><p>The context behind the decision you are making.</p></div><em>Private</em></li>
+            <li><span class="saved-lock-marker is-amber"></span><div><small>Evidence snapshot</small><strong>The exact research revision you saved</strong><p>New evidence never replaces it silently.</p></div><em>Pinned</em></li>
+            <li><span class="saved-lock-marker is-jade"></span><div><small>Private note</small><strong>The detail you want for the next conversation</strong><p>Attached to the checkpoint—not the public company page.</p></div><em>Yours</em></li>
+            <li><span class="saved-lock-marker is-coral"></span><div><small>Next action</small><strong>Where you intended to continue</strong><p>Return without rebuilding the research context.</p></div><em>Ready</em></li>
+          </ol>
+          <footer><span>Google identifies the workspace</span><strong>No visitor data is shown here</strong></footer>
+        </figure>
+      </div>
+    </section>
+
+    <section class="saved-workspace" data-saved-content hidden>
+      <div class="shell">
+        <header class="saved-workspace-head">
+          <div>
+            <p class="eyebrow">Private workspace</p>
+            <h1>Your decision desk.</h1>
+            <p>Resume a checkpoint from the role, stage, priority, note, and evidence revision you saved.</p>
+          </div>
+          <a class="button button-primary" href="./index.html#company-search">Check another company</a>
+        </header>
+
+        <aside class="saved-example-notice">
+          <div><span aria-hidden="true">i</span><p><strong>Example workspace · prototype data</strong>These checkpoints demonstrate the signed-in layout and do not belong to the visitor.</p></div>
+          <span>3 checkpoints · newest first</span>
+        </aside>
+
+        <section class="saved-ledger" aria-labelledby="saved-ledger-title">
+          <header>
+            <div><p class="eyebrow">Saved checkpoints</p><h2 id="saved-ledger-title">Continue where you left off.</h2></div>
+            <span>One checkpoint opens at a time</span>
+          </header>
+
+          <details class="saved-checkpoint is-offer" data-saved-checkpoint open>
+            <summary>
+              <span class="company-avatar">A</span>
+              <div><strong>Example company A</strong><p>Software Engineer · Reviewing an offer</p></div>
+              <span class="saved-row-state is-amber">Decision pending</span>
+              <span class="saved-row-date">Updated today</span>
+              <span class="saved-row-chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="saved-checkpoint-body">
+              <div class="saved-checkpoint-facts">
+                <article><small>Priority</small><strong>Job stability</strong><p>What matters most in this decision.</p></article>
+                <article><small>Evidence snapshot</small><strong>2026-07-24 · revision 3</strong><p>The saved revision remains pinned.</p></article>
+                <article><small>Private note</small><strong>Note attached</strong><p>Content stays inside the account-scoped workspace.</p></article>
+              </div>
+              <aside>
+                <div><small>Next action</small><strong>Review the checkpoint before the offer discussion.</strong></div>
+                <div class="saved-row-actions"><a class="button button-primary button-small" href="./company.html">Open sample checkpoint</a><a class="button button-small" href="./compare.html">Compare companies</a></div>
+              </aside>
+            </div>
+          </details>
+
+          <details class="saved-checkpoint is-interview" data-saved-checkpoint>
+            <summary>
+              <span class="company-avatar">B</span>
+              <div><strong>Example company B</strong><p>Backend Engineer · Interviewing</p></div>
+              <span class="saved-row-state is-blue">Interview prep</span>
+              <span class="saved-row-date">Updated 2 days ago</span>
+              <span class="saved-row-chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="saved-checkpoint-body">
+              <div class="saved-checkpoint-facts">
+                <article><small>Priority</small><strong>Team culture</strong><p>The focus saved with this checkpoint.</p></article>
+                <article><small>Evidence snapshot</small><strong>2026-07-22 · revision 2</strong><p>The saved revision remains pinned.</p></article>
+                <article><small>Private note</small><strong>No note yet</strong><p>Add context when you return to the checkpoint.</p></article>
+              </div>
+              <aside>
+                <div><small>Next action</small><strong>Prepare the role and team questions for the interview.</strong></div>
+                <div class="saved-row-actions"><a class="button button-primary button-small" href="./company.html">Open sample checkpoint</a><a class="button button-small" href="./compare.html">Compare companies</a></div>
+              </aside>
+            </div>
+          </details>
+
+          <details class="saved-checkpoint is-applying" data-saved-checkpoint>
+            <summary>
+              <span class="company-avatar">C</span>
+              <div><strong>Example company C</strong><p>Product Designer · Applying</p></div>
+              <span class="saved-row-state is-jade">Checkpoint ready</span>
+              <span class="saved-row-date">Updated 8 days ago</span>
+              <span class="saved-row-chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="saved-checkpoint-body">
+              <div class="saved-checkpoint-facts">
+                <article><small>Priority</small><strong>Learning &amp; growth</strong><p>The focus saved with this checkpoint.</p></article>
+                <article><small>Evidence snapshot</small><strong>2026-07-18 · revision 1</strong><p>The first saved research revision.</p></article>
+                <article><small>Private note</small><strong>Note attached</strong><p>Content stays inside the account-scoped workspace.</p></article>
+              </div>
+              <aside>
+                <div><small>Next action</small><strong>Review the brief before submitting the application.</strong></div>
+                <div class="saved-row-actions"><a class="button button-primary button-small" href="./company.html">Open sample checkpoint</a><a class="button button-small" href="./compare.html">Compare companies</a></div>
+              </aside>
+            </div>
+          </details>
+
+          <footer><p>Checkpoints are account-scoped and ordered by their latest update.</p><a href="./support.html">Get support →</a></footer>
+        </section>
+      </div>
+    </section>
+
+    <section class="saved-empty-workspace" data-saved-empty hidden>
+      <div class="shell">
+        <div class="saved-empty-sheet">
+          <p class="eyebrow">Private workspace</p>
+          <h1>No checkpoints saved yet.</h1>
+          <p>Choose a company, review its brief, then save the role, stage, priority, note, and evidence revision you want to revisit.</p>
+          <a class="button button-primary" href="./index.html#company-search">Check a company →</a>
+          <div aria-label="How to save a checkpoint"><span>Choose a company</span><i>→</i><span>Review the brief</span><i>→</i><span>Save the checkpoint</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

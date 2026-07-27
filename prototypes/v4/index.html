@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search a company for culture patterns, submitted salary amounts, work-setup clues, and questions to verify before you join.">
+  <title>b4join — Know before you join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="research" data-view="home">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="home-entry">
+      <div class="shell">
+        <div class="home-thesis">
+          <p class="eyebrow">Before you apply, interview, or accept</p>
+          <h1>Search a company <em>before you say yes.</em></h1>
+          <p>See culture topics, submitted salary context, work-setup evidence, and the questions you should ask next.</p>
+        </div>
+
+        <form class="home-search-surface" id="company-search" data-company-search>
+          <div>
+            <label for="home-company">Which company are you considering?</label>
+            <div class="search-row">
+              <div class="search-input">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+                <input id="home-company" name="company" type="search" placeholder="Search by company name" autocomplete="off">
+              </div>
+              <button class="button button-primary" type="submit">Build my brief →</button>
+            </div>
+          </div>
+          <p class="home-search-promise">Public research · no sign-in · sources and uncertainty shown</p>
+          <p class="search-feedback" data-search-feedback aria-live="polite"></p>
+          <div class="search-results" data-search-results hidden></div>
+        </form>
+
+        <p class="sample-brief-link">Not ready to search? <a href="./company.html">Open the complete TechnoNext example →</a></p>
+
+        <section class="brief-outcomes" aria-labelledby="brief-outcomes-title">
+          <header>
+            <p class="eyebrow">What your B4Join Brief answers</p>
+            <h2 id="brief-outcomes-title">One checkpoint for the decision ahead.</h2>
+          </header>
+          <div class="outcome-grid">
+            <article class="outcome-culture">
+              <span>Culture</span>
+              <strong>Which topics keep appearing?</strong>
+              <p>Recurring themes and the source context behind them.</p>
+            </article>
+            <article class="outcome-salary">
+              <span>Salary</span>
+              <strong>What amounts are reported for your role?</strong>
+              <p>Submitted ranges, sample size, and missing pay period.</p>
+            </article>
+            <article class="outcome-work">
+              <span>Work setup</span>
+              <strong>What is reported—and still unknown?</strong>
+              <p>Mode, schedule, confidence, and current-policy gaps.</p>
+            </article>
+            <article class="outcome-questions">
+              <span>Questions</span>
+              <strong>What should you confirm directly?</strong>
+              <p>Specific prompts for your interview or offer discussion.</p>
+            </article>
+          </div>
+          <footer>
+            <p><strong>2,498</strong> workplace stories · <strong>1,443</strong> role salary ranges · official company pages</p>
+            <p>Reported, submitted, and official evidence remain separate. <a href="./method.html">How evidence works →</a></p>
+          </footer>
+        </section>
+        <p class="home-use-note">Use the brief before applying, preparing for an interview, or reviewing an offer.</p>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>

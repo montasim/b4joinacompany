@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your private saved job-decision checkpoints." />
+    <title>Saved decisions — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to saved decisions</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html" aria-label="BeforeJoin home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path>
+              <path d="M8 7.5v17M8 24.5h8"></path>
+              <path d="m20 22 2.5 2.5L27 19"></path>
+            </svg>
+          </span>
+          <span class="brand-name">BeforeJoin</span>
+          <span class="brand-purpose">Decision checkpoint</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="./index.html">Research</a>
+          <a href="./compare.html">Compare</a>
+          <a href="./saved.html" aria-current="page">Saved</a>
+          <a href="./support.html">Support</a>
+        </nav>
+
+        <div class="header-tools">
+          <a class="header-action" href="./index.html#research">Check a company</a>
+          <a class="notification-link" href="./notifications.html" aria-label="Evidence updates">○</a>
+          <a class="profile-link" href="./account.html">MM</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell" id="main">
+      <header class="page-head">
+        <p class="eyebrow">Private to you</p>
+        <h1>Your decisions in progress.</h1>
+        <p>
+          Return to the evidence, record new answers, or compare two offers.
+          The number shown is what you still need to verify.
+        </p>
+      </header>
+
+      <div class="saved-toolbar">
+        <label class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="m16 16 4 4"></path>
+          </svg>
+          <input type="search" placeholder="Search saved companies" aria-label="Search saved companies" />
+        </label>
+        <select class="select-control" aria-label="Filter decisions">
+          <option>All stages</option>
+          <option>Applying</option>
+          <option>Interviewing</option>
+          <option>Reviewing an offer</option>
+        </select>
+      </div>
+
+      <section aria-label="Saved decision checkpoints">
+        <article class="saved-card">
+          <span class="company-avatar">TN</span>
+          <div>
+            <h3>TechnoNext Ltd</h3>
+            <p>Reviewing an offer · Software Engineer · Updated today</p>
+            <span class="open-count">3 ANSWERS NEEDED</span>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open checkpoint</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+
+        <article class="saved-card">
+          <span class="company-avatar amber">BJ</span>
+          <div>
+            <h3>BJIT</h3>
+            <p>Interviewing · Backend Engineer · Updated 2 days ago</p>
+            <span class="open-count">2 ANSWERS NEEDED</span>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open checkpoint</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+
+        <article class="saved-card">
+          <span class="company-avatar coral">BS</span>
+          <div>
+            <h3>Brain Station 23</h3>
+            <p>Applying · Product Designer · Updated 8 days ago</p>
+            <span class="open-count">1 ANSWER NEEDED</span>
+          </div>
+          <div class="saved-actions">
+            <a class="button button-small button-primary" href="./brief.html">Open checkpoint</a>
+            <a class="button button-small" href="./compare.html">Compare</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="./index.html">Research</a>
+      <a href="./compare.html">Compare</a>
+      <a href="./saved.html" aria-current="page">Saved</a>
+    </nav>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-copy">Your answers and decision notes remain private.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="./support.html">Support</a>
+          <a href="./states.html">Empty state</a>
+          <a href="./account.html#privacy">Privacy</a>
+          <a href="./prototype-map.html">Build map</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

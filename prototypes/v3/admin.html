@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Owner console — BeforeJoin</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./index.html"><span class="brand-mark"><svg viewBox="0 0 32 32"><path d="M8 7.5h10.5a5.5 5.5 0 0 1 0 11H13"></path><path d="M8 7.5v17M8 24.5h8"></path><path d="m20 22 2.5 2.5L27 19"></path></svg></span><span class="brand-name">BeforeJoin</span><span class="brand-purpose">Owner console</span></a>
+        <nav class="site-nav"><a href="#overview" aria-current="page">Overview</a><a href="#corrections">Corrections</a><a href="#snapshots">Snapshots</a><a href="#health">Provider health</a></nav>
+        <a class="header-action" href="./account.html">Leave console</a>
+      </div>
+    </header>
+
+    <main class="page-shell" id="overview">
+      <header class="page-head">
+        <div class="utility-row"><p class="eyebrow">Restricted operations</p><span class="status-pill">Owner access</span></div>
+        <h1>Evidence system health.</h1>
+        <p>Operate public evidence, quotas, corrections, and providers without browsing private workspace content.</p>
+      </header>
+
+      <section class="admin-summary" aria-label="System summary">
+        <article><span>Active snapshot</span><strong>0724</strong></article>
+        <article><span>Correction reports</span><strong>3</strong></article>
+        <article><span>AI success · 24h</span><strong>98%</strong></article>
+        <article><span>Quota blocks · 24h</span><strong>7</strong></article>
+      </section>
+
+      <section class="section-block" id="corrections">
+        <div class="section-head"><div><p class="eyebrow">Needs verification</p><h2>Correction reports</h2><p>Reports create a review task; they never edit the published snapshot directly.</p></div><button class="button button-small">View all</button></div>
+        <div class="admin-table">
+          <div class="admin-row header"><span>Report</span><span>Company</span><span>Submitted</span><span>Status</span><span>Action</span></div>
+          <div class="admin-row"><strong>LinkedIn destination may be incorrect</strong><span>TechnoNext Ltd</span><span>24 Jul</span><span class="status-pill warn">Review</span><button class="button button-small">Open</button></div>
+          <div class="admin-row"><strong>Company alias belongs to another identity</strong><span>Betopia</span><span>23 Jul</span><span class="status-pill">Verified</span><button class="button button-small">Open</button></div>
+          <div class="admin-row"><strong>Career page returns 404</strong><span>BJIT</span><span>22 Jul</span><span class="status-pill danger">Candidate</span><button class="button button-small">Open</button></div>
+        </div>
+      </section>
+
+      <section class="section-block" id="snapshots">
+        <div class="section-head"><div><p class="eyebrow">Publication</p><h2>Published snapshot</h2><p>Only a locally validated release can replace the active snapshot.</p></div><span class="status-pill">Healthy</span></div>
+        <section class="settings-card">
+          <div class="setting-row"><div><strong>Snapshot 2026-07-24</strong><p>729 companies · 2,498 stories · 612 official destinations · activated 09:42</p></div><button class="button button-small">Inspect manifest</button></div>
+          <div class="setting-row"><div><strong>Pending enrichment candidates</strong><p>18 destinations and 7 hiring signals await local verification</p></div><button class="button button-small">Export queue</button></div>
+        </section>
+      </section>
+
+      <section class="section-block" id="health">
+        <div class="section-head"><div><p class="eyebrow">Generation providers</p><h2>Provider health</h2><p>Provider failures fall back without changing the public API contract.</p></div></div>
+        <section class="settings-card">
+          <div class="setting-row"><div><strong>Gemini · gemini-2.5-flash</strong><p>Primary · 98.7% success · 820 ms median latency</p></div><span class="status-pill">Available</span></div>
+          <div class="setting-row"><div><strong>Groq</strong><p>Fallback · not configured for this environment</p></div><span class="status-pill warn">Paused</span></div>
+          <div class="setting-row"><div><strong>Deterministic fallback</strong><p>Always available · cited evidence summary without generated prose</p></div><span class="status-pill">Ready</span></div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
