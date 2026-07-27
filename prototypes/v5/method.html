@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="See how b4join preserves evidence origin, names every transformation, limits AI answers, and keeps uncertainty visible.">
+  <title>How b4join handles evidence — b4join</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body data-page="method">
+  <div data-site-header></div>
+  <main id="main">
+    <section class="method-hero" id="provenance">
+      <div class="shell method-hero-grid">
+        <div class="method-thesis">
+          <p class="eyebrow">How the evidence travels</p>
+          <h1>Every insight keeps a trail back to its <em>source.</em></h1>
+          <p>b4join preserves what each source can support, names every transformation, and turns recurring terms and missing facts into questions—not conclusions.</p>
+          <div class="method-hero-actions">
+            <a class="button button-primary" href="#question-paths">Follow the full method ↓</a>
+            <a class="button" href="#boundaries">Read the safeguards</a>
+          </div>
+          <p class="method-trust-line"><span>✓</span>Reported, submitted, derived, and destination evidence never collapse into one score.</p>
+        </div>
+
+        <figure class="method-provenance" data-method-provenance data-method-active="derived">
+          <figcaption>
+            <div>
+              <p class="eyebrow">The provenance thread</p>
+              <h2>Follow one label from origin to limitation.</h2>
+            </div>
+            <span>Interactive evidence contract</span>
+          </figcaption>
+
+          <div class="method-lane-tabs" role="tablist" aria-label="Choose an evidence label">
+            <button type="button" role="tab" aria-selected="false" aria-controls="method-panel-reported" id="method-tab-reported" data-method-tab="reported" tabindex="-1"><span></span>Reported</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="method-panel-community" id="method-tab-community" data-method-tab="community" tabindex="-1"><span></span>Submitted</button>
+            <button type="button" role="tab" aria-selected="true" aria-controls="method-panel-derived" id="method-tab-derived" data-method-tab="derived"><span></span>Derived</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="method-panel-destination" id="method-tab-destination" data-method-tab="destination" tabindex="-1"><span></span>Destination</button>
+          </div>
+
+          <div class="method-thread-panels" aria-live="polite">
+            <article class="method-thread-panel" id="method-panel-reported" role="tabpanel" aria-labelledby="method-tab-reported" data-method-panel="reported">
+              <header><span>Reported account</span><strong>Unverified personal experience</strong></header>
+              <ol class="method-thread-steps">
+                <li><span>01</span><div><small>Origin</small><strong>Stories, comments, and source-presented profile figures</strong><p>Public Deshi Mula material with its source context.</p></div></li>
+                <li><span>02</span><div><small>Company match</small><strong>Canonical company record</strong><p>Role, date, source label, and available link remain attached.</p></div></li>
+                <li><span>03</span><div><small>Transformation</small><strong>Fixed concern terms are scanned</strong><p>Story labels and third-party topic summaries stay separate.</p></div></li>
+                <li><span>04</span><div><small>Product use</small><strong>Culture context and questions</strong><p>Repeated terms become prompts to investigate.</p></div></li>
+                <li><span>05</span><div><small>Limit</small><strong>Not verified or representative</strong><p>A report is not policy, universal experience, or a score.</p></div></li>
+              </ol>
+              <footer><p><strong>Label stays attached:</strong> reported account · role/date context · source label · limitation</p><span>Not fact-checked</span></footer>
+            </article>
+
+            <article class="method-thread-panel" id="method-panel-community" role="tabpanel" aria-labelledby="method-tab-community" data-method-panel="community">
+              <header><span>Community aggregate</span><strong>Unverified salary submission</strong></header>
+              <ol class="method-thread-steps">
+                <li><span>01</span><div><small>Origin</small><strong>Rendered role-and-amount aggregates</strong><p>Community salary context captured from Beton Kemon.</p></div></li>
+                <li><span>02</span><div><small>Company match</small><strong>Exact identity or reviewed match</strong><p>Ambiguous fuzzy candidates remain unattached.</p></div></li>
+                <li><span>03</span><div><small>Transformation</small><strong>Range and context are preserved</strong><p>BDT minimum, maximum, sample, bonus, and capture time.</p></div></li>
+                <li><span>04</span><div><small>Product use</small><strong>Negotiation context</strong><p>Role amounts inform salary questions—not a pay verdict.</p></div></li>
+                <li><span>05</span><div><small>Limit</small><strong>Pay period remains unknown</strong><p>Not employer-confirmed, current, or an approved band.</p></div></li>
+              </ol>
+              <footer><p><strong>Label stays attached:</strong> community submitted · source · sample context · capture time · period unspecified</p><span>Not company verified</span></footer>
+            </article>
+
+            <article class="method-thread-panel" id="method-panel-derived" role="tabpanel" aria-labelledby="method-tab-derived" data-method-panel="derived">
+              <header><span>Rules-derived</span><strong>Unverified interpretation</strong></header>
+              <ol class="method-thread-steps">
+                <li><span>01</span><div><small>Origin</small><strong>Explicit work-mode or schedule language</strong><p>Sentences in unverified stories and comments.</p></div></li>
+                <li><span>02</span><div><small>Company match</small><strong>Distinct source excerpts</strong><p>Source ID, URL, role, and observed date remain linked.</p></div></li>
+                <li><span>03</span><div><small>Transformation</small><strong>Rules count explicit mentions</strong><p>Coverage, conflicts, and extraction confidence stay visible.</p></div></li>
+                <li><span>04</span><div><small>Product use</small><strong>Work-setup clues</strong><p>Reported mode and schedule become questions to confirm.</p></div></li>
+                <li><span>05</span><div><small>Limit</small><strong>Never current company policy</strong><p>Confidence is support—not accuracy. Unknown never becomes onsite.</p></div></li>
+              </ol>
+              <footer><p><strong>Derived is not a source.</strong> It is a named, traceable transformation of unverified source material.</p><span>Rules v1.0.0</span></footer>
+            </article>
+
+            <article class="method-thread-panel" id="method-panel-destination" role="tabpanel" aria-labelledby="method-tab-destination" data-method-panel="destination">
+              <header><span>Dated destination match</span><strong>Match status remains visible</strong></header>
+              <ol class="method-thread-steps">
+                <li><span>01</span><div><small>Origin</small><strong>Website, LinkedIn, and careers candidates</strong><p>Saved links, public candidates, and reviewed overrides.</p></div></li>
+                <li><span>02</span><div><small>Company match</small><strong>Identity signals are compared</strong><p>Name, domain, aliases, and reciprocal public identity.</p></div></li>
+                <li><span>03</span><div><small>Transformation</small><strong>Destination and status are normalized</strong><p>Verified, probable, needs review, or unresolved.</p></div></li>
+                <li><span>04</span><div><small>Product use</small><strong>Identity and navigation</strong><p>Reach a company-controlled page from the captured record.</p></div></li>
+                <li><span>05</span><div><small>Limit</small><strong>A matched link proves only the match</strong><p>Not a live vacancy, current policy, or verification of reports.</p></div></li>
+              </ol>
+              <footer><p><strong>Label stays attached:</strong> destination type · match status · checked date · unresolved gaps</p><span>Dated public-web record</span></footer>
+            </article>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="method-receipt" aria-label="Dataset release receipt">
+      <div class="shell">
+        <div><small>Published evidence receipt</small><strong>Dataset release v1.3.0</strong><p>Different lanes have their own observed and capture dates.</p></div>
+        <div><strong>2026-07-24</strong><small>Main story snapshot</small></div>
+        <div><strong>Schema · joins · hashes</strong><small>Integrity checks</small></div>
+        <div><strong>Claims not fact-checked</strong><small>Truth boundary</small></div>
+      </div>
+    </section>
+
+    <section class="method-question-section" id="question-paths" aria-labelledby="question-path-title">
+      <div class="shell">
+        <header class="method-section-head">
+          <div>
+            <p class="eyebrow">Two paths, kept distinct</p>
+            <h2 id="question-path-title">Prepared questions are not the same as AI answers.</h2>
+          </div>
+          <p>The checkpoint engine is rules-based. Ask is optional and uses a bounded set of company story excerpts. Keeping the paths separate makes the limitation of each one visible.</p>
+        </header>
+
+        <div class="method-question-paths">
+          <article class="is-rules">
+            <header><span>01</span><div><small>Default checkpoint</small><h3>Rules prepare what to verify.</h3></div><em>No AI call</em></header>
+            <ol>
+              <li><span>Input</span><strong>Company stories + joined comments</strong><p>Role and date context are retained.</p></li>
+              <li><span>Scan</span><strong>Eight fixed candidate concerns</strong><p>Term recurrence ranks management, pay, stability, growth, workload, culture, work setup, and hiring.</p></li>
+              <li><span>Output</span><strong>Question + guidance + rationale</strong><p>Up to three source labels are attached. Thin evidence keeps an Evidence Gap.</p></li>
+            </ol>
+            <footer>A prepared question is a prompt for direct verification—not a finding about the company.</footer>
+          </article>
+
+          <article class="is-ask">
+            <header><span>02</span><div><small>Optional Ask</small><h3>Generated text needs source review.</h3></div><em>Excerpts sent on Ask</em></header>
+            <ol>
+              <li><span>Retrieve</span><strong>A bounded set of company story excerpts</strong><p>If lexical matching finds none, early company stories may supply fallback context.</p></li>
+              <li><span>Request</span><strong>The provider is instructed to stay cited</strong><p>Retrieved excerpts leave b4join only after Ask is used.</p></li>
+              <li><span>Return</span><strong>Answer with [S#] labels—or labeled retrieval fallback</strong><p>Generated prose is not independently fact-checked. Inspect the cited stories.</p></li>
+            </ol>
+            <footer>When the AI allowance is exhausted, Ask stops before retrieval; public evidence remains available.</footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-boundary" id="boundaries" aria-labelledby="method-boundary-title">
+      <div class="shell">
+        <div class="method-boundary-thesis">
+          <p class="eyebrow">The language boundary</p>
+          <h2 id="method-boundary-title">Careful wording is part of the method.</h2>
+          <p>Personal accounts can show what deserves investigation. They cannot establish policy, intent, or one final judgment about everyone’s experience.</p>
+        </div>
+        <div class="method-boundary-contract">
+          <section>
+            <header><span>✓</span><h3>b4join can say</h3></header>
+            <ul>
+              <li>Several dated reports mention a related concern.</li>
+              <li>A submitted role range provides unverified negotiation context.</li>
+              <li>Explicit work-mode language appears in named source excerpts.</li>
+            </ul>
+          </section>
+          <section>
+            <header><span>×</span><h3>b4join will not say</h3></header>
+            <ul>
+              <li>The company has good or bad culture.</li>
+              <li>A submitted amount is an HR-approved salary band.</li>
+              <li>Missing work-mode evidence means the role is onsite.</li>
+            </ul>
+          </section>
+          <footer>Unknown is not positive or negative. Conflicting reports remain conflicting. Missing evidence stays visible as a gap.</footer>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-revision" aria-labelledby="method-revision-title">
+      <div class="shell">
+        <header class="method-section-head">
+          <div>
+            <p class="eyebrow">Change without rewriting history</p>
+            <h2 id="method-revision-title">A later release does not silently rewrite saved context.</h2>
+          </div>
+          <p>Evidence is published in versioned releases. Corrections and new source material require an owner-run review and update before they can appear in a later release.</p>
+        </header>
+
+        <div class="method-revision-sheet">
+          <ol>
+            <li><span>01</span><div><small>Published release</small><strong>Versioned evidence and lane-specific dates</strong><p>Public research reads from the active release.</p></div><em>v1.3.0</em></li>
+            <li><span>02</span><div><small>New source or correction</small><strong>Prepared for operator review</strong><p>The static correction desk prepares an email; it uploads nothing automatically.</p></div><em>Not published</em></li>
+            <li><span>03</span><div><small>Integrity review</small><strong>Identity, labels, joins, and files are checked</strong><p>Integrity checks do not fact-check personal claims.</p></div><em>Owner run</em></li>
+            <li><span>04</span><div><small>Later release</small><strong>Accepted changes can enter a new version</strong><p>Earlier release identifiers remain meaningful.</p></div><em>New version</em></li>
+          </ol>
+          <aside><span>↳</span><div><small>Private checkpoint</small><strong>Stores its snapshot version and appends revisions on successful saves.</strong><p>It does not silently merge a conflicting edit.</p></div></aside>
+          <footer>
+            <a href="./support.html#correction-note">Prepare a source-backed correction →</a>
+            <a href="./company.html#sources">Open a sample source list →</a>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+    <section class="method-cta">
+      <div class="shell">
+        <div>
+          <p class="eyebrow">Use the method</p>
+          <h2>Put a company through the evidence trail.</h2>
+          <p>Build one brief, compare two companies on the same unknowns, or carry the research into Deshi Mula with the extension.</p>
+        </div>
+        <nav aria-label="Method next steps">
+          <a class="button button-primary" href="./index.html#company-search">Check a company</a>
+          <a class="button" href="./compare.html">Compare companies</a>
+          <a class="quiet-link" href="./extension.html">Use the extension →</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+</body>
+</html>
