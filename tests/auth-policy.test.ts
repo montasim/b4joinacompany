@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { auth } from "../lib/auth";
 import { safeAuthNext } from "../lib/auth-next";
 
 describe("authentication destination policy", () => {
@@ -16,5 +17,13 @@ describe("authentication destination policy", () => {
 
   it("uses the first value when a query parameter repeats", () => {
     expect(safeAuthNext(["/compare", "/saved"])).toBe("/compare");
+  });
+
+  it("ignores session cookies belonging to another localhost app", async () => {
+    const headers = new Headers({
+      cookie: "better-auth.session_data=header.payload.signature"
+    });
+
+    await expect(auth.api.getSession({ headers })).resolves.toBeNull();
   });
 });

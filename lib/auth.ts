@@ -22,6 +22,11 @@ if (process.env.NODE_ENV === "production") {
 
 export const auth = betterAuth({
   appName: "b4joinacompany",
+  // Cookies are scoped by hostname, not port. Use an app-specific prefix so
+  // another Better Auth app running on localhost cannot break session parsing.
+  advanced: {
+    cookiePrefix: "b4joinacompany"
+  },
   baseURL:
     process.env.BETTER_AUTH_URL ??
     process.env.NEXT_PUBLIC_APP_URL ??
