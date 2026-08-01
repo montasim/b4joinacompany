@@ -486,7 +486,7 @@ export default async function SavedPage() {
 
   return (
     <>
-      <SiteHeader active="Saved" />
+      <SiteHeader active="Saved" mode="user" />
       <main id="main" className="mx-auto min-h-[calc(100vh-64px)] w-[calc(100%_-_40px)] max-w-280 py-14 max-sm:w-[calc(100%_-_28px)] max-sm:py-8">
         <header className="mb-8 flex items-end justify-between gap-8 max-md:flex-col max-md:items-start">
           <div className="max-w-175">

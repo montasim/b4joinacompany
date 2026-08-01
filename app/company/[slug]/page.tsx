@@ -4,7 +4,6 @@ import { headers } from "next/headers";
 import { CheckpointView } from "@/components/checkpoint-view";
 import { SiteHeader } from "@/components/site-header";
 import { StructuredData } from "@/components/structured-data";
-import { auth } from "@/lib/auth";
 import {
   getCompany,
   getCompanyQuestions,
@@ -14,6 +13,7 @@ import {
 } from "@/lib/research";
 import { generateDynamicPageMetadata } from "@/lib/seo/metadata";
 import { buildCompanyPageSchema } from "@/lib/seo/structured-data";
+import { optionalSession } from "@/lib/session";
 
 const topicTaxonomy = [
   {
@@ -109,7 +109,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       getCompanyQuestions(slug, company.name),
       getCompanyWorkArrangement(slug),
       getCompanySalaryEvidence(slug),
-      auth.api.getSession({ headers: requestHeaders }),
+      optionalSession(requestHeaders),
     ]);
   return (
     <>
@@ -120,7 +120,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           slug: company.slug,
         })}
       />
-      <SiteHeader />
+      <SiteHeader mode={session ? "user" : "public"} />
       <CheckpointView
         canSaveCompany={Boolean(session)}
         company={company}

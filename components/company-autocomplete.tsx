@@ -10,24 +10,36 @@ import {
 } from "react";
 import { Search } from "lucide-react";
 
-import type { CompanyRecord } from "@/lib/contracts";
+import { EvidenceCoverageMark } from "@/components/evidence-coverage-mark";
+import type {
+  CompanyDirectoryRecord,
+  EvidenceCoverageFilter,
+} from "@/lib/contracts";
 import { cn } from "@/lib/utils";
 
 const RECENT_COMPANIES_KEY = "b4join:recent-companies";
 const LEGACY_RECENT_COMPANIES_KEY = "beforejoin:recent-companies";
 
+function allowedByCoverage(
+  company: CompanySuggestion,
+  coverage: EvidenceCoverageFilter,
+) {
+  if (!company.coverage) return coverage === "all" || coverage === "deshimula";
+  if (coverage === "all") return true;
+  if (coverage === "deshimula") return company.coverage !== "betonkemon_only";
+  return company.coverage === coverage;
+}
+
 export type CompanySuggestion = Pick<
-  CompanyRecord,
+  CompanyDirectoryRecord,
+  | "id"
   | "slug"
   | "name"
+  | "href"
+  | "coverage"
   | "storyCount"
-  | "positiveCount"
-  | "mixedCount"
-  | "negativeCount"
-  | "websiteUrl"
-  | "linkedinUrl"
-  | "careersUrl"
-  | "verificationStatus"
+  | "salaryEntryCount"
+  | "salaryRoleCount"
 >;
 
 interface CompanyAutocompleteProps {
@@ -38,6 +50,7 @@ interface CompanyAutocompleteProps {
   value: string;
   placeholder?: string;
   showSearchIcon?: boolean;
+  coverage?: EvidenceCoverageFilter;
   onValueChange: (value: string) => void;
   onSelect: (company: CompanySuggestion) => void;
 }
@@ -50,6 +63,7 @@ export function CompanyAutocomplete({
   value,
   placeholder = "Search for a company name",
   showSearchIcon = false,
+  coverage = "deshimula",
   onValueChange,
   onSelect,
 }: CompanyAutocompleteProps) {
@@ -64,7 +78,8 @@ export function CompanyAutocomplete({
         window.localStorage.getItem(RECENT_COMPANIES_KEY) ??
         window.localStorage.getItem(LEGACY_RECENT_COMPANIES_KEY) ??
         "[]";
-      return JSON.parse(stored) as CompanySuggestion[];
+      const items = JSON.parse(stored) as CompanySuggestion[];
+      return items;
     } catch {
       return [];
     }
@@ -72,6 +87,9 @@ export function CompanyAutocomplete({
   const [activeIndex, setActiveIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const visibleRecent = recent.filter((company) =>
+    allowedByCoverage(company, coverage),
+  );
 
   useEffect(() => {
     const query = value.trim();
@@ -90,9 +108,10 @@ export function CompanyAutocomplete({
     const timer = window.setTimeout(async () => {
       setLoading(true);
       try {
-        const response = await fetch(`/api/v1/companies?q=${encodeURIComponent(query)}&limit=6`, {
-          signal: controller.signal,
-        });
+        const response = await fetch(
+          `/api/v1/companies?q=${encodeURIComponent(query)}&limit=6&coverage=${coverage}`,
+          { signal: controller.signal },
+        );
         const data = (await response.json()) as { items?: CompanySuggestion[] };
         setSuggestions(data.items ?? []);
         setActiveIndex(-1);
@@ -108,10 +127,13 @@ export function CompanyAutocomplete({
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [committedValue, value]);
+  }, [committedValue, coverage, value]);
 
   function choose(company: CompanySuggestion) {
-    const nextRecent = [company, ...recent.filter((item) => item.slug !== company.slug)].slice(0, 5);
+    const nextRecent = [
+      company,
+      ...recent.filter((item) => item.id !== company.id),
+    ].slice(0, 5);
     setRecent(nextRecent);
     window.localStorage.setItem(RECENT_COMPANIES_KEY, JSON.stringify(nextRecent));
     window.localStorage.removeItem(LEGACY_RECENT_COMPANIES_KEY);
@@ -124,7 +146,7 @@ export function CompanyAutocomplete({
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
-    const items = value.trim().length >= 2 ? suggestions : recent;
+    const items = value.trim().length >= 2 ? suggestions : visibleRecent;
     if (!open || items.length === 0) return;
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -141,7 +163,7 @@ export function CompanyAutocomplete({
   }
 
   const showingRecent = value.trim().length < 2;
-  const visibleItems = showingRecent ? recent : suggestions;
+  const visibleItems = showingRecent ? visibleRecent : suggestions;
 
   return (
     <div className={cn("relative min-w-0", className)}>
@@ -168,18 +190,18 @@ export function CompanyAutocomplete({
             if (nextValue.trim().length < 2) {
               setSuggestions([]);
               setLoading(false);
-              setOpen(recent.length > 0);
+              setOpen(visibleRecent.length > 0);
             } else {
               setOpen(true);
             }
           }}
-          onFocus={() => (value.trim().length >= 2 || recent.length > 0) && setOpen(true)}
+          onFocus={() => (value.trim().length >= 2 || visibleRecent.length > 0) && setOpen(true)}
           onBlur={() => window.setTimeout(() => setOpen(false), 120)}
           onKeyDown={handleKeyDown}
         />
       </div>
 
-      {open && (value.trim().length >= 2 || recent.length > 0) && (
+      {open && (value.trim().length >= 2 || visibleRecent.length > 0) && (
         <div className="absolute top-[calc(100%+6px)] left-0 z-70 w-full overflow-hidden rounded-lg border border-line-strong bg-white shadow-xl" id={listId} role="listbox">
           {showingRecent && <p className="m-0 border-b border-line bg-mist px-3 py-2.5 font-mono text-[8px] font-bold tracking-wider text-muted uppercase">Recent searches</p>}
           {loading ? (
@@ -192,15 +214,27 @@ export function CompanyAutocomplete({
                 type="button"
                 role="option"
                 aria-selected={activeIndex === index}
-                key={company.slug}
+                key={company.id ?? company.href ?? company.slug}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => choose(company)}
               >
                 <span className="grid min-w-0 gap-1">
                   <strong className="truncate text-[11px]">{company.name}</strong>
-                  <small className="text-[9px] text-muted">{company.storyCount.toLocaleString()} workplace stories</small>
+                  <small className="text-[9px] text-muted">
+                    {company.coverage === "betonkemon_only"
+                      ? `${company.salaryEntryCount.toLocaleString()} salary entries · ${company.salaryRoleCount.toLocaleString()} roles`
+                      : company.coverage === "both"
+                        ? `${company.storyCount.toLocaleString()} stories · ${company.salaryRoleCount.toLocaleString()} salary roles`
+                        : company.coverage === "review"
+                          ? `${company.storyCount.toLocaleString()} stories · possible salary match`
+                          : `${company.storyCount.toLocaleString()} workplace stories`}
+                  </small>
                 </span>
-                <em className="shrink-0 font-mono text-[9px] font-extrabold not-italic text-jade-dark uppercase">Choose</em>
+                {company.coverage ? (
+                  <EvidenceCoverageMark coverage={company.coverage} compact />
+                ) : (
+                  <em className="shrink-0 font-mono text-[9px] font-extrabold not-italic text-jade-dark uppercase">Choose</em>
+                )}
               </button>
             ))
           ) : (

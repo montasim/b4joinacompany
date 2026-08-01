@@ -2,8 +2,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { AuthShell } from "@/components/auth-shell";
-import { auth } from "@/lib/auth";
 import { destinationForSession, safeAuthNext } from "@/lib/auth-routing";
+import { optionalSession } from "@/lib/session";
 
 export default async function SignInPage({
   searchParams
@@ -11,7 +11,7 @@ export default async function SignInPage({
   searchParams: Promise<{ next?: string | string[]; error?: string | string[] }>;
 }) {
   const params = await searchParams;
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await optionalSession(await headers());
   if (session) redirect(destinationForSession(session, params.next));
 
   const next = safeAuthNext(params.next);

@@ -3,10 +3,11 @@ import { headers } from "next/headers";
 
 import { Brand } from "@/components/brand";
 import { SignOutButton } from "@/components/user-menu";
-import { auth } from "@/lib/auth";
+import { optionalSession } from "@/lib/session";
 
 type HeaderPage =
   | "Research"
+  | "Directory"
   | "Compare"
   | "Saved"
   | "Extension"
@@ -15,15 +16,19 @@ type HeaderPage =
   | "Sign in";
 
 export async function SiteHeader({
-  active = "Research"
+  active = "Research",
+  mode = "auto"
 }: {
   active?: HeaderPage;
   mode?: "auto" | "public" | "user";
   purpose?: string;
 }) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const isAuthenticated =
+    mode === "user" ||
+    (mode === "auto" && Boolean(await optionalSession(await headers())));
   const nav: Array<[HeaderPage, string, string]> = [
     ["Research", "/", "Research"],
+    ["Directory", "/companies", "Directory"],
     ["Compare", "/compare", "Compare"],
     ["Saved", "/saved", "Saved"],
     ["Extension", "/extension", "Extension"],
@@ -61,7 +66,7 @@ export async function SiteHeader({
 
           <div className="flex items-center justify-self-end gap-3.5">
             <div className="flex items-center gap-3.5 max-md:hidden">
-              {!session ? (
+              {!isAuthenticated ? (
                 <Link
                   className="text-xs font-extrabold text-jade-dark underline decoration-jade/30 underline-offset-3"
                   href="/auth/sign-in"
@@ -107,7 +112,7 @@ export async function SiteHeader({
                   ))}
                 </nav>
                 <div className="mt-2 grid gap-1 border-t border-line pt-2">
-                  {!session ? (
+                  {!isAuthenticated ? (
                     <Link
                       className="rounded-lg px-3 py-3 text-xs font-extrabold text-jade-dark no-underline hover:bg-jade-soft"
                       href="/auth/sign-in"

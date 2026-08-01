@@ -7,7 +7,7 @@ export const metadata = generateRootMetadata();
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className="min-w-80 scroll-smooth" lang="en">
+    <html className="min-w-80 scroll-smooth" data-scroll-behavior="smooth" lang="en">
       <body className="flex min-h-screen flex-col bg-mist font-body text-ink antialiased">
         <div className="flex-1">{children}</div>
         <SiteFooter />

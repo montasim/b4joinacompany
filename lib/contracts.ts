@@ -3,6 +3,12 @@ export type VerificationStatus = "verified" | "probable" | "needs_review" | "unr
 export type HiringState = "recent" | "stale" | "closed";
 export type ReportedWorkMode = "remote" | "onsite" | "hybrid" | "mixed" | "unknown";
 export type DerivedConfidence = "high" | "medium" | "low" | "unknown";
+export type EvidenceCoverage =
+  | "both"
+  | "deshimula_only"
+  | "betonkemon_only"
+  | "review";
+export type EvidenceCoverageFilter = EvidenceCoverage | "all" | "deshimula";
 
 export interface CompanyRecord {
   id: string;
@@ -22,6 +28,41 @@ export interface CompanyRecord {
   careersUrl: string | null;
   verificationStatus: VerificationStatus;
   aliases: string[];
+}
+
+export interface CompanyDirectoryRecord {
+  id: string;
+  slug: string;
+  name: string;
+  href: string;
+  coverage: EvidenceCoverage;
+  storyCount: number;
+  salaryEntryCount: number;
+  salaryRoleCount: number;
+  deshimulaUrl: string | null;
+  betonkemonUrl: string | null;
+  capturedAt: string | null;
+  reportedSalaryRange: {
+    minimumBdt: number;
+    maximumBdt: number;
+    raw: string;
+  } | null;
+  reviewCandidateCount: number;
+}
+
+export interface BetonkemonCompanyRecord {
+  slug: string;
+  name: string;
+  sourceUrl: string;
+  capturedAt: string;
+  salaryEntryCount: number;
+  roleCount: number;
+  reportedSalaryRange: {
+    minimumBdt: number;
+    maximumBdt: number;
+    raw: string;
+  } | null;
+  matchedCompanySlug: string | null;
 }
 
 export interface StoryRecord {

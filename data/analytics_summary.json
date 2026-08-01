@@ -29,7 +29,7 @@
     "with_crawled_story_links": 698,
     "with_profiles": 781
   },
-  "dataset_version": "1.2.0",
+  "dataset_version": "1.4.0",
   "generated_at": "2026-07-25T16:47:23.107050+00:00",
   "stories": {
     "blank_titles": 2,

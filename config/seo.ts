@@ -55,6 +55,20 @@ export const seoConfig: SEOConfig = {
       priority: 1,
       changeFrequency: "weekly",
     },
+    companies: {
+      title: "Company evidence directory: stories, salary data, and gaps",
+      description:
+        "Browse Bangladesh company records across Deshi Mula workplace stories and Beton Kemon salary evidence, including records present in only one source.",
+      keywords: [
+        "Bangladesh company directory",
+        "Deshi Mula companies",
+        "Beton Kemon salary companies",
+        "company evidence coverage",
+      ],
+      path: "/companies",
+      priority: 0.9,
+      changeFrequency: "weekly",
+    },
     compare: {
       title: "Compare companies using workplace and salary evidence",
       description:

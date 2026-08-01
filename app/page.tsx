@@ -129,9 +129,9 @@ export default async function HomePage() {
                   </strong>{" "}
                   workplace stories ·{" "}
                   <strong className="text-ink">
-                    {stats.companies.toLocaleString()}
+                    {stats.evidenceRecords.toLocaleString()}
                   </strong>{" "}
-                  company records · community-submitted salary context
+                  company-source records · community-submitted salary context
                 </p>
                 <p>
                   Reported, submitted, and official evidence remain separate.{" "}
