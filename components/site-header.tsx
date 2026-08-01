@@ -7,7 +7,6 @@ import { optionalSession } from "@/lib/session";
 
 type HeaderPage =
   | "Research"
-  | "Directory"
   | "Compare"
   | "Saved"
   | "Extension"
@@ -28,7 +27,6 @@ export async function SiteHeader({
     (mode === "auto" && Boolean(await optionalSession(await headers())));
   const nav: Array<[HeaderPage, string, string]> = [
     ["Research", "/", "Research"],
-    ["Directory", "/companies", "Directory"],
     ["Compare", "/compare", "Compare"],
     ["Saved", "/saved", "Saved"],
     ["Extension", "/extension", "Extension"],

@@ -216,7 +216,6 @@ function CompanyPicker({
           </span>
         }
         placeholder="Search company name"
-        coverage="deshimula"
         value={query}
         onValueChange={onQueryChange}
         onSelect={onSelect}

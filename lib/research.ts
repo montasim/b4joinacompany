@@ -3,12 +3,9 @@ import { cache } from "react";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type {
-  BetonkemonCompanyRecord,
-  CompanyDirectoryRecord,
   CompanyRecord,
   CompanySalaryEvidence,
   CompanyWorkArrangement,
-  EvidenceCoverageFilter,
   StoryRecord,
 } from "@/lib/contracts";
 import { sampleStories, technonext } from "@/lib/fixtures";
@@ -150,33 +147,6 @@ interface RawSalaryEvidence {
   };
 }
 
-interface RawBetonkemonCompany {
-  betonkemon_slug: string;
-  display_name: string;
-  source_url: string;
-  salary_entry_count: number | null;
-  role_count: number | null;
-  reported_salary_range_bdt: {
-    minimum: number;
-    maximum: number;
-    raw: string;
-  } | null;
-  captured_at: string;
-}
-
-interface RawSalaryMatch {
-  company_slug: string;
-  betonkemon_slug: string;
-  source_url: string;
-  salary_entry_count: number | null;
-  role_count: number | null;
-}
-
-interface RawSalaryMatchReview {
-  company_slug: string;
-  candidates: Array<{ betonkemon_slug: string }>;
-}
-
 const dataPath = (...parts: string[]) =>
   datasetFile(path.join(...parts));
 
@@ -237,15 +207,6 @@ const loadSalaryEvidence = cache(async () => {
     throw error;
   }
 });
-const loadBetonkemonCompanies = cache(async () =>
-  jsonLines<RawBetonkemonCompany>("betonkemon_companies.jsonl")
-);
-const loadSalaryMatches = cache(async () =>
-  jsonLines<RawSalaryMatch>("company_salary_matches.jsonl")
-);
-const loadSalaryMatchReview = cache(async () =>
-  jsonLines<RawSalaryMatchReview>("company_salary_match_review.jsonl")
-);
 
 function compactText(value: string) {
   return normalizeText(value).replace(/\s+/g, "");
@@ -319,176 +280,6 @@ export async function searchCompanies(query: string, limit = 12) {
     .sort((a, b) => b.score - a.score || a.company.name.localeCompare(b.company.name))
     .slice(0, limit)
     .map(({ company }) => company);
-}
-
-function coverageMatches(
-  item: CompanyDirectoryRecord,
-  coverage: EvidenceCoverageFilter,
-) {
-  if (coverage === "all") return true;
-  if (coverage === "deshimula") return item.deshimulaUrl !== null;
-  return item.coverage === coverage;
-}
-
-const loadCompanyDirectory = cache(async (): Promise<CompanyDirectoryRecord[]> => {
-  const [companies, betonkemonCompanies, matches, reviewRows] =
-    await Promise.all([
-      loadCompanies(),
-      loadBetonkemonCompanies(),
-      loadSalaryMatches(),
-      loadSalaryMatchReview(),
-    ]);
-  const betonkemonBySlug = new Map(
-    betonkemonCompanies.map((company) => [company.betonkemon_slug, company]),
-  );
-  const matchByCompany = new Map(
-    matches.map((match) => [match.company_slug, match]),
-  );
-  const matchedBetonkemonSlugs = new Set(
-    matches.map((match) => match.betonkemon_slug),
-  );
-  const reviewByCompany = new Map(
-    reviewRows.map((review) => [review.company_slug, review]),
-  );
-
-  const deshimulaRecords = companies.map<CompanyDirectoryRecord>((company) => {
-    const match = matchByCompany.get(company.slug);
-    const salaryCompany = match
-      ? betonkemonBySlug.get(match.betonkemon_slug)
-      : undefined;
-    const review = reviewByCompany.get(company.slug);
-    return {
-      id: `deshimula:${company.slug}`,
-      slug: company.slug,
-      name: company.name,
-      href: `/company/${company.slug}`,
-      coverage: match ? "both" : review ? "review" : "deshimula_only",
-      storyCount: company.storyCount,
-      salaryEntryCount:
-        salaryCompany?.salary_entry_count ?? match?.salary_entry_count ?? 0,
-      salaryRoleCount: salaryCompany?.role_count ?? match?.role_count ?? 0,
-      deshimulaUrl: company.sourceUrl,
-      betonkemonUrl: salaryCompany?.source_url ?? match?.source_url ?? null,
-      capturedAt: salaryCompany?.captured_at ?? null,
-      reportedSalaryRange: salaryCompany?.reported_salary_range_bdt
-        ? {
-            minimumBdt: salaryCompany.reported_salary_range_bdt.minimum,
-            maximumBdt: salaryCompany.reported_salary_range_bdt.maximum,
-            raw: salaryCompany.reported_salary_range_bdt.raw,
-          }
-        : null,
-      reviewCandidateCount: review?.candidates.length ?? 0,
-    };
-  });
-
-  const salaryOnlyRecords = betonkemonCompanies
-    .filter(
-      (company) => !matchedBetonkemonSlugs.has(company.betonkemon_slug),
-    )
-    .map<CompanyDirectoryRecord>((company) => ({
-      id: `betonkemon:${company.betonkemon_slug}`,
-      slug: company.betonkemon_slug,
-      name: company.display_name,
-      href: `/salary-company/${company.betonkemon_slug}`,
-      coverage: "betonkemon_only",
-      storyCount: 0,
-      salaryEntryCount: company.salary_entry_count ?? 0,
-      salaryRoleCount: company.role_count ?? 0,
-      deshimulaUrl: null,
-      betonkemonUrl: company.source_url,
-      capturedAt: company.captured_at,
-      reportedSalaryRange: company.reported_salary_range_bdt
-        ? {
-            minimumBdt: company.reported_salary_range_bdt.minimum,
-            maximumBdt: company.reported_salary_range_bdt.maximum,
-            raw: company.reported_salary_range_bdt.raw,
-          }
-        : null,
-      reviewCandidateCount: 0,
-    }));
-
-  return [...deshimulaRecords, ...salaryOnlyRecords];
-});
-
-export async function browseCompanyDirectory({
-  query = "",
-  coverage = "all",
-  limit = 50,
-  offset = 0,
-}: {
-  query?: string;
-  coverage?: EvidenceCoverageFilter;
-  limit?: number;
-  offset?: number;
-} = {}) {
-  const normalized = normalizeText(query);
-  const directory = await loadCompanyDirectory();
-  const filtered = directory
-    .filter((item) => coverageMatches(item, coverage))
-    .map((item) => ({
-      item,
-      score: normalized
-        ? Math.max(
-            relevanceScore(normalized, item.name),
-            relevanceScore(normalized, item.slug),
-          )
-        : 1,
-    }))
-    .filter(({ score }) => score > 0)
-    .sort(
-      (left, right) =>
-        (normalized ? right.score - left.score : 0) ||
-        left.item.name.localeCompare(right.item.name),
-    );
-  const counts = directory.reduce(
-    (result, item) => {
-      result[item.coverage] += 1;
-      return result;
-    },
-    { both: 0, deshimula_only: 0, betonkemon_only: 0, review: 0 },
-  );
-  return {
-    items: filtered.slice(offset, offset + limit).map(({ item }) => item),
-    total: filtered.length,
-    counts,
-  };
-}
-
-export async function searchCompanyDirectory(
-  query: string,
-  limit = 12,
-  coverage: EvidenceCoverageFilter = "all",
-) {
-  if (normalizeText(query).length < 2) return [];
-  return (await browseCompanyDirectory({ query, coverage, limit })).items;
-}
-
-export async function getBetonkemonCompany(
-  slug: string,
-): Promise<BetonkemonCompanyRecord | null> {
-  const [companies, matches] = await Promise.all([
-    loadBetonkemonCompanies(),
-    loadSalaryMatches(),
-  ]);
-  const company = companies.find((item) => item.betonkemon_slug === slug);
-  if (!company) return null;
-  const match = matches.find((item) => item.betonkemon_slug === slug);
-  return {
-    slug: company.betonkemon_slug,
-    name: company.display_name,
-    sourceUrl: company.source_url,
-    capturedAt: company.captured_at,
-    salaryEntryCount: company.salary_entry_count ?? 0,
-    roleCount: company.role_count ?? 0,
-    reportedSalaryRange: company.reported_salary_range_bdt
-      ? {
-          minimumBdt: company.reported_salary_range_bdt.minimum,
-          maximumBdt: company.reported_salary_range_bdt.maximum,
-          raw: company.reported_salary_range_bdt.raw,
-        }
-      : null,
-    matchedCompanySlug: match?.company_slug ?? null,
-  };
 }
 
 export async function getCompany(slug: string) {
@@ -693,13 +484,9 @@ export async function getCompanyQuestions(slug: string, companyName?: string) {
 }
 
 export async function datasetStats() {
-  const [companies, directory] = await Promise.all([
-    loadCompanies(),
-    browseCompanyDirectory({ limit: 0 }),
-  ]);
+  const companies = await loadCompanies();
   return {
     companies: companies.length,
-    evidenceRecords: directory.total,
     stories: companies.reduce((sum, company) => sum + company.storyCount, 0),
     comments: (await loadComments()).length,
     snapshotDate: companies[0]?.snapshotDate ?? "2026-07-24"

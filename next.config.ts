@@ -14,9 +14,6 @@ const nextConfig: NextConfig = {
       "data/comment_threads.jsonl",
       "data/company_work_arrangements.jsonl",
       "data/company_salary_evidence.jsonl",
-      "data/betonkemon_companies.jsonl",
-      "data/company_salary_matches.jsonl",
-      "data/company_salary_match_review.jsonl",
       "data/analytics_summary.json"
     ]
   },
