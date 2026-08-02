@@ -1,4 +1,8 @@
+[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
+
 # b4joinacompany
+
+
 
 **Research a company before you apply, interview, or accept an offer.**
 
@@ -191,3 +195,9 @@ pnpm check
 The web application only reads those files. Corrections submitted through the
 product remain pending records until a maintainer reviews them for a future
 dataset release.
+
+## Support
+
+If this project has been useful, you can support its continued maintenance:
+
+[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
