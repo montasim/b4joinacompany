@@ -1,6 +1,8 @@
+[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
+
 # b4joinacompany
 
-[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
+
 
 **Research a company before you apply, interview, or accept an offer.**
 
