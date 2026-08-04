@@ -1,10 +1,9 @@
-[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
-
 # b4joinacompany
 
-
-
 **Research a company before you apply, interview, or accept an offer.**
+
+[![Live app](https://img.shields.io/badge/live-b4joinacompany.netlify.app-00c7b7?logo=netlify)](https://b4joinacompany.netlify.app)
+[![Support on SupportKori](https://img.shields.io/badge/support-SupportKori-ffdd00)](https://www.supportkori.com/montasim)
 
 b4joinacompany is a decision-support tool for job seekers in Bangladesh. It
 turns workplace stories, community-submitted salary information, reported work
@@ -17,6 +16,15 @@ The product is built around a simple principle: personal reports are useful
 context, but they are not verified company facts. Every summary remains
 traceable to its source, uncertainty stays visible, and missing evidence is
 shown as a gap rather than treated as a negative signal.
+
+**[Research a company](https://b4joinacompany.netlify.app)** ·
+[Review the methodology](https://b4joinacompany.netlify.app/method)
+
+![b4joinacompany company-research interface](prototypes/v4/.v4-home-final.png)
+
+> **Project status:** the public research experience is usable without an
+> account. Google sign-in is required for private saved checkpoints, and the
+> optional AI-backed Ask flow depends on configured provider quotas.
 
 ## What you can do
 
@@ -96,6 +104,23 @@ The app does not:
 - Gemini and Groq with a deterministic fallback for evidence-based answers
 - A versioned, locally processed Deshi Mula dataset
 
+## How the application fits together
+
+```mermaid
+flowchart LR
+  Sources[Versioned source datasets] --> Research[Deterministic research layer]
+  Research --> Web[Next.js web experience]
+  Research --> API[Versioned API]
+  Web --> Ask[Optional Gemini / Groq answer synthesis]
+  Web --> Workspace[(Private MongoDB workspace)]
+  API --> Extension[Companion browser extension]
+```
+
+The versioned JSONL files are the public evidence base. Deterministic matching
+and question generation run before any optional AI synthesis. MongoDB is used
+for authentication, private checkpoints, correction submissions, quotas, and
+operational metadata—not as the source of published workplace claims.
+
 ## Run locally
 
 Requirements:
@@ -105,8 +130,10 @@ Requirements:
 - MongoDB if you want authentication, saved workspaces, or persistent AI quotas
 
 ```bash
-cp .env.example .env.local
+git clone https://github.com/montasim/b4joinacompany.git
+cd b4joinacompany
 pnpm install
+cp .env.example .env.local
 pnpm dev
 ```
 
@@ -137,6 +164,16 @@ as needed:
 Production builds require the authentication URL, app URL, secret, and Google
 credentials. Ask still works without an AI key by using the deterministic
 fallback.
+
+## Deployment
+
+The maintained deployment is hosted on
+[Netlify](https://b4joinacompany.netlify.app), using the build command and
+runtime versions declared in [`netlify.toml`](netlify.toml). For another
+deployment, provide the production authentication origin, Google OAuth callback
+credentials, MongoDB, and any optional AI provider keys in the host's secret
+store. Keep `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` on the same canonical
+HTTPS origin.
 
 ## Development commands
 
@@ -198,6 +235,24 @@ dataset release.
 
 ## Support
 
-If this project has been useful, you can support its continued maintenance:
+Questions, corrections, and reproducible bug reports can be opened through
+[GitHub Issues](https://github.com/montasim/b4joinacompany/issues). Do not post
+private workplace details, credentials, or vulnerability information in a
+public issue. The in-product correction form is the appropriate route for
+disputing displayed evidence.
+
+Contributions should preserve source traceability, keep reported and official
+information separate, and include the relevant `pnpm check` result. If this
+project has been useful, optional support helps fund dataset review, hosting,
+and continued maintenance:
 
 [![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
+
+## License
+
+This repository does not currently include a license file. Copyright remains
+with the author, and no open-source license should be assumed.
+
+## Maintainer
+
+[Mohammad Montasim Al Mamun Shuvo](https://github.com/montasim)
