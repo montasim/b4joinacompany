@@ -26,6 +26,14 @@ shown as a gap rather than treated as a negative signal.
 > account. Google sign-in is required for private saved checkpoints, and the
 > optional AI-backed Ask flow depends on configured provider quotas.
 
+## Why b4joinacompany?
+
+Job seekers often have to assemble a decision from anonymous posts, salary
+submissions, company pages, and interview conversations. Those sources differ
+in reliability and are easy to flatten into an unfair “good/bad company”
+judgment. b4joinacompany keeps provenance and uncertainty visible so the reader
+can prepare better questions without mistaking reports for verified policy.
+
 ## What you can do
 
 - **Research a company** — search confirmed company records and open a single
@@ -43,6 +51,32 @@ shown as a gap rather than treated as a negative signal.
   Mula company and story pages without creating a b4joinacompany account.
 - **Submit corrections** — flag company or evidence issues for manual review;
   submissions never alter the published dataset automatically.
+
+## Using the application
+
+### Research one company
+
+1. Open the [company search](https://b4joinacompany.netlify.app).
+2. Select a confirmed company record rather than relying on a name-only guess.
+3. Review the evidence timestamp, source labels, workplace stories, reported
+   work arrangement, salary evidence, and official destinations.
+4. Open original source links for any claim that matters to your decision.
+5. Use the suggested questions during the application, interview, or offer
+   discussion to verify what is current.
+
+### Compare or ask
+
+1. Open **Compare** and choose two companies to inspect the same evidence
+   categories side by side; the product does not choose a winner.
+2. Open **Ask**, enter one focused question, and check each `[S1]`, `[S2]`, or
+   later citation against the retrieved story context.
+3. Treat an evidence gap as “unknown,” not as evidence against the company.
+
+### Save a checkpoint or submit a correction
+
+Sign in with Google to save a private snapshot of a company and its dataset
+revision. Use the correction form when an identity, destination, or evidence
+record needs review; a maintainer must approve any dataset change.
 
 ## How evidence is handled
 
@@ -165,6 +199,10 @@ Production builds require the authentication URL, app URL, secret, and Google
 credentials. Ask still works without an AI key by using the deterministic
 fallback.
 
+`.env.example` currently includes `AI_PROVIDER_ORDER`, but the application does
+not read it; provider selection is controlled by `AI_PROVIDER`. `NODE_ENV` is
+set by the runtime and enables the production configuration checks.
+
 ## Deployment
 
 The maintained deployment is hosted on
@@ -233,6 +271,16 @@ The web application only reads those files. Corrections submitted through the
 product remain pending records until a maintainer reviews them for a future
 dataset release.
 
+## Documentation
+
+- [Product and implementation context](CONTEXT.md)
+- [Prototype notes](prototypes/README.md)
+- [Companion browser extension](https://github.com/montasim/deshi-mula-extended)
+- [Public methodology](https://b4joinacompany.netlify.app/method)
+- [Versioned API reference](#api)
+- [Dataset update workflow](#dataset-updates)
+- [Evidence and source handling](#how-evidence-is-handled)
+
 ## Support
 
 Questions, corrections, and reproducible bug reports can be opened through
@@ -242,11 +290,22 @@ public issue. The in-product correction form is the appropriate route for
 disputing displayed evidence.
 
 Contributions should preserve source traceability, keep reported and official
-information separate, and include the relevant `pnpm check` result. If this
-project has been useful, optional support helps fund dataset review, hosting,
-and continued maintenance:
+information separate, and include the relevant `pnpm check` result.
 
-[![Support me on SupportKori](https://img.shields.io/badge/Support%20me-SupportKori-FFDD00?style=flat-square)](https://www.supportkori.com/montasim)
+The repository does not yet contain dedicated `CONTRIBUTING.md`, `SECURITY.md`,
+`CODE_OF_CONDUCT.md`, or `SUPPORT.md` files. Use
+[Issues](https://github.com/montasim/b4joinacompany/issues) for public bugs and
+methodology discussion, [Pull Requests](https://github.com/montasim/b4joinacompany/pulls)
+for reviewable changes, and the maintainer's profile for private security or
+personal-data reports.
+
+## Funding
+
+Optional SupportKori contributions help fund dataset review, hosting, source
+verification, and maintenance. Evidence corrections, careful issue reports,
+and documentation contributions are equally valuable.
+
+[![Support b4joinacompany on SupportKori](https://img.shields.io/badge/Support_b4joinacompany-SupportKori-00B8B5?style=for-the-badge)](https://www.supportkori.com/montasim)
 
 ## License
 
