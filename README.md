@@ -20,8 +20,6 @@ shown as a gap rather than treated as a negative signal.
 **[Research a company](https://b4joinacompany.netlify.app)** ·
 [Review the methodology](https://b4joinacompany.netlify.app/method)
 
-![b4joinacompany company-research interface](prototypes/v4/.v4-home-final.png)
-
 > **Project status:** the public research experience is usable without an
 > account. Google sign-in is required for private saved checkpoints, and the
 > optional AI-backed Ask flow depends on configured provider quotas.
