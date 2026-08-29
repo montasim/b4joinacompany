@@ -219,10 +219,10 @@ function SignedOutWorkspace() {
             <LockKeyhole aria-hidden className="size-4" />
           </span>
         </header>
-        <ol className="relative m-0 grid list-none px-6 before:absolute before:top-12 before:bottom-12 before:left-[38px] before:w-px before:bg-line-strong">
+        <ol className="m-0 grid list-none px-6">
           {lockedItems.map((item) => (
             <li
-              className="grid grid-cols-[12px_minmax(0,1fr)_auto] items-start gap-4 border-b border-line py-5 last:border-b-0"
+              className="relative grid grid-cols-[12px_minmax(0,1fr)_auto] items-start gap-4 border-b border-line py-5 before:absolute before:top-[33px] before:bottom-[-33px] before:left-[7px] before:w-px before:bg-line-strong last:border-b-0 last:before:hidden"
               key={item.label}
             >
               <span
