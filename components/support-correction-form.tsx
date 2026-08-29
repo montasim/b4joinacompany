@@ -4,6 +4,15 @@ import { FormEvent, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input, Textarea } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type CorrectionKind =
   | "website"
@@ -35,6 +44,8 @@ function companySlug(value: string) {
 
 export function SupportCorrectionForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const [correctionKind, setCorrectionKind] =
+    useState<CorrectionKind>("website");
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<
     | { kind: "idle" }
@@ -116,6 +127,7 @@ export function SupportCorrectionForm() {
       }
       setStatus({ kind: "success", id: body?.id ?? "queued" });
       formElement.reset();
+      setCorrectionKind("website");
     } catch (cause) {
       setStatus({
         kind: "error",
@@ -166,23 +178,40 @@ export function SupportCorrectionForm() {
         ref={formRef}
       >
         <div className="grid grid-cols-2 gap-x-3.5 gap-y-4.25 py-5.5 pr-6 pl-7.5 max-sm:grid-cols-1 max-sm:pr-4.5 max-sm:pl-5.5">
-          <label className="grid content-start gap-1.5 text-[10px] font-extrabold">
-            What needs correction?
-            <select
-              className="min-h-11.25 w-full rounded-lg border border-line-strong bg-[#fbfdfc] px-3 text-xs text-ink outline-none focus:border-jade focus:ring-3 focus:ring-jade/10"
-              defaultValue="website"
+          <div className="grid content-start gap-1.5 text-[10px] font-extrabold">
+            <span id="correction-kind-label">What needs correction?</span>
+            <Select
               name="kind"
+              onValueChange={(value) =>
+                setCorrectionKind(value as CorrectionKind)
+              }
+              value={correctionKind}
             >
-              <option value="website">Official website</option>
-              <option value="linkedin">LinkedIn profile</option>
-              <option value="careers">Careers page</option>
-              <option value="identity">Company identity or name</option>
-              <option value="other">Evidence or salary context</option>
-            </select>
+              <SelectTrigger
+                aria-labelledby="correction-kind-label"
+                className="bg-[#fbfdfc]"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Correction type</SelectLabel>
+                  <SelectItem value="website">Official website</SelectItem>
+                  <SelectItem value="linkedin">LinkedIn profile</SelectItem>
+                  <SelectItem value="careers">Careers page</SelectItem>
+                  <SelectItem value="identity">
+                    Company identity or name
+                  </SelectItem>
+                  <SelectItem value="other">
+                    Evidence or salary context
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             <small className="min-h-3.5 text-[8px] leading-snug font-normal text-muted">
               Choose the published detail that needs review.
             </small>
-          </label>
+          </div>
 
           <label className="grid content-start gap-1.5 text-[10px] font-extrabold">
             Company or b4joinacompany page

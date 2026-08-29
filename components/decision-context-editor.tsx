@@ -4,6 +4,15 @@ import { FormEvent, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DecisionContext {
   stage: string;
@@ -42,17 +51,32 @@ export function DecisionContextEditor({ stage, role, priority }: DecisionContext
       {open && (
         <form className="mt-4 rounded-xl border border-line-strong bg-white p-5" onSubmit={submit}>
           <div className="grid grid-cols-3 gap-4 max-md:grid-cols-1">
-            <label className="grid gap-2 text-[10px] font-extrabold">
-              Where are you in the process?
-              <select className="min-h-11.25 w-full appearance-none rounded-lg border border-line-strong bg-[#fbfdfc] px-3 text-ink outline-none focus:border-jade focus:ring-3 focus:ring-jade/10"
+            <div className="grid gap-2 text-[10px] font-extrabold">
+              <span id="decision-stage-label">Where are you in the process?</span>
+              <Select
+                onValueChange={(stage) => setDraft({ ...draft, stage })}
                 value={draft.stage}
-                onChange={(event) => setDraft({ ...draft, stage: event.target.value })}
               >
-                <option>Reviewing an offer</option>
-                <option>Interviewing</option>
-                <option>Applying</option>
-              </select>
-            </label>
+                <SelectTrigger
+                  aria-labelledby="decision-stage-label"
+                  className="bg-[#fbfdfc]"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Decision stage</SelectLabel>
+                    {["Reviewing an offer", "Interviewing", "Applying"].map(
+                      (option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ),
+                    )}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
             <label className="grid gap-2 text-[10px] font-extrabold">
               Role or team
               <Input
@@ -61,18 +85,35 @@ export function DecisionContextEditor({ stage, role, priority }: DecisionContext
                 onChange={(event) => setDraft({ ...draft, role: event.target.value })}
               />
             </label>
-            <label className="grid gap-2 text-[10px] font-extrabold">
-              What matters most?
-              <select className="min-h-11.25 w-full appearance-none rounded-lg border border-line-strong bg-[#fbfdfc] px-3 text-ink outline-none focus:border-jade focus:ring-3 focus:ring-jade/10"
+            <div className="grid gap-2 text-[10px] font-extrabold">
+              <span id="decision-priority-label">What matters most?</span>
+              <Select
+                onValueChange={(priority) => setDraft({ ...draft, priority })}
                 value={draft.priority}
-                onChange={(event) => setDraft({ ...draft, priority: event.target.value })}
               >
-                <option>Job stability</option>
-                <option>Manager and team</option>
-                <option>Salary and benefits</option>
-                <option>Growth and learning</option>
-              </select>
-            </label>
+                <SelectTrigger
+                  aria-labelledby="decision-priority-label"
+                  className="bg-[#fbfdfc]"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Decision priority</SelectLabel>
+                    {[
+                      "Job stability",
+                      "Manager and team",
+                      "Salary and benefits",
+                      "Growth and learning",
+                    ].map((option) => (
+                      <SelectItem key={option} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <div className="mt-4 flex justify-end gap-2">
             <Button type="button" variant="outline" onClick={cancel}>Cancel</Button>
