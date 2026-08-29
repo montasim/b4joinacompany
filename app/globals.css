@@ -24,3 +24,21 @@
   --font-mono: "SFMono-Regular", "Cascadia Mono", "Roboto Mono", monospace;
   --shadow-panel: 0 18px 55px rgb(22 56 61 / 10%);
 }
+
+/* Keep Support Kori's embedded panel, but use the app-native trigger. */
+.sk-widget-btn {
+  display: none !important;
+}
+
+@media (max-width: 680px) {
+  .sk-widget-iframe-container {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: calc(env(safe-area-inset-bottom) + 70px) !important;
+    width: auto !important;
+    height: min(
+      550px,
+      calc(100dvh - env(safe-area-inset-bottom) - 94px)
+    ) !important;
+  }
+}
