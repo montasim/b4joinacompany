@@ -1,59 +1,59 @@
 {
   "comments": {
     "language_labels": {
-      "bn": 1360,
-      "bn-en-mixed": 41,
-      "en-or-banglish-latin": 2730,
-      "und": 104
+      "bn": 1518,
+      "bn-en-mixed": 46,
+      "en-or-banglish-latin": 2888,
+      "und": 112
     },
-    "listed_count_matches": 2494,
+    "listed_count_matches": 2661,
     "listed_count_mismatches": 4,
     "privacy_pattern_comment_counts": {
       "email_like": 1,
       "ipv4_like": 5,
       "long_number_like": 7,
-      "social_handle_like": 124,
+      "social_handle_like": 155,
       "url_like": 47
     },
-    "threads": 2498,
-    "threads_with_comments": 1323,
-    "total": 4235
+    "threads": 2665,
+    "threads_with_comments": 1408,
+    "total": 4564
   },
   "companies": {
-    "deshimula_reviews_total_reported": 2418,
+    "deshimula_reviews_total_reported": 2466,
     "glassdoor_reviews_total_reported": 10803,
     "mixed_total_reported": 273,
-    "negative_total_reported": 1889,
-    "positive_total_reported": 274,
-    "total": 781,
-    "with_crawled_story_links": 698,
-    "with_profiles": 781
+    "negative_total_reported": 1932,
+    "positive_total_reported": 280,
+    "total": 809,
+    "with_crawled_story_links": 729,
+    "with_profiles": 809
   },
-  "dataset_version": "1.4.0",
-  "generated_at": "2026-07-25T16:47:23.107050+00:00",
+  "dataset_version": "1.5.0",
+  "generated_at": "2026-08-29T13:10:23.503304+00:00",
   "stories": {
     "blank_titles": 2,
     "body_characters_max": 16817,
-    "body_characters_p50": 1015.5,
-    "body_characters_p90": 2656.4000000000015,
-    "body_words_p50": 168.5,
-    "body_words_p90": 442.0,
-    "comments_total": 4230,
-    "date_max": "2026-07-23",
+    "body_characters_p50": 1024.0,
+    "body_characters_p90": 2697.399999999999,
+    "body_words_p50": 170.0,
+    "body_words_p90": 448.0,
+    "comments_total": 4559,
+    "date_max": "2026-08-27",
     "date_min": "2025-05-05",
-    "downvotes_total": 4077,
-    "duplicate_content_groups": 12,
+    "downvotes_total": 4196,
+    "duplicate_content_groups": 13,
     "language_heuristic_counts": {
-      "bangla_dominant": 1115,
-      "latin_dominant": 1329,
-      "mixed_bangla_latin": 28,
-      "other": 26
+      "bangla_dominant": 1197,
+      "latin_dominant": 1402,
+      "mixed_bangla_latin": 35,
+      "other": 31
     },
     "language_labels": {
-      "bn": 1115,
-      "bn-en-mixed": 28,
-      "en-or-banglish-latin": 1329,
-      "und": 26
+      "bn": 1197,
+      "bn-en-mixed": 35,
+      "en-or-banglish-latin": 1402,
+      "und": 31
     },
     "monthly_counts": {
       "2025-05": 790,
@@ -70,31 +70,40 @@
       "2026-04": 112,
       "2026-05": 98,
       "2026-06": 122,
-      "2026-07": 91
+      "2026-07": 132,
+      "2026-08": 126
     },
     "privacy_pattern_story_counts": {
       "bangladesh_phone_like": 1,
       "long_number_like": 2,
-      "social_handle_like": 126,
+      "social_handle_like": 143,
       "url_like": 11
     },
     "split_counts": {
-      "test": 224,
-      "train": 1990,
-      "validation": 284
+      "test": 235,
+      "train": 2011,
+      "validation": 419
     },
     "top_companies_by_story_count": [
       [
         "Betopi@ Group",
-        90
+        95
       ],
       [
         "TechnoNe><t Ltd",
-        81
+        88
+      ],
+      [
+        "WWW Engineers Ltd",
+        45
       ],
       [
         "Opt!m!zely",
         44
+      ],
+      [
+        "We11Dev",
+        43
       ],
       [
         "Ther@p BD",
@@ -105,12 +114,8 @@
         42
       ],
       [
-        "We11Dev",
-        42
-      ],
-      [
-        "WWW Engineers Ltd",
-        40
+        "8RAC IT",
+        36
       ],
       [
         "Mogoj Station 23",
@@ -118,11 +123,11 @@
       ],
       [
         "Cef@lo",
-        33
+        34
       ],
       [
         "2SL Wireless",
-        32
+        33
       ],
       [
         "A11 Gen3rat!on Tech",
@@ -137,11 +142,15 @@
         29
       ],
       [
-        "8RAC IT",
-        28
+        "Ech0l0gyx Ltd",
+        26
       ],
       [
         "N3xt Ventur3s",
+        25
+      ],
+      [
+        "@stha IT",
         25
       ],
       [
@@ -149,24 +158,24 @@
         25
       ],
       [
-        "Ech0l0gyx Ltd",
-        25
-      ],
-      [
-        "@stha IT",
-        22
+        "Get L3vrg",
+        24
       ],
       [
         "Bg!T",
-        22
+        24
       ],
       [
         "Ro><nor",
-        22
+        23
       ],
       [
         "Inter@ctive Cares",
         22
+      ],
+      [
+        "R!seup L@bs",
+        20
       ],
       [
         "Cod3m3n Solut!ons Ltd",
@@ -177,6 +186,10 @@
         19
       ],
       [
+        "D3vxhub",
+        18
+      ],
+      [
         "Med!uswar3 Ltd",
         18
       ],
@@ -185,78 +198,66 @@
         17
       ],
       [
-        "R!seup L@bs",
-        17
-      ],
-      [
-        "Get L3vrg",
-        16
-      ],
-      [
         "T3n Minute Sch00l",
         16
       ],
       [
-        "$oftvence Agency",
-        16
-      ],
-      [
-        "Oce@nget",
+        "Kana SL",
         16
       ]
     ],
     "top_job_titles": [
       [
         "Anonymous",
-        509
+        553
       ],
       [
         "Software Engineer",
-        327
+        352
       ],
       [
         "Employee",
-        106
+        111
       ],
       [
         "Interviewee",
-        79
-      ],
-      [
-        "Developer",
-        79
+        86
       ],
       [
         "Engineer",
-        73
+        84
+      ],
+      [
+        "Developer",
+        82
       ],
       [
         "Senior Software Engineer",
-        58
+        62
       ],
       [
         "Executive",
-        53
-      ],
-      [
-        "Ex Employee",
-        44
+        56
       ],
       [
         "Software Developer",
-        41
+        45
+      ],
+      [
+        "Ex Employee",
+        45
       ],
       [
         "Manager",
-        26
-      ],
-      [
-        "Full Stack Developer",
-        25
+        29
       ],
       [
         "Sr. Software Engineer",
-        25
+        28
+      ],
+      [
+        "Full Stack Developer",
+        27
       ],
       [
         "Ex Software Engineer",
@@ -267,20 +268,24 @@
         19
       ],
       [
+        "Frontend Developer",
+        16
+      ],
+      [
         "Former Employee",
         15
       ],
       [
-        "Frontend Developer",
-        15
+        "UI/UX Designer",
+        13
       ],
       [
         "Designer",
         13
       ],
       [
-        "UI/UX Designer",
-        12
+        "Dev",
+        13
       ],
       [
         "Junior Software Engineer",
@@ -291,15 +296,19 @@
         11
       ],
       [
+        "QA",
+        11
+      ],
+      [
         "Intern",
         11
       ],
       [
-        "Dev",
-        11
+        "Senior Executive",
+        10
       ],
       [
-        "QA",
+        "Ex Engineer",
         10
       ],
       [
@@ -307,24 +316,16 @@
         10
       ],
       [
+        "Content Writer",
+        9
+      ],
+      [
         "Former Software Engineer",
         9
       ],
       [
-        "Senior Executive",
-        9
-      ],
-      [
-        "Ex Engineer",
-        9
-      ],
-      [
         "MDS",
-        8
-      ],
-      [
-        "EX Employee",
-        8
+        9
       ]
     ],
     "top_stories_by_total_engagement": [
@@ -381,6 +382,15 @@
         "story_id": "6a240a801e28231383f906e3",
         "title": "A blackship remains a blackship",
         "upvotes": 54
+      },
+      {
+        "comments": 55,
+        "company_display_name": "TechnoNe><t Ltd",
+        "downvotes": 20,
+        "source_url": "https://deshimula.com/story/6a689fef6166ca93cb34964c",
+        "story_id": "6a689fef6166ca93cb34964c",
+        "title": "Ultimate Culprits: T****m",
+        "upvotes": 18
       },
       {
         "comments": 1,
@@ -444,6 +454,15 @@
         "story_id": "6836125c2c63e14523575a12",
         "title": "কৃতজ্ঞ!",
         "upvotes": 27
+      },
+      {
+        "comments": 36,
+        "company_display_name": "$elise",
+        "downvotes": 6,
+        "source_url": "https://deshimula.com/story/6a888dfc6166ca93cb60239c",
+        "story_id": "6a888dfc6166ca93cb60239c",
+        "title": "MNE: বাইরে Corporate, ভিতরে Garments Factory",
+        "upvotes": 21
       },
       {
         "comments": 0,
@@ -579,35 +598,17 @@
         "story_id": "6827512d01234c5a47ae6531",
         "title": "90% valo",
         "upvotes": 14
-      },
-      {
-        "comments": 13,
-        "company_display_name": "Met@morphosis Ltd",
-        "downvotes": 33,
-        "source_url": "https://deshimula.com/story/69d6b0f52732820c61a7fb0a",
-        "story_id": "69d6b0f52732820c61a7fb0a",
-        "title": "জয়েন করার পর বেতন ছাড়া অপমান অপদস্ত, সহ সব পাইবেন মাগার বেতন পাইবেন না।",
-        "upvotes": 4
-      },
-      {
-        "comments": 12,
-        "company_display_name": "Mogoj Station 23",
-        "downvotes": 35,
-        "source_url": "https://deshimula.com/story/683a60302c6222498d893ffd",
-        "story_id": "683a60302c6222498d893ffd",
-        "title": "কোম্পানির লাঞ্চ নিয়ে সমস্যা কি?",
-        "upvotes": 2
       }
     ],
-    "total": 2498,
-    "total_body_characters": 3330483,
-    "total_body_words_whitespace": 556722,
-    "upvotes_total": 13412,
+    "total": 2665,
+    "total_body_characters": 3602051,
+    "total_body_words_whitespace": 600695,
+    "upvotes_total": 14014,
     "vibe_counts": {
-      "mixed": 284,
-      "negative": 1930,
-      "positive": 284
+      "mixed": 296,
+      "negative": 2072,
+      "positive": 297
     },
-    "with_body": 2498
+    "with_body": 2665
   }
 }
