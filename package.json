@@ -1,6 +1,21 @@
 {
   "name": "b4joinacompany",
   "version": "0.1.0",
+  "description": "Research a company before you apply, interview, or accept an offer.",
+  "keywords": [
+    "company-research",
+    "job-search",
+    "career-tools",
+    "due-diligence",
+    "employment",
+    "web-application",
+    "nextjs",
+    "react",
+    "typescript",
+    "mongodb",
+    "tailwindcss",
+    "zod"
+  ],
   "private": true,
   "type": "module",
   "scripts": {
